@@ -1,0 +1,39 @@
+<div class="container my-5">
+	<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+		<h1>Iniciar sesión</h1>
+
+		<div class="form-group">
+			<label for="name">Username</label>
+			<input
+				type="number"
+				class="form-control"
+				placeholder="Ingrese su número RUC"
+				formControlName="username"
+			/>
+		</div>
+
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input
+				type="password"
+				class="form-control"
+				placeholder="Ingrese su contraseña"
+				formControlName="password"
+			/>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Ingresar</button>
+		<small class="form-text text-muted"
+			>¿No tienes una cuenta?
+			<a [routerLink]="['/register']">Regístrate</a></small
+		>
+		<small class="text text-danger">{{ errorMessage }}</small>
+	</form>
+
+	<div class="row">
+		<p>Username: {{ loginForm.value.username }}</p>
+	</div>
+	<div class="row">
+		<p>Password: {{ loginForm.value.password }}</p>
+	</div>
+</div>
