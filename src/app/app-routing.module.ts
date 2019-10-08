@@ -4,10 +4,11 @@ import { AdminComponent } from "./test/admin/admin.component";
 import { UserComponent } from "./test/user/user.component";
 // import { HomeComponent } from "./home/home/home.component";
 import { LoginComponent } from "./account/login/login.component";
-import { AuthGuard } from "./guards/auth/auth.guard";
+
 import { RegisterComponent } from "./account/register/register.component";
 import { HomeComponent } from "./home/home/home.component";
 import { Role } from "./_models";
+import { AuthGuard } from "./_guards";
 
 const routes: Routes = [
 	{ path: "", component: HomeComponent },

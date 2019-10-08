@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { User } from "src/app/_models";
-import { UserService } from "src/app/services/user/user.service";
-import { AuthenticationService } from "src/app/services";
 import { first } from "rxjs/operators";
+
+import { User } from "src/app/_models";
+import { UserService, AuthenticationService } from "src/app/_services";
 
 @Component({
 	selector: "app-user",
