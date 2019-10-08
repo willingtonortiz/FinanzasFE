@@ -11,9 +11,9 @@ import {
 	TokenInterceptor,
 	UserService,
 	ErrorInterceptor
-} from "./services";
+} from "./_services";
 
-import { AuthGuard } from "./guards";
+import { AuthGuard } from "./_guards";
 
 import { LoginComponent, RegisterComponent } from "./account";
 
