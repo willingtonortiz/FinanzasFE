@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { AuthService } from "src/app/services/auth/auth.service";
+import { AuthenticationService } from "src/app/services/authentication/authentication.service";
 import { Router } from "@angular/router";
-import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
 	selector: "app-register",
@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private auth: AuthService,
+		private authenticationService: AuthenticationService,
 		private router: Router
 	) {
 		this.loginForm = this.formBuilder.group({
@@ -27,9 +27,8 @@ export class RegisterComponent implements OnInit {
 	ngOnInit() {}
 
 	onSubmit(data) {
-		this.auth.registerUser(data).subscribe({
+		this.authenticationService.register(data).subscribe({
 			next: (res: any) => {
-				localStorage.setItem("token", res.token);
 				this.router.navigate(["/userView"]);
 			},
 			error: (res: HttpErrorResponse) => {
