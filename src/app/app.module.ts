@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -20,12 +20,13 @@ import { LoginComponent, RegisterComponent } from "./account";
 import { UserComponent } from "./test/user/user.component";
 import { AdminComponent } from "./test/admin/admin.component";
 import { HomeComponent } from "./home/home/home.component";
+import { BillComponent, BillGroupComponent } from "./shared";
+import { NavbarComponent } from "./shared/navbar/navbar.component";
 
 @NgModule({
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule
 	],
@@ -35,7 +36,10 @@ import { HomeComponent } from "./home/home/home.component";
 		RegisterComponent,
 		UserComponent,
 		AdminComponent,
-		HomeComponent
+		HomeComponent,
+		BillComponent,
+		BillGroupComponent,
+		NavbarComponent
 	],
 	providers: [
 		AuthenticationService,

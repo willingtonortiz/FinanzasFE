@@ -11,7 +11,7 @@ import { Role } from "./_models";
 import { AuthGuard } from "./_guards";
 
 const routes: Routes = [
-	{ path: "", component: HomeComponent },
+	{ path: "", component: HomeComponent, canActivate: [AuthGuard] },
 	{ path: "login", component: LoginComponent },
 	{ path: "register", component: RegisterComponent },
 	{
@@ -22,7 +22,8 @@ const routes: Routes = [
 			roles: [Role.Admin]
 		}
 	},
-	{ path: "userView", component: UserComponent, canActivate: [AuthGuard] }
+	{ path: "userView", component: UserComponent, canActivate: [AuthGuard] },
+	{ path: "**", redirectTo: "/login" }
 ];
 
 @NgModule({
