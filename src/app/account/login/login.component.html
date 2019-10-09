@@ -1,11 +1,11 @@
 <div class="container my-5">
-	<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 		<h1>Iniciar sesión</h1>
 
 		<div class="form-group">
-			<label for="name">Username</label>
+			<label for="username">Ruc</label>
 			<input
-				type="number"
+				type="text"
 				class="form-control"
 				placeholder="Ingrese su número RUC"
 				formControlName="username"
@@ -30,10 +30,10 @@
 		<small class="text text-danger">{{ errorMessage }}</small>
 	</form>
 
-	<div class="row">
+	<!-- <div class="row">
 		<p>Username: {{ loginForm.value.username }}</p>
 	</div>
 	<div class="row">
 		<p>Password: {{ loginForm.value.password }}</p>
-	</div>
+	</div> -->
 </div>

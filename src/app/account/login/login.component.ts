@@ -27,23 +27,30 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {
 		this.loginForm = this.formBuilder.group({
-			username: ["", Validators.required],
+			username: [
+				"",
+				Validators.compose([
+					Validators.required,
+					Validators.minLength(11),
+					Validators.maxLength(11)
+				])
+			],
 			password: ["", Validators.required]
 		});
 	}
 
-	onSubmit(data) {
+	onSubmit() {
 		if (this.loginForm.invalid) {
 			return;
 		}
-		const { username, password } = data;
+		const { username, password } = this.loginForm.value;
 
 		this.authenticationService
 			.login(username, password)
 			.pipe(first())
 			.subscribe({
 				next: res => {
-					this.router.navigate(["/userView"]);
+					this.router.navigate(["/"]);
 				},
 				error: (res: HttpErrorResponse) => {
 					this.errorMessage = res.error.message;

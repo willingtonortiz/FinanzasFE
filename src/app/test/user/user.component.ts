@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
 
 	ngOnInit() {
 		this.userService
-			.findById(this.currentUser.username)
+			.findById(this.currentUser.id)
 			.pipe(first())
 			.subscribe(user => {
 				this.userFromApi = user;

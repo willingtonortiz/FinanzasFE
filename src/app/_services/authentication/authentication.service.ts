@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { User } from "src/app/_models";
 import { environment } from "../../../environments/environment";
+import { RegisterUser } from "src/app/_dtos/registerUser";
 
 @Injectable({
 	providedIn: "root"
@@ -49,7 +50,7 @@ export class AuthenticationService {
 		this.currentUserSubject.next(null);
 	}
 
-	public register(user: User) {
+	public register(user: RegisterUser) {
 		return this.http
 			.post<any>(`${environment.apiUrl}/user/register`, user)
 			.pipe(

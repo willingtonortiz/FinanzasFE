@@ -23,17 +23,21 @@ export class AuthGuard implements CanActivate {
 		const currentUser = this.authenticationService.currentUserValue;
 
 		if (currentUser) {
+			// Si hay rol y no está autorizado
 			if (
 				route.data.roles &&
 				route.data.roles.indexOf(currentUser.role) === -1
 			) {
-				this.router.navigate["/"];
+				this.router.navigate["/login"];
 				return false;
 			}
+
 			return true;
 		}
 
-		this.router.navigate["/login"];
+		// Si no hay usuario
+		console.log(state.url);
+		this.router.navigate(["/login"]);
 		return false;
 	}
 }

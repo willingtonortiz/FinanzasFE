@@ -1,19 +1,50 @@
 <div class="container my-5">
-	<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+	<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 		<h1>Registrarse</h1>
 
 		<div class="form-group">
-			<label for="name">Username</label>
+			<label for="ruc">Ruc</label>
 			<input
-				type="number"
+				type="text"
 				class="form-control"
 				placeholder="Ingrese su número RUC"
-				formControlName="username"
+				formControlName="ruc"
+			/>
+			<span *ngIf="registerForm.get('ruc').hasError('required')">
+				Es requerido
+			</span>
+			<span
+				*ngIf="
+					registerForm.get('ruc').hasError('minlength') ||
+					registerForm.get('ruc').hasError('maxlength')
+				"
+			>
+				El tamaño del ruc es de 13 dígitos
+			</span>
+		</div>
+
+		<div class="form-group">
+			<label for="businessName">Razón social</label>
+			<input
+				type="text"
+				class="form-control"
+				placeholder="Ingrese su razón social"
+				formControlName="businessName"
 			/>
 		</div>
 
 		<div class="form-group">
-			<label for="password">Password</label>
+			<label for="address">Dirección</label>
+			<input
+				type="text"
+				class="form-control"
+				placeholder="Ingrese su dirección"
+				formControlName="address"
+			/>
+		</div>
+
+		<div class="form-group">
+			<label for="password">Contraseña</label>
 			<input
 				type="password"
 				class="form-control"
@@ -22,18 +53,28 @@
 			/>
 		</div>
 
-		<button type="submit" class="btn btn-primary">Ingresar</button>
+		<div class="form-group">
+			<label for="confirmPassword">Confirmar contraseña</label>
+			<input
+				type="password"
+				class="form-control"
+				placeholder="Ingrese su contraseña"
+				formControlName="confirmPassword"
+			/>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Registrarse</button>
 		<small id="emailHelp" class="form-text text-muted"
 			>¿Ya tienes una cuenta?
 			<a [routerLink]="['/login']">Inicia sesión</a></small
 		>
 		<small class="text text-danger">{{ errorMessage }}</small>
 	</form>
-
+	<!--
 	<div class="row">
 		<p>Username: {{ loginForm.value.username }}</p>
 	</div>
 	<div class="row">
 		<p>Password: {{ loginForm.value.password }}</p>
-	</div>
+	</div> -->
 </div>
