@@ -1,0 +1,38 @@
+.container {
+	width: 300px;
+	font-size: 16px;
+	border: 1px solid lightgray;
+	border-radius: 7px;
+	padding: 16px;
+
+	h3 {
+		text-align: center;
+	}
+
+	.row {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		margin-top: 16px;
+
+		.col {
+			p,
+			button {
+				display: inline-block;
+			}
+
+			button {
+				margin-left: 10px;
+			}
+
+			button {
+				background-color: #5ac1d6;
+				color: #eeeeee;
+				border: none;
+				padding: 5px 15px;
+				border-radius: 5%;
+				cursor: pointer;
+			}
+		}
+	}
+}

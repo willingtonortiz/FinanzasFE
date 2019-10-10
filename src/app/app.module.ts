@@ -11,7 +11,9 @@ import {
 	AuthenticationService,
 	TokenInterceptor,
 	UserService,
-	ErrorInterceptor
+	ErrorInterceptor,
+	BillService,
+	BankService
 } from "./_services";
 
 // Guards
@@ -26,6 +28,10 @@ import { LoginComponent, RegisterComponent } from "./account";
 import { HomeComponent } from "./home/home/home.component";
 import { BillComponent, BillGroupComponent, NavbarComponent } from "./shared";
 import { BillDetailComponent, AddBillComponent } from "./bill";
+import { BankGroupComponent } from "./discount/bank-group/bank-group.component";
+import { DisplayBankComponent } from "./discount/display-bank/display-bank.component";
+import { CreateRateComponent } from "./discount/create-rate/create-rate.component";
+import { SelectRateComponent } from "./discount/select-rate/select-rate.component";
 
 @NgModule({
 	imports: [
@@ -44,10 +50,16 @@ import { BillDetailComponent, AddBillComponent } from "./bill";
 		NavbarComponent,
 		AddBillComponent,
 		BillDetailComponent,
-		BillTypePipe
+		BillTypePipe,
+		BankGroupComponent,
+		DisplayBankComponent,
+		CreateRateComponent,
+		SelectRateComponent
 	],
 	providers: [
 		AuthenticationService,
+		BankService,
+		BillService,
 		UserService,
 		AuthGuard,
 		{

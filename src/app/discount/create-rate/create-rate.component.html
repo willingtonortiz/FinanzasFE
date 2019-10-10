@@ -1,0 +1,60 @@
+<div class="container">
+	<h1>Datos personalizados</h1>
+
+	<form [formGroup]="rateForm" class="form">
+		<div class="row">
+			<div class="col">
+				<p>Moneda</p>
+			</div>
+
+			<div class="col">
+				<input type="radio" name="currency" value="1" /> Soles
+				<input type="radio" name="currency" value="2" /> Dólares
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>Tipo de tasa</p>
+			</div>
+
+			<div class="col">
+				<input type="radio" name="rateTerm" value="1" /> Nominal
+				<input type="radio" name="rateTerm" value="2" /> Efectiva
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>Plazo de la tasa</p>
+			</div>
+
+			<div class="col">
+				<select>
+					<option value="1">Diario</option>
+					<option value="2">Quincenal</option>
+					<option value="3">Mensual</option>
+					<option value="3">Bimestral</option>
+					<option value="3">Trimestral</option>
+					<option value="3">Cuatrimestral</option>
+					<option value="3">Semestral</option>
+					<option value="3">Anual</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>Valor de la tasa</p>
+			</div>
+
+			<div class="col"><input type="text" />%</div>
+		</div>
+
+		<!-- <div class="row"> -->
+		<!-- </div> -->
+		<div class="button">
+			<button>Aceptar</button>
+		</div>
+	</form>
+</div>

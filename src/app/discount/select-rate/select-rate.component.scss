@@ -1,0 +1,23 @@
+.container {
+	max-height: 100vh;
+
+	.row {
+		width: 90%;
+		margin: auto;
+		display: flex;
+
+		.cola,
+		.colb {
+			display: flex;
+			justify-content: center;
+		}
+
+		.cola {
+			width: 60%;
+		}
+
+		.colb {
+			width: 40%;
+		}
+	}
+}
