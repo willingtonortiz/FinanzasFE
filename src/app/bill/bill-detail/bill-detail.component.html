@@ -1,0 +1,51 @@
+<div class="container">
+	<div class="card">
+		<div class="card-header">
+			Letra de cambio
+		</div>
+
+		<div class="card-body">
+			<div class="row">
+				<div class="col">
+					<h3>Letra de cambio</h3>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<div class="col mb-4">
+							<h4>{{ bill.billType | billType }}</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<h4>Librador</h4>
+							<p>Ruc: {{ bill.drawerRuc }}</p>
+
+							<h4>Librado</h4>
+							<p>Ruc: {{ bill.draweeRuc }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<h4>Fecha de giro</h4>
+					<p>{{ bill.startDate | date: "shortDate" }}</p>
+
+					<h4>Fecha de vencimiento</h4>
+					<p>{{ bill.endDate | date: "shortDate" }}</p>
+
+					<h4>Moneda</h4>
+					<p>{{ bill.currency }}</p>
+
+					<h4>Valor nominal</h4>
+					<p>{{ bill.amount }}</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-footer">
+			<button (click)="goBack()">Regresar</button>
+		</div>
+	</div>
+</div>

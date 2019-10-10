@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Bill } from "src/app/_models";
+import { BillDto } from "src/app/_dtos";
 
 @Component({
 	selector: "app-bill",
@@ -11,6 +12,5 @@ export class BillComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 }

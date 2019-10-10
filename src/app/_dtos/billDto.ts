@@ -1,4 +1,4 @@
-export interface Bill {
+export interface BillDto {
 	billId?: number;
 	startDate?: Date;
 	endDate?: Date;
