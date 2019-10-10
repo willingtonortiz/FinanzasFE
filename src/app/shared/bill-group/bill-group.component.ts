@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Bill } from "src/app/_models";
+import { Bill, BillType } from "src/app/_models";
 import { AuthenticationService, BillService } from "src/app/_services";
+import { BillDto } from "src/app/_dtos";
 
 @Component({
 	selector: "app-bill-group",
@@ -9,40 +10,16 @@ import { AuthenticationService, BillService } from "src/app/_services";
 })
 export class BillGroupComponent implements OnInit {
 	public bills: Bill[];
+	public selectedBills: Bill[];
+	public billType: number;
 
 	constructor(
 		private authenticationService: AuthenticationService,
 		private billService: BillService
 	) {
-		// this.bills = [
-		// 	{
-		// 		startDate: new Date(Date.now()),
-		// 		endDate: new Date(Date.now()),
-		// 		amount: 1000,
-		// 		billType: "Pendiente1"
-		// 	},
-		// 	{
-		// 		startDate: new Date(Date.now()),
-		// 		endDate: new Date(Date.now()),
-		// 		amount: 1000,
-		// 		billType: "Pendiente2"
-		// 	},
-		// 	{
-		// 		startDate: new Date(Date.now()),
-		// 		endDate: new Date(Date.now()),
-		// 		amount: 1000,
-		// 		billType: "Pendiente3"
-		// 	},
-		// 	{
-		// 		startDate: new Date(Date.now()),
-		// 		endDate: new Date(Date.now()),
-		// 		amount: 1000,
-		// 		billType: "Pendiente3"
-		// 	}
-		// ];
-
+		this.billType = BillType.ToPay;
 		this.billService
-			.findAllByRuc(this.authenticationService.currentUserValue.username)
+			.findByUserId(this.authenticationService.currentUserValue.id)
 			.subscribe({
 				next: (data: Bill[]) => {
 					data = data.map(x => {
@@ -50,8 +27,8 @@ export class BillGroupComponent implements OnInit {
 						x.endDate = new Date(x.endDate);
 						return x;
 					});
-					console.log(data);
 					this.bills = data;
+					this.updateBills();
 				},
 				error: error => {
 					console.log(error);
@@ -60,4 +37,17 @@ export class BillGroupComponent implements OnInit {
 	}
 
 	ngOnInit() {}
+
+	changeType(type: number) {
+		if (type !== this.billType) {
+			this.billType = type;
+			this.updateBills();
+		}
+	}
+
+	updateBills() {
+		this.selectedBills = this.bills.filter(
+			x => x.billType === this.billType
+		);
+	}
 }

@@ -1,3 +1,15 @@
 <div class="container">
-	<app-bill *ngFor="let item of bills" [bill]="item"></app-bill>
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link" (click)="changeType(1)">Por pagar</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" (click)="changeType(2)">Por cobrar</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" (click)="changeType(3)">Cartera descontada</a>
+		</li>
+	</ul>
+
+	<app-bill *ngFor="let item of selectedBills" [bill]="item"></app-bill>
 </div>

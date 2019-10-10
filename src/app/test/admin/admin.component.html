@@ -1,7 +1,0 @@
-<h1>PÁGINA DE ADMIN</h1>
-
-<button (click)="getData()">Obtener usuarios</button>
-
-<ul *ngIf="users">
-	<li *ngFor="let user of users">{{ user.username }} {{ user.role }}</li>
-</ul>

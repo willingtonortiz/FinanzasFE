@@ -14,14 +14,16 @@ import {
 } from "./_services";
 
 import { AuthGuard } from "./_guards";
-
 import { LoginComponent, RegisterComponent } from "./account";
-
-import { UserComponent } from "./test/user/user.component";
-import { AdminComponent } from "./test/admin/admin.component";
 import { HomeComponent } from "./home/home/home.component";
 import { BillComponent, BillGroupComponent } from "./shared";
 import { NavbarComponent } from "./shared/navbar/navbar.component";
+import { AddBillComponent } from "./add-bill/add-bill/add-bill.component";
+import { AddBillContainerComponent } from "./add-bill/add-bill-container/add-bill-container.component";
+import { BillTypePipe } from "./_pipes/bill-type.pipe";
+import { DisplayBillContainerComponent } from "./display-bill/display-bill-container/display-bill-container.component";
+import { DisplayBillComponent } from "./display-bill/display-bill/display-bill.component";
+import { BillDetailComponent } from "./bill/bill-detail/bill-detail.component";
 
 @NgModule({
 	imports: [
@@ -34,12 +36,16 @@ import { NavbarComponent } from "./shared/navbar/navbar.component";
 		AppComponent,
 		LoginComponent,
 		RegisterComponent,
-		UserComponent,
-		AdminComponent,
 		HomeComponent,
 		BillComponent,
 		BillGroupComponent,
-		NavbarComponent
+		NavbarComponent,
+		AddBillComponent,
+		AddBillContainerComponent,
+		BillTypePipe,
+		DisplayBillContainerComponent,
+		DisplayBillComponent,
+		BillDetailComponent
 	],
 	providers: [
 		AuthenticationService,
