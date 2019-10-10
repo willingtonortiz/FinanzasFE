@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
-import { HttpErrorResponse } from "@angular/common/http";
 import { AuthenticationService } from "src/app/_services";
 import { RegisterUser } from "src/app/_dtos/registerUser";
 

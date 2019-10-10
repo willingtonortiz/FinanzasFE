@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { User, Bill, BillType } from "src/app/_models";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthenticationService, BillService } from "src/app/_services";
-import { BillDto } from "src/app/_dtos";
+import { Location } from "@angular/common";
 
 @Component({
 	selector: "app-add-bill",
@@ -17,7 +17,8 @@ export class AddBillComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		private authenticationService: AuthenticationService,
-		private billService: BillService
+		private billService: BillService,
+		private location: Location
 	) {
 		this.billType = BillType.ToPay;
 		this.currentUser = authenticationService.currentUserValue;
@@ -72,5 +73,9 @@ export class AddBillComponent implements OnInit {
 		if (this.billType !== option) {
 			this.billType = option;
 		}
+	}
+
+	public goBack() {
+		this.location.back();
 	}
 }
