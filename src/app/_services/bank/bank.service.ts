@@ -11,6 +11,6 @@ export class BankService {
 	constructor(private httpClient: HttpClient) {}
 
 	public findAll(): Observable<Bank[]> {
-		return this.httpClient.get<Bank[]>(`${environment.apiUrl}/bank`);
+		return this.httpClient.get<Bank[]>(`${environment.apiUrl}/banks`);
 	}
 }

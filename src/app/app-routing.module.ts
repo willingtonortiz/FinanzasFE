@@ -10,15 +10,10 @@ import { RegisterComponent } from "./account/register/register.component";
 import { HomeComponent } from "./home/home/home.component";
 import { BillDetailComponent } from "./bill/bill-detail/bill-detail.component";
 import { AddBillComponent } from "./bill/add-bill/add-bill.component";
-import {
-	BankGroupComponent,
-	CreateRateComponent,
-	SelectRateComponent
-} from "./discount";
+import { SelectRateComponent } from "./select-rate";
 
 const routes: Routes = [
 	{ path: "", component: SelectRateComponent },
-	// { path: "", redirectTo: "home", pathMatch: "full" },
 	{ path: "home", component: HomeComponent, canActivate: [AuthGuard] },
 	{
 		path: "billDetail/:id",
@@ -30,6 +25,7 @@ const routes: Routes = [
 		component: AddBillComponent,
 		canActivate: [AuthGuard]
 	},
+	{ path: "/selectRate", component: SelectRateComponent },
 	{ path: "login", component: LoginComponent },
 	{ path: "register", component: RegisterComponent },
 	{ path: "**", redirectTo: "/login" }

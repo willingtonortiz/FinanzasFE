@@ -26,7 +26,7 @@ export class AuthenticationService {
 
 	public login(username: number, password: string) {
 		return this.http
-			.post<any>(`${environment.apiUrl}/User/authenticate`, {
+			.post<any>(`${environment.apiUrl}/users/authenticate`, {
 				username,
 				password
 			})
@@ -52,7 +52,7 @@ export class AuthenticationService {
 
 	public register(user: RegisterUser) {
 		return this.http
-			.post<any>(`${environment.apiUrl}/user/register`, user)
+			.post<any>(`${environment.apiUrl}/users/register`, user)
 			.pipe(
 				map(user => {
 					if (user && user.token) {

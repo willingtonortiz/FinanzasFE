@@ -28,10 +28,19 @@ import { LoginComponent, RegisterComponent } from "./account";
 import { HomeComponent } from "./home/home/home.component";
 import { BillComponent, BillGroupComponent, NavbarComponent } from "./shared";
 import { BillDetailComponent, AddBillComponent } from "./bill";
-import { BankGroupComponent } from "./discount/bank-group/bank-group.component";
-import { DisplayBankComponent } from "./discount/display-bank/display-bank.component";
-import { CreateRateComponent } from "./discount/create-rate/create-rate.component";
-import { SelectRateComponent } from "./discount/select-rate/select-rate.component";
+import {
+	BankGroupComponent,
+	DisplayBankComponent,
+	CreateRateComponent,
+	SelectRateComponent
+} from "./select-rate";
+import { DiscountContainerComponent } from './discount/discount-container/discount-container.component';
+import { SelectBillComponent } from './discount/select-bill/select-bill.component';
+import { SelectBillContainerComponent } from './discount/select-bill-container/select-bill-container.component';
+import { SelectBillGroupComponent } from './discount/select-bill-group/select-bill-group.component';
+import { SelectCostComponent } from './discount/select-cost/select-cost.component';
+import { DiscountedBillComponent } from './discount/discounted-bill/discounted-bill.component';
+import { DiscountOverviewContainerComponent } from './discountOverview/discount-overview-container/discount-overview-container.component';
 
 @NgModule({
 	imports: [
@@ -54,7 +63,14 @@ import { SelectRateComponent } from "./discount/select-rate/select-rate.componen
 		BankGroupComponent,
 		DisplayBankComponent,
 		CreateRateComponent,
-		SelectRateComponent
+		SelectRateComponent,
+		DiscountContainerComponent,
+		SelectBillComponent,
+		SelectBillContainerComponent,
+		SelectBillGroupComponent,
+		SelectCostComponent,
+		DiscountedBillComponent,
+		DiscountOverviewContainerComponent
 	],
 	providers: [
 		AuthenticationService,
