@@ -1,0 +1,72 @@
+<div class="container">
+	<h1>Datos personalizados</h1>
+
+	<form [formGroup]="rateForm" class="form" (ngSubmit)="onSubmit()">
+		<div class="row">
+			<div class="col">
+				<p>Moneda</p>
+			</div>
+
+			<div class="col">
+				<input type="radio" formControlName="currency" value="SOLES" />
+				Soles
+				<input type="radio" formControlName="currency" value="DOLARES" />
+				Dólares
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>Tipo de tasa</p>
+			</div>
+
+			<div class="col">
+				<input type="radio" formControlName="rateType" value="NOMINAL" />
+				Nominal
+				<input type="radio" formControlName="rateType" value="EFECTIVA" />
+				Efectiva
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>Plazo de la tasa</p>
+			</div>
+
+			<div class="col">
+				<select formControlName="rateTerm">
+					<option value="DIARIO">Diario</option>
+					<option value="QUINCENAL">Quincenal</option>
+					<option value="MENSUAL">Mensual</option>
+					<option value="BIMESTRAL">Bimestral</option>
+					<option value="TRIMESTRAL">Trimestral</option>
+					<option value="CUATRIMESTRAL">Cuatrimestral</option>
+					<option value="SEMESTRAL">Semestral</option>
+					<option value="ANUAL">Anual</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>Valor de la tasa</p>
+			</div>
+
+			<div class="col">
+				<input formControlName="rateValue" type="text" />%
+				<!-- <span *ngIf="rateForm.get('rateValue').hasError('min')">
+					Valor mínimo de 0.00000001
+				</span>
+				<span *ngIf="rateForm.get('rateValue').hasError('max')">
+					Valor máximo de 100.0
+				</span> -->
+			</div>
+		</div>
+
+		<!-- <div class="row"> -->
+		<!-- </div> -->
+		<div class="button">
+			<button type="submit">Aceptar</button>
+		</div>
+	</form>
+</div>

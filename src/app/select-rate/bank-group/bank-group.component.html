@@ -1,0 +1,10 @@
+<div class="container">
+	<h1>Seleccione un banco</h1>
+
+	<div class="banks">
+		<app-display-bank
+			*ngFor="let item of banks"
+			[bank]="item"
+		></app-display-bank>
+	</div>
+</div>

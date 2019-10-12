@@ -11,14 +11,14 @@ export class BillService {
 	constructor(private http: HttpClient) {}
 
 	public findByUserId(id: number): Observable<Bill[]> {
-		return this.http.get<Bill[]>(`${environment.apiUrl}/bill/FindByUserId/${id}`);
+		return this.http.get<Bill[]>(`${environment.apiUrl}/bills/FindByUserId/${id}`);
 	}
 
 	public findById(id: string): Observable<Bill> {
-		return this.http.get<Bill>(`${environment.apiUrl}/bill/${id}`);
+		return this.http.get<Bill>(`${environment.apiUrl}/bills/${id}`);
 	}
 
 	public create(bill: Bill) {
-		return this.http.post<Bill>(`${environment.apiUrl}/bill`, bill);
+		return this.http.post<Bill>(`${environment.apiUrl}/bills`, bill);
 	}
 }

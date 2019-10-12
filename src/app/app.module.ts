@@ -11,7 +11,9 @@ import {
 	AuthenticationService,
 	TokenInterceptor,
 	UserService,
-	ErrorInterceptor
+	ErrorInterceptor,
+	BillService,
+	BankService
 } from "./_services";
 
 // Guards
@@ -26,6 +28,19 @@ import { LoginComponent, RegisterComponent } from "./account";
 import { HomeComponent } from "./home/home/home.component";
 import { BillComponent, BillGroupComponent, NavbarComponent } from "./shared";
 import { BillDetailComponent, AddBillComponent } from "./bill";
+import {
+	BankGroupComponent,
+	DisplayBankComponent,
+	CreateRateComponent,
+	SelectRateComponent
+} from "./select-rate";
+import { DiscountContainerComponent } from './discount/discount-container/discount-container.component';
+import { SelectBillComponent } from './discount/select-bill/select-bill.component';
+import { SelectBillContainerComponent } from './discount/select-bill-container/select-bill-container.component';
+import { SelectBillGroupComponent } from './discount/select-bill-group/select-bill-group.component';
+import { SelectCostComponent } from './discount/select-cost/select-cost.component';
+import { DiscountedBillComponent } from './discount/discounted-bill/discounted-bill.component';
+import { DiscountOverviewContainerComponent } from './discountOverview/discount-overview-container/discount-overview-container.component';
 
 @NgModule({
 	imports: [
@@ -44,10 +59,23 @@ import { BillDetailComponent, AddBillComponent } from "./bill";
 		NavbarComponent,
 		AddBillComponent,
 		BillDetailComponent,
-		BillTypePipe
+		BillTypePipe,
+		BankGroupComponent,
+		DisplayBankComponent,
+		CreateRateComponent,
+		SelectRateComponent,
+		DiscountContainerComponent,
+		SelectBillComponent,
+		SelectBillContainerComponent,
+		SelectBillGroupComponent,
+		SelectCostComponent,
+		DiscountedBillComponent,
+		DiscountOverviewContainerComponent
 	],
 	providers: [
 		AuthenticationService,
+		BankService,
+		BillService,
 		UserService,
 		AuthGuard,
 		{
