@@ -1,7 +1,7 @@
-export class Discount {
+export class Rate {
 	businessName?: string;
 	currency?: string;
 	rateType?: string;
-	rateTem?: string;
+	rateTerm?: string;
 	rateValue?: number;
 }

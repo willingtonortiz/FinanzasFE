@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Discount, CurrencyType, RateType, RateTerm } from "src/app/_models";
+import { CurrencyType, RateType, RateTerm, Rate } from "src/app/_models";
 import { DiscountService } from "src/app/_services";
 
 @Component({
@@ -37,9 +37,9 @@ export class CreateRateComponent implements OnInit {
 			return;
 		}
 
-		const discount: Discount = this.rateForm.value;
-		discount.rateValue = parseFloat(discount.rateValue.toString());
+		const rate: Rate = this.rateForm.value;
+		rate.rateValue = parseFloat(rate.rateValue.toString());
 
-		this.discountService.Discount = discount;
+		this.discountService.Rate = rate;
 	}
 }
