@@ -1,11 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import {
-	Bank,
-	Discount,
-	CurrencyType,
-	RateTerm,
-	RateType
-} from "src/app/_models";
+import { Bank, CurrencyType, RateTerm, RateType, Rate } from "src/app/_models";
 import { DiscountService } from "src/app/_services";
 
 @Component({
@@ -23,23 +17,23 @@ export class DisplayBankComponent implements OnInit {
 	ngOnInit() {}
 
 	public selectSoles() {
-		const discount: Discount = {
+		const rate: Rate = {
 			currency: CurrencyType.Soles,
-			rateTem: RateTerm.Anual,
+			rateTerm: RateTerm.Anual,
 			rateType: RateType.Efectiva,
 			rateValue: this.bank.teaSoles
 		};
 
-		this.discountService.Discount = discount;
+		this.discountService.Rate = rate;
 	}
 
 	public selectDolares() {
-		const discount: Discount = {
+		const rate: Rate = {
 			currency: CurrencyType.Dolares,
-			rateTem: RateTerm.Anual,
+			rateTerm: RateTerm.Anual,
 			rateType: RateType.Efectiva,
 			rateValue: this.bank.teaDolares
 		};
-		this.discountService.Discount = discount;
+		this.discountService.Rate = rate;
 	}
 }

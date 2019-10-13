@@ -1,0 +1,38 @@
+.container {
+	width: 350px;
+	padding: 16px;
+
+	border: 1px solid lightgray;
+	border-radius: 5px;
+
+	display: grid;
+	grid-template-rows: repeat(4, 1fr);
+	gap: 8px;
+
+	.row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.col {
+			p {
+				font-size: 18px;
+			}
+		}
+	}
+
+	.button {
+		display: flex;
+		justify-content: center;
+
+		button {
+			padding: 5px 12px;
+			font-size: 18px;
+			background-color: #5ac1d6;
+			color: #ffffff;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+	}
+}

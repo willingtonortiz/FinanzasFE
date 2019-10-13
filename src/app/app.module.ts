@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 // Routing
@@ -20,7 +20,12 @@ import {
 import { AuthGuard } from "./_guards";
 
 // Pipes
-import { BillTypePipe } from "./_pipes/bill-type.pipe";
+import {
+	CurrencyTypePipe,
+	RateTermPipe,
+	RateTypePipe,
+	BillTypePipe
+} from "./_pipes";
 
 // Components
 import { AppComponent } from "./app.component";
@@ -34,18 +39,19 @@ import {
 	CreateRateComponent,
 	SelectRateComponent
 } from "./select-rate";
-import { DiscountContainerComponent } from './discount/discount-container/discount-container.component';
-import { SelectBillComponent } from './discount/select-bill/select-bill.component';
-import { SelectBillContainerComponent } from './discount/select-bill-container/select-bill-container.component';
-import { SelectBillGroupComponent } from './discount/select-bill-group/select-bill-group.component';
-import { SelectCostComponent } from './discount/select-cost/select-cost.component';
-import { DiscountedBillComponent } from './discount/discounted-bill/discounted-bill.component';
-import { DiscountOverviewContainerComponent } from './discountOverview/discount-overview-container/discount-overview-container.component';
+import { DiscountContainerComponent } from "./discount/discount-container/discount-container.component";
+import { SelectBillComponent } from "./discount/select-bill/select-bill.component";
+import { SelectBillContainerComponent } from "./discount/select-bill-container/select-bill-container.component";
+import { SelectBillGroupComponent } from "./discount/select-bill-group/select-bill-group.component";
+import { SelectCostComponent } from "./discount/select-cost/select-cost.component";
+import { DiscountedBillComponent } from "./discount/discounted-bill/discounted-bill.component";
+import { DiscountOverviewContainerComponent } from "./discountOverview/discount-overview-container/discount-overview-container.component";
 
 @NgModule({
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule
 	],
@@ -59,7 +65,6 @@ import { DiscountOverviewContainerComponent } from './discountOverview/discount-
 		NavbarComponent,
 		AddBillComponent,
 		BillDetailComponent,
-		BillTypePipe,
 		BankGroupComponent,
 		DisplayBankComponent,
 		CreateRateComponent,
@@ -70,7 +75,11 @@ import { DiscountOverviewContainerComponent } from './discountOverview/discount-
 		SelectBillGroupComponent,
 		SelectCostComponent,
 		DiscountedBillComponent,
-		DiscountOverviewContainerComponent
+		DiscountOverviewContainerComponent,
+		CurrencyTypePipe,
+		BillTypePipe,
+		RateTermPipe,
+		RateTypePipe
 	],
 	providers: [
 		AuthenticationService,
