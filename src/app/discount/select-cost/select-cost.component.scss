@@ -1,8 +1,8 @@
 .container {
-	width: 80vw;
-	height: 85vh;
+	background-color: #ffffff;
 	padding: 32px;
-	border: 2px solid lightgray;
+	border-radius: 10px;
+	// border: 2px solid lightgray;
 
 	.title {
 		margin-bottom: 24px;
@@ -18,7 +18,7 @@
 		justify-content: center;
 		grid-template-columns: repeat(3, 400px);
 		grid-template-rows: repeat(2, 350px);
-		column-gap: 64px;
+		column-gap: 32px;
 
 		.addInitialCost,
 		.initialCostList,
@@ -83,6 +83,46 @@
 						transform: scale(1.05);
 					}
 				}
+			}
+		}
+
+		.bill {
+			display: flex;
+			flex-flow: column nowrap;
+			font-size: 20px;
+
+			.center,
+			.row {
+				margin-bottom: 32px;
+			}
+
+			.center {
+				align-self: center;
+
+				h1 {
+					font-size: 24px;
+				}
+
+				button {
+					padding: 8px 20px;
+					font-size: 20px;
+					background-color: #5169e2;
+					color: #ffffff;
+					border: none;
+					border-radius: 5px;
+					cursor: pointer;
+					transition: all 0.1s ease-in;
+
+					&:hover {
+						transform: scale(1.05);
+					}
+				}
+			}
+
+			.row {
+				// margin-bottom: 16px;
+				display: flex;
+				justify-content: space-between;
 			}
 		}
 

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
+import { Discount } from "src/app/_models";
 
 @Component({
-  selector: 'app-discounted-bill',
-  templateUrl: './discounted-bill.component.html',
-  styleUrls: ['./discounted-bill.component.scss']
+	selector: "app-discounted-bill",
+	templateUrl: "./discounted-bill.component.html",
+	styleUrls: ["./discounted-bill.component.scss"]
 })
 export class DiscountedBillComponent implements OnInit {
+	@Input() discount: Discount;
 
-  constructor() { }
+	constructor() {}
 
-  ngOnInit() {
-  }
-
+	ngOnInit() {}
 }

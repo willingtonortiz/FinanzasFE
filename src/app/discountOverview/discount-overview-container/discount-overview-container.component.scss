@@ -1,0 +1,33 @@
+.container {
+	padding: 32px;
+
+	.billPool {
+		h1 {
+			font-size: 24px;
+		}
+
+		.groups {
+			margin: 16px 0;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-start;
+
+			.group {
+				margin-right: 64px;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-between;
+
+				.item:nth-child(1) {
+					margin-right: 16px;
+				}
+			}
+		}
+	}
+
+	.bills {
+		margin-top: 4rem;
+		height: 75vh;
+		overflow-y: scroll;
+	}
+}

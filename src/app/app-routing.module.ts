@@ -11,10 +11,19 @@ import { HomeComponent } from "./home/home/home.component";
 import { BillDetailComponent } from "./bill/bill-detail/bill-detail.component";
 import { AddBillComponent } from "./bill/add-bill/add-bill.component";
 import { SelectRateComponent } from "./select-rate";
-import { SelectBillGroupComponent, SelectCostComponent } from "./discount";
+import {
+	SelectBillGroupComponent,
+	SelectCostComponent,
+	SelectBillContainerComponent,
+	DiscountContainerComponent,
+	DiscountedBillComponent
+} from "./discount";
+import { DiscountOverviewContainerComponent } from "./discountOverview";
 
 const routes: Routes = [
-	{ path: "", component: SelectCostComponent },
+	{ path: "", redirectTo: "/discount", pathMatch: "full" },
+	{ path: "discount", component: DiscountContainerComponent },
+	{ path: "rate", component: SelectRateComponent },
 	{ path: "home", component: HomeComponent, canActivate: [AuthGuard] },
 	{
 		path: "billDetail/:id",

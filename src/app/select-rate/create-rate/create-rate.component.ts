@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CurrencyType, RateType, RateTerm, Rate } from "src/app/_models";
 import { DiscountService } from "src/app/_services";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-create-rate",
@@ -13,7 +14,8 @@ export class CreateRateComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private discountService: DiscountService
+		private discountService: DiscountService,
+		private router: Router
 	) {}
 
 	ngOnInit() {
@@ -41,5 +43,7 @@ export class CreateRateComponent implements OnInit {
 		rate.rateValue = parseFloat(rate.rateValue.toString());
 
 		this.discountService.Rate = rate;
+
+		this.router.navigate(["/discount"]);
 	}
 }

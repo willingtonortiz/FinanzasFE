@@ -1,11 +1,12 @@
 <div class="container">
 	<div class="title">
 		<h1>Seleccione una letra</h1>
+		<button (click)="closeModal()">close</button>
 	</div>
 
 	<div class="bills">
 		<app-select-bill
-			*ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+			*ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
 		></app-select-bill>
 	</div>
 </div>

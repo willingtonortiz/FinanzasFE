@@ -1,35 +1,25 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<p>
-				Fecha de giro
-			</p>
+			<p>Fecha de giro</p>
 		</div>
 		<div class="col">
-			<p>
-				{{ bill.startDate | date: "dd/MM/yyyy" }}
-			</p>
+			<p>{{ bill.startDate | date: "dd/MM/yyyy" }}</p>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col">
-			<p>
-				Fecha de vencimiento
-			</p>
+			<p>Fecha de vencimiento</p>
 		</div>
 		<div class="col">
-			<p>
-				{{ bill.endDate | date: "dd/MM/yyyy" }}
-			</p>
+			<p>{{ bill.endDate | date: "dd/MM/yyyy" }}</p>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col">
-			<p>
-				Valor nominal
-			</p>
+			<p>Valor nominal</p>
 		</div>
 		<div class="col">
 			<p>{{ bill.amount | currency: currency }}</p>

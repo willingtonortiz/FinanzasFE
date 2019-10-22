@@ -67,7 +67,42 @@
 		</div>
 
 		<div class="bill">
-			<h1>Bill</h1>
+			<div class="center">
+				<h1>
+					Letra de cambio
+				</h1>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<p>Fecha de giro</p>
+				</div>
+				<div class="col">
+					<p>{{ bill.startDate | date: "dd/MM/yyyy" }}</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<p>Fecha de vencimiento</p>
+				</div>
+				<div class="col">
+					<p>{{ bill.endDate | date: "dd/MM/yyyy" }}</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<p>Valor nominal</p>
+				</div>
+				<div class="col">
+					<p>{{ bill.amount }}</p>
+				</div>
+			</div>
+
+			<div class="center">
+				<button (click)="addBill()">Agregar letra</button>
+			</div>
 		</div>
 
 		<div class="addFinalCost">

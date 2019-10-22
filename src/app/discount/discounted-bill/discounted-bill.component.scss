@@ -1,0 +1,30 @@
+.container {
+	padding: 16px;
+	display: grid;
+	grid-template-columns: repeat(4, 325px);
+	justify-content: space-around;
+	align-items: center;
+	border-bottom: 2px solid lightgray;
+
+	.area {
+		// border: 1px solid red;
+		margin: 0 32px;
+		display: flex;
+		flex-flow: column nowrap;
+
+		.row {
+			margin-bottom: 16px;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+
+			.col:nth-child(1) {
+				color: #8b8b8b;
+			}
+
+			.col:nth-child(2) {
+				font-weight: 100;
+			}
+		}
+	}
+}

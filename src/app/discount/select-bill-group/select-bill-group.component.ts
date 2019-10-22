@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import {
 	BillService,
 	UserService,
-	AuthenticationService
+	AuthenticationService,
+	SelectBillService
 } from "src/app/_services";
 import { Bill, User } from "src/app/_models";
 
@@ -17,14 +18,14 @@ export class SelectBillGroupComponent implements OnInit {
 
 	constructor(
 		private authenticationService: AuthenticationService,
-		private billService: BillService
+		private billService: BillService,
+		private selectBillService: SelectBillService
 	) {
 		this.user = this.authenticationService.currentUserValue;
 
 		this.billService.findByUserId(this.user.id).subscribe({
 			next: (bills: Bill[]) => {
 				this.bills = bills;
-				// console.log(this.bills.length);
 			},
 			error: (error: any) => {
 				console.log(error);
@@ -33,4 +34,8 @@ export class SelectBillGroupComponent implements OnInit {
 	}
 
 	ngOnInit() {}
+
+	public closeModal(): void {
+		this.selectBillService.hide();
+	}
 }

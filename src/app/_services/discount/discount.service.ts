@@ -1,62 +1,90 @@
 import { Injectable } from "@angular/core";
-import { Rate, DiscountPool, Bill } from "src/app/_models";
+import {
+	Rate,
+	DiscountPool,
+	Bill,
+	BillCost,
+	Cost,
+	Discount,
+	CurrencyType,
+	RateTerm,
+	RateType,
+	BillType
+} from "src/app/_models";
+import { DiscountProcess } from "src/app/_clases";
+import { DiscountProcessService } from "../discount-process/discount-process.service";
 
 @Injectable({
 	providedIn: "root"
 })
 export class DiscountService {
-	private rate: Rate;
-	private discountPool: DiscountPool;
+	private discountDate: Date;
 	private currentBill: Bill;
-	private bills: Bill[];
+	private initialCosts: Array<Cost>;
+	private finalCosts: Array<Cost>;
 
-	constructor() {
-		this.bills = new Array<Bill>();
+	constructor(private discountProcessService: DiscountProcessService) {
+		this.cleanBill();
+
+		const today: Date = new Date(Date.now());
+
+		this.discountDate = new Date(
+			today.getFullYear(),
+			today.getMonth(),
+			today.getDate()
+		);
+		this.discountProcessService.DiscountDate = this.discountDate;
+
+		this.discountProcessService.Rate = {
+			businessName: "EMPRESA S.A.C.",
+			currency: CurrencyType.Soles,
+			rateTerm: RateTerm.Anual,
+			rateValue: 0.1,
+			rateType: RateType.Efectiva
+		};
+
+		this.currentBill = {
+			startDate: new Date(Date.now()),
+			endDate: new Date(2019, 9, 31),
+			amount: 10000
+		};
 	}
 
+	public cleanBill() {
+		this.initialCosts = new Array<Cost>();
+		this.finalCosts = new Array<Cost>();
+	}
+
+	public addInitialCost(cost: Cost) {
+		this.initialCosts.push(cost);
+	}
+
+	public addFinalCost(cost: Cost) {
+		this.finalCosts.push(cost);
+	}
+
+	public confirmDiscount() {
+		this.discountProcessService.discountBill(
+			this.currentBill,
+			this.initialCosts,
+			this.finalCosts
+		);
+		this.cleanBill();
+	}
+
+	/* GETTERS AND SETTERS */
 	get Rate(): Rate {
-		return this.rate;
+		return this.discountProcessService.Rate;
 	}
-
 	set Rate(rate: Rate) {
-		this.rate = rate;
-		console.log(rate);
-	}
-
-	// Para la cartera de letras
-	get DiscountPool(): DiscountPool {
-		return this.discountPool;
-	}
-
-	set DiscountPool(discountPool: DiscountPool) {
-		this.discountPool = discountPool;
+		this.discountProcessService.Rate = rate;
 	}
 
 	// Para la letra actual
 	get CurrentBill() {
 		return this.currentBill;
 	}
-
 	set CurrentBill(bill: Bill) {
 		this.currentBill = bill;
-	}
-
-	// Para todas las letras
-	get Bills(): Bill[] {
-		return this.bills;
-	}
-
-	public addBill(bill: Bill): void {
-		this.bills.push(bill);
-	}
-
-	public restartBills(): void {
-		this.bills = new Array<Bill>();
-	}
-
-	public showData() {
-		console.log(this.Rate);
-		console.log(this.DiscountPool);
-		console.log(this.Bills);
 	}
 }

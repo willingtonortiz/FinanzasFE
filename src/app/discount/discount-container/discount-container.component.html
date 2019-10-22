@@ -1,23 +1,37 @@
-<nav></nav>
-
 <div class="container">
 	<div class="bank">
-		<h1>{{ rate.businessName }}</h1>
-		<p>
-			TEA en {{ rate.currency | lowercase }} -
-			{{ rate.rateValue | percent: "2.2-5" }}
-		</p>
-		<p>Fecha de descuento:</p>
-		<input type="date" [(ngModel)]="discountDate" (change)="showData()" />
-		<button>Agregar letra</button>
+		<div class="center">
+			<h1>{{ rate.businessName }}</h1>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>TEA en {{ rate.currency | lowercase }}</p>
+			</div>
+			<div class="col">
+				<p>{{ rate.rateValue | percent: "2.2-5" }}</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>Fecha de descuento</p>
+			</div>
+			<div class="col">
+				<input type="date" [(ngModel)]="discountDate" />
+			</div>
+		</div>
+
+		<div class="center">
+			<button (click)="showModal()">Agregar letra</button>
+		</div>
 	</div>
 	<div class="overview">
-		<h1>Resumen de la cartera</h1>
-		<p>Valor recibido: {{ discountPool.receivedValue }}</p>
-		<p>Valor entregado: {{ discountPool.deliveredValue }}</p>
-		<p>TCEA: {{ discountPool.tcea | percent: "2.2" }}</p>
+		<app-discount-pool-overview></app-discount-pool-overview>
 	</div>
 	<div class="bills">
-		<p>bank</p>
+		<app-discounted-bill-group></app-discounted-bill-group>
 	</div>
 </div>
+
+<app-select-bill-container *ngIf="modalStatus"></app-select-bill-container>

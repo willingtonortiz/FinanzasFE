@@ -1,9 +1,11 @@
 .container {
-	// width: 80vw;
-	// border: 1px solid red;
+	height: 80vh;
+	padding: 16px;
+	background-color: #ffffff;
+	border-radius: 10px;
 
 	.title {
-		margin-bottom: 16px;
+		margin: 32px 0;
 
 		h1 {
 			text-align: center;
@@ -12,14 +14,15 @@
 	}
 
 	.bills {
-		// border: 1px solid green;
+		height: 65vh;
 
 		display: grid;
-		gap: 16px;
-
+		row-gap: 32px;
 		grid-template-columns: repeat(3, 1fr);
+		overflow-y: scroll;
 
 		app-select-bill {
+			margin-bottom: 1px;
 			justify-self: center;
 		}
 	}

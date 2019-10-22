@@ -5,3 +5,6 @@ export * from "./user/user.service";
 export * from "./bill/bill.service";
 export * from "./bank/bank.service";
 export * from "./discount/discount.service";
+export * from "./select-bill/select-bill.service";
+export * from "./util/util.service";
+export * from "./discount-process/discount-process.service"

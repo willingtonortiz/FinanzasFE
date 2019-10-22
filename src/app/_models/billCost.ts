@@ -1,6 +1,6 @@
 import { Cost } from "./cost";
 
-export interface Bill {
+export interface BillCost {
 	billId?: number;
 	startDate?: Date;
 	endDate?: Date;

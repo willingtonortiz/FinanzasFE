@@ -4,4 +4,5 @@ export class Rate {
 	rateType?: string;
 	rateTerm?: string;
 	rateValue?: number;
+	capitalizationDays?: number;
 }
