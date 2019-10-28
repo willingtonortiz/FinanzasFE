@@ -124,6 +124,10 @@ export class DiscountProcessService {
 		this.discountPoolSubject.next(this.discountPool);
 	}
 
+	public saveChanges(): void {
+
+	}
+
 	get DiscountPoolObservable(): Observable<DiscountPool> {
 		return this.discountPoolObservable;
 	}

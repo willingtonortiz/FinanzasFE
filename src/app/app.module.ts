@@ -14,7 +14,11 @@ import {
 	ErrorInterceptor,
 	BillService,
 	BankService,
-	SelectBillService
+	SelectBillService,
+	DiscountPoolService,
+	DiscountProcessService,
+	DiscountService,
+	UtilService
 } from "./_services";
 
 // Guards
@@ -52,8 +56,8 @@ import {
 	DiscountedBillGroupComponent
 } from "./discount";
 
+import { DiscountPoolOverviewComponent } from "./discount/discount-pool-overview/discount-pool-overview.component";
 import { DiscountOverviewContainerComponent } from "./discountOverview";
-import { DiscountPoolOverviewComponent } from './discount/discount-pool-overview/discount-pool-overview.component';
 
 @NgModule({
 	imports: [
@@ -97,6 +101,10 @@ import { DiscountPoolOverviewComponent } from './discount/discount-pool-overview
 		BillService,
 		UserService,
 		SelectBillService,
+		DiscountPoolService,
+		DiscountProcessService,
+		DiscountService,
+		UtilService,
 		AuthGuard,
 		{
 			provide: HTTP_INTERCEPTORS,

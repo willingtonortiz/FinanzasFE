@@ -1,17 +1,12 @@
 import { Injectable } from "@angular/core";
 import {
 	Rate,
-	DiscountPool,
 	Bill,
-	BillCost,
 	Cost,
-	Discount,
 	CurrencyType,
 	RateTerm,
 	RateType,
-	BillType
 } from "src/app/_models";
-import { DiscountProcess } from "src/app/_clases";
 import { DiscountProcessService } from "../discount-process/discount-process.service";
 
 @Injectable({
