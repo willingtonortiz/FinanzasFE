@@ -1,0 +1,39 @@
+<div class="container">
+	<div class="center">
+		<h1>Resumen de la cartera</h1>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<p>Valor recibido</p>
+		</div>
+		<div class="col">
+			<p>{{ discountPool.receivedValue }}</p>
+			<!-- <p>13215</p> -->
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<p>Valor entregado</p>
+		</div>
+		<div class="col">
+			<p>{{ discountPool.deliveredValue }}</p>
+			<!-- <p>8946415</p> -->
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<p>TCEA</p>
+		</div>
+		<div class="col">
+			<p>{{ discountPool.tcea | percent: "2.2" }}</p>
+			<!-- <p>897565</p> -->
+		</div>
+	</div>
+
+	<div class="center">
+		<button (click)="onSubmit()">Descontar letra</button>
+	</div>
+</div>

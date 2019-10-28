@@ -1,0 +1,25 @@
+<div class="container">
+	<h3>{{ bank.businessName }}</h3>
+
+	<div class="row">
+		<div class="col">
+			<p>TEA en soles:</p>
+		</div>
+
+		<div class="col">
+			<p>{{ bank.teaSoles | percent: "2.2" }}</p>
+			<button (click)="selectSoles()">Ir</button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<p>TEA en dólares:</p>
+		</div>
+
+		<div class="col">
+			<p>{{ bank.teaDolares | percent: "2.2" }}</p>
+			<button (click)="selectDolares()">Ir</button>
+		</div>
+	</div>
+</div>

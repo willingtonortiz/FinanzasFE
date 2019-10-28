@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="bank">
+		<div class="center">
+			<h1>{{ rate.businessName }}</h1>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>TEA en {{ rate.currency | lowercase }}</p>
+			</div>
+			<div class="col">
+				<p>{{ rate.rateValue | percent: "2.2-5" }}</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<p>Fecha de descuento</p>
+			</div>
+			<div class="col">
+				<input type="date" [(ngModel)]="discountDate" />
+			</div>
+		</div>
+
+		<div class="center">
+			<button (click)="showModal()">Agregar letra</button>
+		</div>
+	</div>
+	<div class="overview">
+		<app-discount-pool-overview></app-discount-pool-overview>
+	</div>
+	<div class="bills">
+		<app-discounted-bill-group></app-discounted-bill-group>
+	</div>
+</div>
+
+<app-select-bill-container *ngIf="modalStatus"></app-select-bill-container>

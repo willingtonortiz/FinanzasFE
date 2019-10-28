@@ -1,0 +1,127 @@
+<div class="container">
+	<div class="area">
+		<div class="row">
+			<div class="col">
+				<p>Fecha de giro</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.bill.startDate | date: "dd/MM/yyyy" }}</p>
+				<!-- <p>10/10/2019</p> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>Fecha de vencimiento</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.bill.endDate | date: "dd/MM/yyyy" }}</p>
+				<!-- <p>10/11/2019</p> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>Valor nominal</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.bill | currencyType }}</p>
+				<!-- <p>$12345</p> -->
+			</div>
+		</div>
+	</div>
+	<div class="area">
+		<div class="row">
+			<div class="col">
+				<p>Dias de descuento</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.discountDays }}</p>
+				<!-- <p>25 días</p> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>Tasa efectiva</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.tep | percent: "1.3-5" }}</p>
+				<!-- <p>25.36%</p> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>Tasa de descuento</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.discountRate | percent: "1.3-5" }}</p>
+				<!-- <p>24.45%</p> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>Descuento</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.discount }}</p>
+				<!-- <p>$879654</p> -->
+			</div>
+		</div>
+	</div>
+	<div class="area">
+		<div class="row">
+			<div class="col">
+				<p>Coste inicial</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.initialCost }}</p>
+				<!-- <p>1234</p> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>coste final</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.finalCost }}</p>
+				<!-- <p>9887</p> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>Valor neto</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.netValue }}</p>
+				<!-- <p>4657</p> -->
+			</div>
+		</div>
+	</div>
+	<div class="area">
+		<div class="row">
+			<div class="col">
+				<p>Valor entregado</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.deliveredValue }}</p>
+				<!-- <p>$7412</p> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>Valor recibido</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.receivedValue }}</p>
+				<!-- <p>$36598</p> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>TCEA</p>
+			</div>
+			<div class="col">
+				<p>{{ discount.tcea | percent: "1.3-5" }}</p>
+				<!-- <p>20.78%</p> -->
+			</div>
+		</div>
+	</div>
+</div>
