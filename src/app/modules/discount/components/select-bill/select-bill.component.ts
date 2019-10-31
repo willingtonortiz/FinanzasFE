@@ -20,8 +20,8 @@ export class SelectBillComponent implements OnInit {
 	) {
 		this.bill = {
 			currency: CurrencyType.Soles,
-			startDate: new Date(),
-			endDate: new Date(),
+			startDate: new Date(2019, 9, 1),
+			endDate: new Date(2019, 9, 31),
 			amount: 10000
 		};
 	}

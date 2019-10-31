@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { Rate } from "src/app/shared/models";
+import { Rate, CurrencyType, RateTerm, RateType } from "src/app/shared/models";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 
 @Injectable({
@@ -12,7 +12,13 @@ export class DiscountPoolRateService {
 	private _rate: Rate;
 
 	constructor() {
-		this._rate = {};
+		this._rate = {
+			businessName: "Empresa S.A.C.",
+			currency: CurrencyType.Dolares,
+			rateTerm: RateTerm.Anual,
+			rateType: RateType.Efectiva,
+			rateValue: 0.1
+		};
 		this._rateSubject = new BehaviorSubject<Rate>(this._rate);
 		this._rateObservable = this._rateSubject.asObservable();
 	}

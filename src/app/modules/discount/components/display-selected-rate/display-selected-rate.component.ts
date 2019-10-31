@@ -1,39 +1,63 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Rate, CurrencyType, RateTerm, RateType } from "src/app/shared/models";
 import {
 	DiscountBillModalService,
-	DiscountPoolRateService
+	DiscountPoolRateService,
+	DiscountPoolDataService,
+	DiscountDateService
 } from "src/app/core/services";
+import { Subscription } from "rxjs";
 
 @Component({
 	selector: "app-display-selected-rate",
 	templateUrl: "./display-selected-rate.component.html",
 	styleUrls: ["./display-selected-rate.component.scss"]
 })
-export class DisplaySelectedRateComponent implements OnInit {
+export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 	public rate: Rate;
 	public discountDate: string;
+	private _suscriptions: Array<Subscription>;
 
 	constructor(
 		private _discountBillModalService: DiscountBillModalService,
-		private _discountPoolRate: DiscountPoolRateService
+		private _discountPoolRate: DiscountPoolRateService,
+		private _discountPoolData: DiscountPoolDataService,
+		private _discountDateService: DiscountDateService
 	) {}
 
 	ngOnInit() {
-		const today = new Date();
-		this.discountDate = `${today.getFullYear()}-${today.getMonth() +
-			1}-${today.getDate()}`;
+		this._suscriptions = new Array<Subscription>();
+		// const today = new Date();
+		// this.discountDate = `${today.getFullYear()}-${today.getMonth() +
+		// 	1}-${today.getDate()}`;
 
-		this.rate = {
-			businessName: "Empresa S.A.C.",
-			currency: CurrencyType.Dolares,
-			rateTerm: RateTerm.Anual,
-			rateType: RateType.Efectiva,
-			rateValue: 0.123456
-		};
+		const currentDate = this._discountDateService.discountDateValue;
+		this.discountDate = `${currentDate.getFullYear()}-${currentDate.getMonth() +
+			1}-${currentDate.getDate()}`;
+
+		this._suscriptions.push(
+			this._discountPoolRate.rateObservable.subscribe({
+				next: (rate: Rate) => {
+					this.rate = rate;
+				},
+				error: error => {
+					console.log("Error en display-selected-rate.component");
+				}
+			})
+		);
+	}
+
+	public updateDiscountDate() {
+		this._discountDateService.setDiscountDate(
+			new Date(this.discountDate + "T00:00:00")
+		);
 	}
 
 	public showModal() {
 		this._discountBillModalService.show();
+	}
+
+	public ngOnDestroy() {
+		this._suscriptions.forEach(x => x.unsubscribe());
 	}
 }

@@ -13,35 +13,57 @@ export class DiscountBillCostsService {
 	private _finalCostsSubject: BehaviorSubject<Array<Cost>>;
 	private _finalCostsObservable: Observable<Array<Cost>>;
 
-	private _initialCosts: Array<Cost>;
-	private _finalCosts: Array<Cost>;
-
 	public constructor() {
-		this.restart();
 		this._initialCostsSubject = new BehaviorSubject<Array<Cost>>(
-			this._initialCosts
+			new Array<Cost>()
 		);
 		this._initialCostsObservable = this._initialCostsSubject.asObservable();
 
 		this._finalCostsSubject = new BehaviorSubject<Array<Cost>>(
-			this._finalCosts
+			new Array<Cost>()
 		);
 		this._finalCostsObservable = this._finalCostsSubject.asObservable();
 	}
 
 	public addInitialCost(cost: Cost): void {
-		this._initialCosts.push(cost);
-		this._initialCostsSubject.next(this._initialCosts);
+		const initialCosts = this.initialCostsValue;
+		initialCosts.push(cost);
+		this._initialCostsSubject.next(initialCosts);
 	}
 
 	public addFinalCost(cost: Cost): void {
-		this._finalCosts.push(cost);
-		this._finalCostsSubject.next(this._finalCosts);
+		const finalCosts = this.finalCostsValue;
+		finalCosts.push(cost);
+		this._finalCostsSubject.next(finalCosts);
 	}
 
 	public restart(): void {
-		this._initialCosts = new Array<Cost>();
-		this._finalCosts = new Array<Cost>();
+		this._initialCostsSubject.next(new Array<Cost>());
+		this._finalCostsSubject.next(new Array<Cost>());
+	}
+
+	public get initialCostTotal(): number {
+		let total: number = 0;
+		const initialCosts: Array<Cost> = this.initialCostsValue;
+
+		// TODO, VALIDAR QUE SEA PORCENTAJE O MONTO, DEPENDIENDO DEL TIPO
+		initialCosts.forEach((x: Cost) => {
+			total += x.amount;
+		});
+
+		return total;
+	}
+
+	public get finalCostTotal(): number {
+		let total: number = 0;
+		const finalCosts: Array<Cost> = this.finalCostsValue;
+
+		// TODO, VALIDAR QUE SEA PORCENTAJE O MONTO, DEPENDIENDO DEL TIPO
+		finalCosts.forEach((x: Cost) => {
+			total += x.amount;
+		});
+
+		return total;
 	}
 
 	public get initialCostsValue(): Array<Cost> {
