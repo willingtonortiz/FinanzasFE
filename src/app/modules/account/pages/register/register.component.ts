@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private authenticationService: AuthenticationService,
 		private router: Router
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.registerForm = this.formBuilder.group({
@@ -26,8 +26,8 @@ export class RegisterComponent implements OnInit {
 				"",
 				Validators.compose([
 					Validators.required,
-					Validators.minLength(11),
-					Validators.maxLength(11)
+					Validators.min(20000000000),
+					Validators.max(20999999999)
 				])
 			],
 			businessName: ["", [Validators.required]],
@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
 		const data = this.registerForm.value;
 
 		const user: RegisterUser = {
-			username: data.ruc,
+			username: data.ruc.toString(),
 			password: data.password,
 			address: data.address,
 			businessName: data.businessName
