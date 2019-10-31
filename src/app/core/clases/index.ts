@@ -1,2 +1,2 @@
-export * from "./DiscountHelper";
-export * from "./DiscountProcess";
+export * from "./DiscountFormulas";
+export * from "./DiscountFormulasAdapter";

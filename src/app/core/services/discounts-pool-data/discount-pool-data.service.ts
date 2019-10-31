@@ -7,28 +7,28 @@ import { DiscountPool, Discount } from "src/app/shared/models";
 	providedIn: "root"
 })
 export class DiscountPoolDataService {
-	private discountPoolSubject: BehaviorSubject<DiscountPool>;
-	private discountPoolObservable: Observable<DiscountPool>;
-
-	private discountPool: DiscountPool;
+	private _discountPoolSubject: BehaviorSubject<DiscountPool>;
+	private _discountPoolObservable: Observable<DiscountPool>;
 
 	public constructor() {
-		// borrar dato de prueba
-		this.discountPool = {
+		// Valores iniciales por defecto
+		this._discountPoolSubject = new BehaviorSubject<DiscountPool>({
 			receivedValue: 0,
 			deliveredValue: 0,
-			tcea: 0,
-			discounts: new Array<Discount>()
-		};
-
-		this.discountPoolSubject = new BehaviorSubject<DiscountPool>(
-			this.discountPool
-		);
-		this.discountPoolObservable = this.discountPoolSubject.asObservable();
-
+			tcea: 0
+		});
+		this._discountPoolObservable = this._discountPoolSubject.asObservable();
 	}
 
-	get DiscountPoolObservable(): Observable<DiscountPool> {
-		return this.discountPoolObservable;
+	public setDiscountPool(discountPool: DiscountPool): void {
+		this._discountPoolSubject.next(discountPool);
+	}
+
+	get discountPoolValue(): DiscountPool {
+		return this._discountPoolSubject.value;
+	}
+
+	get discountPoolObservable(): Observable<DiscountPool> {
+		return this._discountPoolObservable;
 	}
 }

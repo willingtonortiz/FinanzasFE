@@ -13,13 +13,9 @@ export class DiscountsListService implements OnDestroy {
 
 	private _suscriptions: Array<Subscription>;
 
-	private _discounts: Array<Discount>;
-
 	constructor(private createNewDiscountService: CreateNewDiscountService) {
-		this._discounts = new Array<Discount>();
-
 		this._discountsSubject = new BehaviorSubject<Array<DiscountPool>>(
-			this._discounts
+			new Array<Discount>()
 		);
 
 		this._discountsObservable = this._discountsSubject.asObservable();
@@ -43,12 +39,21 @@ export class DiscountsListService implements OnDestroy {
 		this._suscriptions.forEach(x => x.unsubscribe());
 	}
 
-	public addDiscount(discount: Discount): void {
-		this._discounts.push(discount);
+	public setDiscounts(discounts: Array<Discount>): void {
+		this._discountsSubject.next(discounts);
+	}
+
+	public addDiscount(newDiscounts: Discount): void {
+		const discounts = this.discountsValue;
+		discounts.push(newDiscounts);
 		// this.discountPool.receivedValue += discount.receivedValue;
 		// this.discountPool.deliveredValue += discount.deliveredValue;
 
-		this._discountsSubject.next(this._discounts);
+		this._discountsSubject.next(discounts);
+	}
+
+	public get discountsValue(): Array<Discount> {
+		return this._discountsSubject.value;
 	}
 
 	get discountsObservable(): Observable<Array<Discount>> {

@@ -1,12 +1,15 @@
-import { RateType, Rate, RateTerm } from "../../shared/models";
+import { RateType, Rate } from "../../shared/models";
 import { RateTermConverter } from "src/app/shared/Utils";
 
-export class DiscountHelper {
+export class DiscountFormulas {
 	public constructor() {}
 
 	public static daysBetween(startTime: Date, endTime: Date): number {
 		const days =
 			(endTime.getTime() - startTime.getTime()) / (1000 * 3600 * 24);
+
+		// console.log(startTime);
+		// console.log(endTime);
 
 		return days;
 	}
@@ -67,7 +70,7 @@ export class DiscountHelper {
 		return Math.pow(deliveredValue / receivedValue, 360 / discountDays) - 1;
 	}
 
-	public static computeAverageDays(
+	public static averageDays(
 		netValues: number[],
 		discounts: number[],
 		tepValues: number[],
@@ -85,7 +88,7 @@ export class DiscountHelper {
 		return dividend / divider;
 	}
 
-	public static compute(
+	public static discountPoolTcea(
 		receivedValue: number,
 		deliveredValue: number,
 		discountDays: number,

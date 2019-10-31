@@ -17,7 +17,11 @@
 			<p>Fecha de descuento</p>
 		</div>
 		<div class="col">
-			<input type="date" [(ngModel)]="discountDate" />
+			<input
+				type="date"
+				[(ngModel)]="discountDate"
+				(change)="updateDiscountDate()"
+			/>
 		</div>
 	</div>
 

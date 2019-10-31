@@ -28,7 +28,7 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 		this._suscriptions = new Array<Subscription>();
 
 		this._suscriptions.push(
-			this._discountPoolData.DiscountPoolObservable.subscribe({
+			this._discountPoolData.discountPoolObservable.subscribe({
 				next: (discountPool: DiscountPool) => {
 					this.discountPool = discountPool;
 				},
@@ -44,7 +44,7 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 	}
 
 	public onSubmit() {
-		// Falta el metodo para construir el discountPool
+		// Falta el metodo para construir el discountPool y enviarlo a la base de datos
 		this.discountPoolService.createDiscountPool(this.discountPool);
 		console.log(this.discountPool);
 	}

@@ -10,8 +10,6 @@ export class DiscountBillService {
 	private _billSubject: BehaviorSubject<Bill>;
 	private _billObservable: Observable<Bill>;
 
-	private _bill: Bill;
-
 	public constructor() {
 		// this.bill = {};
 		this._billSubject = new BehaviorSubject<Bill>(null);
