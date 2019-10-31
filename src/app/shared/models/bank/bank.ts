@@ -1,5 +1,5 @@
 export interface Bank {
-	bankId: number;
+	id: number;
 	ruc: string;
 	businessName: string;
 	teaSoles: number;

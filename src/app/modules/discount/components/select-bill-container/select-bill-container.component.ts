@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
-
-import { SelectBillService } from "src/app/core/services";
+import { DiscountBillModalService } from "src/app/core/services/discount-bill-modal/discount-bill-modal.service";
 
 @Component({
 	selector: "app-select-bill-container",
@@ -12,9 +11,9 @@ export class SelectBillContainerComponent implements OnInit, OnDestroy {
 	private pageSuscription: Subscription;
 	public page: number;
 
-	constructor(private selectBillService: SelectBillService) {
+	constructor(private discountBillModalService: DiscountBillModalService) {
 		this.page = 1;
-		this.pageSuscription = this.selectBillService.Page.subscribe({
+		this.pageSuscription = this.discountBillModalService.Page.subscribe({
 			next: (value: number) => {
 				this.page = value;
 			}

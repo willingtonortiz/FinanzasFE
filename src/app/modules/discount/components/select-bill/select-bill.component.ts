@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Bill, CurrencyType } from "src/app/shared/models";
-import { DiscountService, SelectBillService } from "src/app/core/services";
+
+import { DiscountService } from "src/app/core/http";
+import { DiscountBillModalService } from "src/app/core/services/discount-bill-modal/discount-bill-modal.service";
+import { DiscountBillService } from "src/app/core/services";
 
 @Component({
 	selector: "app-select-bill",
@@ -12,8 +15,8 @@ export class SelectBillComponent implements OnInit {
 	public currency: string;
 
 	constructor(
-		private discountService: DiscountService,
-		private selectBillService: SelectBillService
+		private discountBillModalService: DiscountBillModalService,
+		private _discountBillService: DiscountBillService
 	) {
 		this.bill = {
 			currency: CurrencyType.Soles,
@@ -34,6 +37,7 @@ export class SelectBillComponent implements OnInit {
 	public selectBill() {
 		// this.discountService.CurrentBill = this.bill;
 		// console.log(this.discountService.CurrentBill);
-		this.selectBillService.setPage(2);
+		this._discountBillService.setBill(this.bill);
+		this.discountBillModalService.setPage(2);
 	}
 }

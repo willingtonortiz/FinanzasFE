@@ -5,7 +5,7 @@ import { AuthGuard } from "./core/guards";
 const routes: Routes = [
 	{
 		path: "",
-		redirectTo: "rate",
+		redirectTo: "discount",
 		pathMatch: "full"
 	},
 	{
@@ -20,12 +20,14 @@ const routes: Routes = [
 	{
 		path: "rate",
 		loadChildren: "./modules/rate/rate.module#RateModule"
+	},
+	{
+		path: "discount",
+		loadChildren: "./modules/discount/discount.module#DiscountModule"
 	}
 
 	// { path: "", redirectTo: "/discount", pathMatch: "full" },
 	// { path: "discount", component: DiscountContainerComponent },
-	// { path: "rate", component: SelectRateComponent },
-	// { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
 	// {
 	// 	path: "billDetail/:id",
 	// 	component: BillDetailComponent,
@@ -37,8 +39,6 @@ const routes: Routes = [
 	// 	canActivate: [AuthGuard]
 	// },
 	// { path: "selectRate", component: SelectRateComponent },
-	// { path: "login", component: LoginComponent },
-	// { path: "register", component: RegisterComponent },
 	// { path: "**", redirectTo: "/login" }
 ];
 

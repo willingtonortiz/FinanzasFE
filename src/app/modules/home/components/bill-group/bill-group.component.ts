@@ -18,27 +18,20 @@ export class BillGroupComponent implements OnInit {
 	constructor(
 		private authenticationService: AuthenticationService,
 		private billService: BillService
-	) {
-		this.billType = BillType.ToPay;
-		this.billService
-			.findByUserId(this.authenticationService.currentUserValue.id)
-			.subscribe({
-				next: (data: Bill[]) => {
-					data = data.map(x => {
-						x.startDate = new Date(x.startDate);
-						x.endDate = new Date(x.endDate);
-						return x;
-					});
-					this.bills = data;
-					this.updateBills();
-				},
-				error: error => {
-					console.log(error);
-				}
-			});
-	}
+	) {}
 
-	ngOnInit() {}
+	public async ngOnInit() {
+		this.billType = BillType.ToPay;
+
+		try {
+			this.bills = await this.billService.findByUserId(
+				this.authenticationService.currentUserValue.id
+			);
+			this.updateBills();
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	changeType(type: number) {
 		if (type !== this.billType) {

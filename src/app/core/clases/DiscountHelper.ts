@@ -1,5 +1,5 @@
 import { RateType, Rate, RateTerm } from "../../shared/models";
-import { RateTermConverter } from "../../_converters/rate-term.converter";
+import { RateTermConverter } from "src/app/shared/Utils";
 
 export class DiscountHelper {
 	public constructor() {}

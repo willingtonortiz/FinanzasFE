@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { CurrencyType, RateType, RateTerm, Rate } from "src/app/shared/models";
-import { DiscountService } from "src/app/core/services";
+import { DiscountPoolRateService } from "src/app/core/services";
 
 @Component({
 	selector: "app-create-rate",
@@ -15,7 +15,7 @@ export class CreateRateComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private discountService: DiscountService,
+		private discountPoolRateService: DiscountPoolRateService,
 		private router: Router
 	) {}
 
@@ -40,10 +40,20 @@ export class CreateRateComponent implements OnInit {
 			return;
 		}
 
-		const rate: Rate = this.rateForm.value;
-		rate.rateValue = parseFloat(rate.rateValue.toString());
+		const formData = this.rateForm.value;
 
-		this.discountService.Rate = rate;
+		// Falta trabajar con tasas nominales { capitalizationDays }
+		const rate: Rate = {
+			businessName: "NONE",
+			capitalizationDays: 360,
+			currency: formData.currency,
+			rateValue: parseFloat(formData.rateTerm),
+			rateTerm: formData.rateTerm,
+			rateType: formData.rateType
+		};
+
+		this.discountPoolRateService.setRate(rate);
+		console.log(rate);
 
 		this.router.navigate(["/discount"]);
 	}

@@ -1,18 +1,15 @@
 import { Injectable } from "@angular/core";
-import { Observable, BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
 	providedIn: "root"
 })
-export class SelectBillService {
-	// Para mostrar el modal
+export class DiscountBillModalService {
 	private displaySubject: BehaviorSubject<boolean>;
 	private display: Observable<boolean>;
 
 	private pageSubject: BehaviorSubject<number>;
 	private page: Observable<number>;
-
-	// Para mostrar la página
 
 	constructor() {
 		this.displaySubject = new BehaviorSubject<boolean>(false);

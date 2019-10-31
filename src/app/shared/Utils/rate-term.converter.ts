@@ -1,4 +1,4 @@
-import { RateTerm } from "../shared/models";
+import { RateTerm } from "../models";
 
 export class RateTermConverter {
 	public constructor() {}

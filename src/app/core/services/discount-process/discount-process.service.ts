@@ -1,56 +1,39 @@
 import { Injectable } from "@angular/core";
-import {
-	Rate,
-	DiscountPool,
-	Discount,
-	Bill,
-	Cost
-} from "src/app/shared/models";
+import { Discount, Bill, Cost } from "src/app/shared/models";
 import { DiscountHelper } from "src/app/core/clases";
-import { BehaviorSubject, Observable } from "rxjs";
+import { DiscountPoolRateService } from "../discount-pool-rate/discount-pool-rate.service";
+import { CreateNewDiscountService } from "../create-new-discount/create-new-discount.service";
+import { DiscountBillService } from "../discount-bill/discount-bill.service";
+import { DiscountBillCostsService } from "../discount-bill-costs/discount-bill-costs.service";
 
 @Injectable({
 	providedIn: "root"
 })
+// Maneja el descuento de la cartera de letras
 export class DiscountProcessService {
-	private discountPoolSubject: BehaviorSubject<DiscountPool>;
-	private discountPoolObservable: Observable<DiscountPool>;
+	private _discountDate: Date;
 
-	private discountDate: Date;
-	private rate: Rate;
-	private discountPool: DiscountPool;
+	public constructor(
+		private _createNewDiscountService: CreateNewDiscountService,
+		private _discountPoolRateService: DiscountPoolRateService,
+		private _discountBillService: DiscountBillService,
+		private _discountBillCosts: DiscountBillCostsService
+	) {}
 
-	public constructor() {
-		this.discountPool = {
-			receivedValue: 0,
-			deliveredValue: 0,
-			tcea: 0,
-			discounts: new Array<Discount>()
-		};
-		this.discountPoolSubject = new BehaviorSubject<DiscountPool>(
-			this.discountPool
-		);
-		this.discountPoolObservable = this.discountPoolSubject.asObservable();
-	}
-
-	public async discountBill(
-		bill: Bill,
-		initialCosts: Array<Cost>,
-		finalCosts: Array<Cost>
-	) {
-		let rate = this.rate.rateValue;
+	public async discountCurrentBill() {
+		const rate = this._discountPoolRateService.rateValue;
+		const bill = this._discountBillService.billValue;
+		const initialCosts = this._discountBillCosts.initialCostsValue;
+		const finalCosts = this._discountBillCosts.finalCostsValue;
 		// console.log(`TEA: ${rate}`);
 
 		const discountDays = DiscountHelper.daysBetween(
-			this.discountDate,
+			this._discountDate,
 			bill.endDate
 		);
 		// console.log(`Días de descuento: ${discountDays}`);
 
-		const tedays = DiscountHelper.computeEfectiveRate(
-			discountDays,
-			this.rate
-		);
+		const tedays = DiscountHelper.computeEfectiveRate(discountDays, rate);
 		// console.log(`TE Periodo de descuento: ${tedays}`);
 
 		const discountRate: number = DiscountHelper.discountRate(tedays);
@@ -118,35 +101,8 @@ export class DiscountProcessService {
 			costs: [...initialCosts, ...finalCosts]
 		};
 
-		this.addDiscount(newDiscount);
-		// console.log(this.discountPool);
-	}
-
-	public addDiscount(discount: Discount): void {
-		this.discountPool.discounts.push(discount);
-		this.discountPool.receivedValue += discount.receivedValue;
-		this.discountPool.deliveredValue += discount.deliveredValue;
-
-		this.discountPoolSubject.next(this.discountPool);
+		this._createNewDiscountService.setDiscount(newDiscount);
 	}
 
 	public saveChanges(): void {}
-
-	get DiscountPoolObservable(): Observable<DiscountPool> {
-		return this.discountPoolObservable;
-	}
-
-	get Rate(): Rate {
-		return this.rate;
-	}
-	set Rate(rate: Rate) {
-		this.rate = rate;
-	}
-
-	get DiscountDate(): Date {
-		return this.discountDate;
-	}
-	set DiscountDate(discountDate: Date) {
-		this.discountDate = discountDate;
-	}
 }
