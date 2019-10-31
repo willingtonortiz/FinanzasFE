@@ -1,25 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SelectBillGroupComponent } from './select-bill-group.component';
+import { SelectBillGroupComponent } from "./select-bill-group.component";
 
-describe('SelectBillGroupComponent', () => {
-  let component: SelectBillGroupComponent;
-  let fixture: ComponentFixture<SelectBillGroupComponent>;
+describe("SelectBillGroupComponent", () => {
+	let component: SelectBillGroupComponent;
+	let fixture: ComponentFixture<SelectBillGroupComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SelectBillGroupComponent ]
-    })
-    .compileComponents();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			declarations: [SelectBillGroupComponent]
+		}).compileComponents();
+	}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SelectBillGroupComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(SelectBillGroupComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });

@@ -19,9 +19,8 @@ export class BankGroupComponent implements OnInit, OnChanges {
 		try {
 			const banks = await this.bankService.findAll();
 			this.banks = banks;
-			// console.log(this.banks);
 		} catch (error) {
-			// console.log(error);
+			console.log(error);
 		}
 	}
 

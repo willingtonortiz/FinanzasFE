@@ -4,8 +4,9 @@ import { Subscription } from "rxjs";
 import { DiscountPool } from "src/app/shared/models";
 import {
 	DiscountProcessService,
-	DiscountPoolService
+	DiscountPoolDataService
 } from "src/app/core/services";
+import { DiscountPoolService } from "src/app/core/http";
 
 @Component({
 	selector: "app-discount-pool-overview",
@@ -13,32 +14,37 @@ import {
 	styleUrls: ["./discount-pool-overview.component.scss"]
 })
 export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
-	private discountPoolSuscription: Subscription;
+	private _suscriptions: Array<Subscription>;
 	public discountPool: DiscountPool;
 
 	constructor(
 		private discountProcessService: DiscountProcessService,
-		private discountPoolService: DiscountPoolService
+		private discountPoolService: DiscountPoolService,
+		private _discountPoolData: DiscountPoolDataService
 	) {}
 
 	public ngOnInit() {
-		this.discountPoolSuscription = this.discountProcessService.DiscountPoolObservable.subscribe(
-			{
+		this.discountPool = {};
+		this._suscriptions = new Array<Subscription>();
+
+		this._suscriptions.push(
+			this._discountPoolData.DiscountPoolObservable.subscribe({
 				next: (discountPool: DiscountPool) => {
 					this.discountPool = discountPool;
 				},
 				error: (error: any) => {
 					console.log(error);
 				}
-			}
+			})
 		);
 	}
 
 	public ngOnDestroy() {
-		this.discountPoolSuscription.unsubscribe();
+		this._suscriptions.forEach(x => x.unsubscribe());
 	}
 
 	public onSubmit() {
+		// Falta el metodo para construir el discountPool
 		this.discountPoolService.createDiscountPool(this.discountPool);
 		console.log(this.discountPool);
 	}

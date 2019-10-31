@@ -7,7 +7,7 @@ import {
 	RateType,
 	Rate
 } from "src/app/shared/models";
-import { DiscountService } from "src/app/core/services";
+import { DiscountPoolRateService } from "src/app/core/services";
 
 @Component({
 	selector: "app-display-bank",
@@ -17,9 +17,7 @@ import { DiscountService } from "src/app/core/services";
 export class DisplayBankComponent implements OnInit {
 	@Input() public bank: Bank;
 
-	constructor(private discountService: DiscountService) {
-		// this.bank = null;
-	}
+	constructor(private discountPoolRateService: DiscountPoolRateService) {}
 
 	ngOnInit() {}
 
@@ -31,7 +29,7 @@ export class DisplayBankComponent implements OnInit {
 			rateValue: this.bank.teaSoles
 		};
 
-		this.discountService.Rate = rate;
+		this.discountPoolRateService.setRate(rate);
 	}
 
 	public selectDolares() {
@@ -41,6 +39,6 @@ export class DisplayBankComponent implements OnInit {
 			rateType: RateType.Efectiva,
 			rateValue: this.bank.teaDolares
 		};
-		this.discountService.Rate = rate;
+		this.discountPoolRateService.setRate(rate);
 	}
 }

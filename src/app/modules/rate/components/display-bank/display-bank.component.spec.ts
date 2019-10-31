@@ -1,25 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DisplayBankComponent } from './display-bank.component';
+import { DisplayBankComponent } from "./display-bank.component";
 
-describe('DisplayBankComponent', () => {
-  let component: DisplayBankComponent;
-  let fixture: ComponentFixture<DisplayBankComponent>;
+describe("DisplayBankComponent", () => {
+	let component: DisplayBankComponent;
+	let fixture: ComponentFixture<DisplayBankComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DisplayBankComponent ]
-    })
-    .compileComponents();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			declarations: [DisplayBankComponent]
+		}).compileComponents();
+	}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DisplayBankComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(DisplayBankComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it("should create", () => {
+		expect(component).toBeTruthy();
+	});
 });

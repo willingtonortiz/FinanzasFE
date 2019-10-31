@@ -37,7 +37,7 @@ export class AddBillComponent implements OnInit {
 		});
 	}
 
-	public onSubmit() {
+	public async onSubmit() {
 		if (this.billForm.invalid) {
 			return;
 		}
@@ -45,14 +45,11 @@ export class AddBillComponent implements OnInit {
 		const newBill: Bill = this.billForm.value;
 		newBill.billType = this.billType;
 
-		this.billService.create(newBill).subscribe({
-			next: (bill: Bill) => {
-				console.log(bill);
-			},
-			error: (error: any) => {
-				console.log(error);
-			}
-		});
+		try {
+			await this.billService.create(newBill);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	public changeBillType(option: BillType): void {

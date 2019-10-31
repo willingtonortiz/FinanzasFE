@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Bill, User } from "src/app/shared/models";
 import { AuthenticationService } from "src/app/core/authentication/authentication.service";
 import { BillService } from "src/app/core/http";
-import { SelectBillService } from "src/app/core/services";
+import { DiscountBillModalService } from "src/app/core/services/discount-bill-modal/discount-bill-modal.service";
 
 @Component({
 	selector: "app-select-bill-group",
@@ -17,23 +17,22 @@ export class SelectBillGroupComponent implements OnInit {
 	constructor(
 		private authenticationService: AuthenticationService,
 		private billService: BillService,
-		private selectBillService: SelectBillService
+		private discountBillModalService: DiscountBillModalService
 	) {
 		this.user = this.authenticationService.currentUserValue;
-
-		this.billService.findByUserId(this.user.id).subscribe({
-			next: (bills: Bill[]) => {
-				this.bills = bills;
-			},
-			error: (error: any) => {
-				console.log(error);
-			}
-		});
 	}
 
-	ngOnInit() {}
+	async ngOnInit() {
+		this.bills = [];
+
+		try {
+			this.bills = await this.billService.findByUserId(this.user.id);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	public closeModal(): void {
-		this.selectBillService.hide();
+		this.discountBillModalService.hide();
 	}
 }

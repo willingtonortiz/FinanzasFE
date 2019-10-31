@@ -24,17 +24,14 @@ export class BillDetailComponent implements OnInit, OnDestroy {
 		this.bill = {};
 	}
 
-	ngOnInit() {
+	public async ngOnInit() {
 		const billId = this.activatedRoute.snapshot.paramMap.get("id");
 
-		this.suscription = this.billService.findById(billId).subscribe({
-			next: (bill: Bill) => {
-				this.bill = bill;
-			},
-			error: (error: any) => {
-				console.log(error);
-			}
-		});
+		try {
+			this.bill = await this.billService.findById(billId);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	ngOnDestroy() {

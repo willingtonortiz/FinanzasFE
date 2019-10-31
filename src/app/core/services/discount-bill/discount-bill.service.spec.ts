@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SelectBillService } from './select-bill.service';
+import { DiscountBillService } from './discount-bill.service';
 
-describe('SelectBillService', () => {
+describe('DiscountBillService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: SelectBillService = TestBed.get(SelectBillService);
+    const service: DiscountBillService = TestBed.get(DiscountBillService);
     expect(service).toBeTruthy();
   });
 });

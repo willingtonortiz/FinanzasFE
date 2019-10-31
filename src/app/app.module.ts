@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { TokenInterceptor, ErrorInterceptor } from "./core/interceptors";
 import { AppComponent } from "./app.component";
-import { AccountModule } from "./modules/account/account.module";
 
 @NgModule({
 	imports: [
@@ -14,9 +13,9 @@ import { AccountModule } from "./modules/account/account.module";
 		AppRoutingModule,
 		FormsModule,
 		ReactiveFormsModule,
-		HttpClientModule,
-		// AccountModule
+		HttpClientModule
 	],
+	exports: [],
 	declarations: [AppComponent],
 	providers: [
 		{

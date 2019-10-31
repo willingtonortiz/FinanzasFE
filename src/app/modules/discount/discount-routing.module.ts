@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { DiscountContainerComponent } from "./pages";
 
 const routes: Routes = [
 	{
 		path: "",
-		component: null
+		component: DiscountContainerComponent
 	}
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule]
 })
-export class DiscountRoutingModule { }
+export class DiscountRoutingModule {}

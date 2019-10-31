@@ -12,19 +12,3 @@ export class DiscountPool {
 	bank?: Bank;
 	discounts?: Discount[];
 }
-
-/*
-	DiscountPool{
-
-		Discount[
-			{
-				props,
-				bill: Bill
-			},
-			{
-				props,
-				bill: Bill
-			}
-		]
-	}
-*/

@@ -10,17 +10,21 @@ import { Bill } from "src/app/shared/models";
 export class BillService {
 	constructor(private http: HttpClient) {}
 
-	public findByUserId(id: number): Observable<Bill[]> {
-		return this.http.get<Bill[]>(
-			`${environment.apiUrl}/bills/FindByUserId/${id}`
-		);
+	public findByUserId(userId: number): Promise<Bill[]> {
+		return this.http
+			.get<Bill[]>(`${environment.apiUrl}/users/${userId}/bills`)
+			.toPromise<Bill[]>();
 	}
 
-	public findById(id: string): Observable<Bill> {
-		return this.http.get<Bill>(`${environment.apiUrl}/bills/${id}`);
+	public findById(id: string): Promise<Bill> {
+		return this.http
+			.get<Bill>(`${environment.apiUrl}/bills/${id}`)
+			.toPromise<Bill>();
 	}
 
-	public create(bill: Bill) {
-		return this.http.post<Bill>(`${environment.apiUrl}/bills`, bill);
+	public create(bill: Bill): Promise<Bill> {
+		return this.http
+			.post<Bill>(`${environment.apiUrl}/bills`, bill)
+			.toPromise<Bill>();
 	}
 }
