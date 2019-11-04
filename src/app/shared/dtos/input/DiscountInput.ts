@@ -1,6 +1,7 @@
-import { CreateCost } from "./CreateCost";
+import { CostInput } from "./CostInput";
 
-export interface CreateDiscount {
+export interface DiscountInput {
+	id?: number;
 	retention?: number;
 	discountDays?: number;
 	tep?: number;
@@ -12,5 +13,5 @@ export interface CreateDiscount {
 	deliveredValue?: number;
 	tcea?: number;
 	billId?: number;
-	costs?: Array<CreateCost>;
+	costs?: Array<CostInput>;
 }

@@ -8,5 +8,5 @@ export interface CreateDiscountPool {
 	pymeId?: number;
 	bankId?: number;
 	// Los descuentos
-	discounts: Array<CreateDiscount>;
+	discounts?: Array<CreateDiscount>;
 }

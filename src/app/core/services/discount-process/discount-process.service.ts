@@ -7,8 +7,9 @@ import { DiscountPoolDataService } from "../discounts-pool-data/discount-pool-da
 import { DiscountsListService } from "../discounts-list/discounts-list.service";
 import { Subscription } from "rxjs";
 import { DiscountDateService } from "../discount-date/discount-date.service";
-import { Discount, Cost, CostType, DiscountPool } from "src/app/shared/models";
-import { DiscountFormulas, DiscountFormulasAdapter } from "../../clases";
+import { Discount, Cost, DiscountPool } from "src/app/shared/models";
+import { DiscountFormulasAdapter } from "../../clases";
+import { CostType } from 'src/app/shared/enums';
 
 @Injectable({
 	providedIn: "root"
@@ -51,8 +52,8 @@ export class DiscountProcessService implements OnDestroy {
 			DiscountFormulasAdapter.discountBill(
 				rate,
 				x.bill,
-				x.costs.filter((y: Cost) => y.costType === CostType.Inicial),
-				x.costs.filter((y: Cost) => y.costType === CostType.Final),
+				x.costs.filter((y: Cost) => y.costType === CostType.INITIAL),
+				x.costs.filter((y: Cost) => y.costType === CostType.FINAL),
 				date
 			)
 		);
