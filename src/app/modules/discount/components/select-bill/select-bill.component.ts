@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Bill, CurrencyType } from "src/app/shared/models";
+import { Bill } from "src/app/shared/models";
 
 import { DiscountService } from "src/app/core/http";
 import { DiscountBillModalService } from "src/app/core/services/discount-bill-modal/discount-bill-modal.service";
 import { DiscountBillService } from "src/app/core/services";
+import { CurrencyCode } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-select-bill",
@@ -19,7 +20,7 @@ export class SelectBillComponent implements OnInit {
 		private _discountBillService: DiscountBillService
 	) {
 		this.bill = {
-			currency: CurrencyType.Soles,
+			currencyCode: CurrencyCode.PEN,
 			startDate: new Date(2019, 9, 1),
 			endDate: new Date(2019, 9, 31),
 			amount: 10000
@@ -27,7 +28,7 @@ export class SelectBillComponent implements OnInit {
 	}
 
 	public ngOnInit() {
-		if (this.bill.currency === CurrencyType.Soles) {
+		if (this.bill.currencyCode === CurrencyCode.PEN) {
 			this.currency = "PEN";
 		} else {
 			this.currency = "USD";

@@ -2,8 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { CurrencyType, RateType, RateTerm, Rate } from "src/app/shared/models";
+import { Rate } from "src/app/shared/models";
 import { DiscountPoolRateService } from "src/app/core/services";
+import { CurrencyCode, RateType, RateTerm } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-create-rate",
@@ -21,9 +22,9 @@ export class CreateRateComponent implements OnInit {
 
 	ngOnInit() {
 		this.rateForm = this.formBuilder.group({
-			currency: [CurrencyType.Soles, Validators.required],
-			rateType: [RateType.Efectiva, Validators.required],
-			rateTerm: [RateTerm.Anual, Validators.required],
+			currency: [CurrencyCode.PEN, Validators.required],
+			rateType: [RateType.EFFECTIVE, Validators.required],
+			rateTerm: [RateTerm.ANNUAL, Validators.required],
 			rateValue: [
 				"0.00",
 				Validators.compose([
@@ -46,7 +47,7 @@ export class CreateRateComponent implements OnInit {
 		const rate: Rate = {
 			businessName: "NONE",
 			capitalizationDays: 360,
-			currency: formData.currency,
+			currencyCode: formData.currency,
 			rateValue: parseFloat(formData.rateTerm),
 			rateTerm: formData.rateTerm,
 			rateType: formData.rateType

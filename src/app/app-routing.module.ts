@@ -5,12 +5,16 @@ import { AuthGuard } from "./core/guards";
 const routes: Routes = [
 	{
 		path: "",
-		redirectTo: "account",
+		redirectTo: "bill",
 		pathMatch: "full"
 	},
 	{
 		path: "account",
 		loadChildren: "./modules/account/account.module#AccountModule"
+	},
+	{
+		path: "bill",
+		loadChildren: "./modules/bill/bill.module#BillModule"
 	},
 	{
 		path: "home",

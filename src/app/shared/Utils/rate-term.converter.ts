@@ -1,22 +1,22 @@
-import { RateTerm } from "../models";
+import { RateTerm } from "../enums";
 
 export class RateTermConverter {
 	public constructor() {}
 
-	public static fromString(rateTerm: string) {
-		if (rateTerm === RateTerm.Anual) {
+	public static fromString(rateTerm: RateTerm) {
+		if (rateTerm === RateTerm.ANNUAL) {
 			return 360;
-		} else if (rateTerm === RateTerm.Semestral) {
+		} else if (rateTerm === RateTerm.SIX_MONTHLY) {
 			return 180;
-		} else if (rateTerm === RateTerm.Cuatrimestral) {
+		} else if (rateTerm === RateTerm.QUARTERLY) {
 			return 120;
-		} else if (rateTerm === RateTerm.Trimestral) {
+		} else if (rateTerm === RateTerm.THREE_MONTHLY) {
 			return 90;
-		} else if (rateTerm === RateTerm.Bimestral) {
+		} else if (rateTerm === RateTerm.BIMONTHLY) {
 			return 60;
-		} else if (rateTerm === RateTerm.Mensual) {
+		} else if (rateTerm === RateTerm.MONTHLY) {
 			return 30;
-		} else if (rateTerm == RateTerm.Quincenal) {
+		} else if (rateTerm == RateTerm.BIWEEKLY) {
 			return 15;
 		} else {
 			return 1;

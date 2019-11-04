@@ -1,5 +1,6 @@
-import { RateType, Rate } from "../../shared/models";
+import { Rate } from "../../shared/models";
 import { RateTermConverter } from "src/app/shared/Utils";
+import { RateType } from "src/app/shared/enums";
 
 export class DiscountFormulas {
 	public constructor() {}
@@ -21,7 +22,7 @@ export class DiscountFormulas {
 		let tep: number;
 		const days: number = RateTermConverter.fromString(rate.rateTerm);
 
-		if (rate.rateType === RateType.Efectiva) {
+		if (rate.rateType === RateType.EFFECTIVE) {
 			tep = Math.pow(1.0 + rate.rateValue, discountDays / days) - 1;
 
 			// Si es nominal

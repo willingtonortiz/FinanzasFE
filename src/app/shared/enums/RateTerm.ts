@@ -1,0 +1,10 @@
+export enum RateTerm {
+	DAILY = 1,
+	BIWEEKLY = 2,
+	MONTHLY = 3,
+	BIMONTHLY = 4,
+	THREE_MONTHLY = 5,
+	QUARTERLY = 6,
+	SIX_MONTHLY = 7,
+	ANNUAL = 8
+}

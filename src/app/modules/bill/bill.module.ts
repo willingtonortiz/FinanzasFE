@@ -3,9 +3,10 @@ import { CommonModule } from "@angular/common";
 
 import { BillRoutingModule } from "./bill-routing.module";
 import { AddBillComponent, BillDetailComponent } from "./pages";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
-	declarations: [AddBillComponent, BillDetailComponent],
-	imports: [CommonModule, BillRoutingModule]
+	imports: [CommonModule, BillRoutingModule, ReactiveFormsModule],
+	declarations: [AddBillComponent, BillDetailComponent]
 })
 export class BillModule {}

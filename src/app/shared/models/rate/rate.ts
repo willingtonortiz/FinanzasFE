@@ -1,8 +1,10 @@
-export class Rate {
+import { CurrencyCode, RateType, RateTerm } from "../../enums";
+
+export interface Rate {
 	businessName?: string;
-	currency?: string;
-	rateType?: string;
-	rateTerm?: string;
+	currencyCode?: CurrencyCode;
+	rateType?: RateType;
+	rateTerm?: RateTerm;
 	rateValue?: number;
 	capitalizationDays?: number;
 }

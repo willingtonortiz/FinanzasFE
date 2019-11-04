@@ -1,13 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 
-import {
-	Rate,
-	CurrencyType,
-	RateType,
-	RateTerm,
-	DiscountPool
-} from "src/app/shared/models";
+import { Rate, DiscountPool } from "src/app/shared/models";
 import { DiscountService } from "src/app/core/http";
 import { DiscountBillModalService } from "src/app/core/services";
 

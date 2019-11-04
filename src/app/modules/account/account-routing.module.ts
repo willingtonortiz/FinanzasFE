@@ -5,7 +5,7 @@ import { LoginComponent, RegisterComponent } from "./pages";
 const routes: Routes = [
 	{
 		path: "",
-		redirectTo: "login",
+		redirectTo: "register",
 		pathMatch: "full"
 	},
 	{

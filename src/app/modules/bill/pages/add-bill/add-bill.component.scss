@@ -1,0 +1,120 @@
+.container {
+	height: 100vh;
+	padding: 32px;
+
+	display: grid;
+	grid-template-columns: 3fr 9fr;
+
+	.options,
+	.add-bill {
+		align-self: stretch;
+	}
+
+	.options {
+		grid-column: 1 / span 1;
+		// padding: 16px;
+
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
+
+		button {
+			margin: 8px 0;
+			padding: 16px 40px;
+			background-color: #54d691;
+			color: white;
+			font-size: 24px;
+			border: none;
+			border-radius: 3px;
+		}
+	}
+
+	.add-bill {
+		grid-column: 2 / span 1;
+		flex-grow: 1;
+		// border: 1px solid red;
+
+		display: flex;
+		flex-flow: column nowrap;
+
+		.bill-type {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-start;
+
+			button {
+				margin: 8px 0;
+				margin-right: 8px;
+				padding: 16px 20px;
+				background-color: #54d691;
+				color: white;
+				font-size: 24px;
+				border: none;
+				border-radius: 3px;
+			}
+		}
+
+		.bill {
+			width: 1000px;
+			border-radius: 5px;
+			border: 1px solid lightgray;
+			padding: 32px;
+
+			display: flex;
+			flex-flow: column nowrap;
+
+			.row {
+				display: flex;
+				justify-content: space-around;
+
+				.title {
+					margin-bottom: 32px;
+				}
+
+				.col {
+					.group {
+						margin-bottom: 24px;
+
+						display: flex;
+						flex-flow: column nowrap;
+
+						label,
+						input,
+						select {
+							font-size: 20px;
+						}
+
+						label {
+							margin-bottom: 8px;
+						}
+
+						input,
+						select {
+							width: 300px;
+							padding: 8px;
+							text-align: center;
+							border-left-style: none;
+							border-top-style: none;
+							border-right-style: none;
+							border-bottom: 2px solid lightgray;
+						}
+					}
+				}
+
+				.button {
+					button {
+						margin: 8px 0;
+						margin-right: 8px;
+						padding: 16px 20px;
+						background-color: #54d691;
+						color: white;
+						font-size: 24px;
+						border: none;
+						border-radius: 3px;
+					}
+				}
+			}
+		}
+	}
+}

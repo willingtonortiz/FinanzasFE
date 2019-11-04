@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Rate, CurrencyType, RateTerm, RateType } from "src/app/shared/models";
+import { Rate } from "src/app/shared/models";
 import {
 	DiscountBillModalService,
 	DiscountPoolRateService,

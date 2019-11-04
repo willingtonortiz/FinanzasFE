@@ -3,6 +3,7 @@ import { DiscountBillService } from "../discount-bill/discount-bill.service";
 import { DiscountBillCostsService } from "../discount-bill-costs/discount-bill-costs.service";
 import { Bill, Cost } from "src/app/shared/models";
 import { CreateDiscountPool } from "src/app/shared/dtos/output";
+import { BillStatus } from "src/app/shared/enums";
 
 @Injectable({
 	providedIn: "root"
@@ -24,13 +25,12 @@ export class DiscountBuilderService {
 		return {
 			amount: currentBill.amount,
 			billType: currentBill.billType,
-			currency: currentBill.currency,
+			currencyCode: currentBill.currencyCode,
 			draweeRuc: currentBill.draweeRuc,
 			drawerRuc: currentBill.drawerRuc,
 			startDate: currentBill.startDate,
 			endDate: currentBill.endDate,
-			initialCosts: initialCosts,
-			finalCosts: finalCosts
+			billStatus: BillStatus.VALID
 		};
 	}
 

@@ -3,17 +3,19 @@
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
-	h1{
 
+	h1 {
 		width: 100%;
 	}
-	.helpText{
+
+	.helpText {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		width: 80%;
 		font-size: 1rem;
 	}
+
 	form {
 		display: flex;
 		flex-wrap: wrap;
@@ -60,7 +62,6 @@
 		}
 
 		button {
-
 			margin: 1rem 20%;
 			font-size: 2rem;
 			align-self: center;
@@ -70,9 +71,6 @@
 			color: #eeeeee;
 			border: none;
 			border-radius: 7px;
-
 		}
-
-
 	}
 }
