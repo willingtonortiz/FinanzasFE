@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { Bill, Cost, CostType } from "src/app/shared/models";
+import { Bill, Cost } from "src/app/shared/models";
 import {
 	DiscountBillModalService,
 	DiscountBillService,
 	DiscountProcessService,
 	DiscountBillCostsService
 } from "src/app/core/services";
+import { CostType, PaymentType } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-select-cost",
@@ -20,13 +21,13 @@ export class SelectCostComponent implements OnInit {
 	// TODO, AGREGAR VALIDACIÓN DE CAMPOS
 	// Para un costo inicial
 	public initialReason: string;
-	public initialValueType: string;
+	public initialPaymentType: PaymentType;
 	public initialValue: string;
 	public initialTotal: number;
 
 	// Para un costo final
 	public finalReason: string;
-	public finalValueType: string;
+	public finalPaymentType: PaymentType;
 	public finalValue: string;
 	public finalTotal: number;
 
@@ -50,8 +51,8 @@ export class SelectCostComponent implements OnInit {
 
 		this._discountBillCostsService.addInitialCost({
 			reason: this.initialReason,
-			costType: CostType.Inicial,
-			valueType: this.initialValueType,
+			costType: CostType.INITIAL,
+			paymentType: this.initialPaymentType,
 			amount: value
 		});
 
@@ -64,8 +65,8 @@ export class SelectCostComponent implements OnInit {
 
 		this._discountBillCostsService.addFinalCost({
 			reason: this.finalReason,
-			costType: CostType.Final,
-			valueType: this.finalValueType,
+			costType: CostType.FINAL,
+			paymentType: this.finalPaymentType,
 			amount: value
 		});
 

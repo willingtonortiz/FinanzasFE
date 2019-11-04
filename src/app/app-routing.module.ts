@@ -5,7 +5,7 @@ import { AuthGuard } from "./core/guards";
 const routes: Routes = [
 	{
 		path: "",
-		redirectTo: "discount",
+		redirectTo: "account",
 		pathMatch: "full"
 	},
 	{

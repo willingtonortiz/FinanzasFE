@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Location } from "@angular/common";
 
-import { User, Bill, BillType } from "src/app/shared/models";
+import { User, Bill } from "src/app/shared/models";
 import { AuthenticationService } from "src/app/core/authentication";
 import { BillService } from "src/app/core/http";
+import { BillType } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-add-bill",
@@ -22,7 +23,7 @@ export class AddBillComponent implements OnInit {
 		private billService: BillService,
 		private location: Location
 	) {
-		this.billType = BillType.ToPay;
+		this.billType = BillType.TO_PAY;
 		this.currentUser = authenticationService.currentUserValue;
 	}
 
@@ -54,7 +55,7 @@ export class AddBillComponent implements OnInit {
 
 	public changeBillType(option: BillType): void {
 		switch (option) {
-			case BillType.ToPay:
+			case BillType.TO_PAY:
 				{
 					this.billForm.controls["drawerRuc"].setValue("");
 					this.billForm.controls["draweeRuc"].setValue("20123456789");

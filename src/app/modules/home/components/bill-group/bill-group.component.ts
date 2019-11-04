@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Bill, BillType } from "src/app/shared/models";
+import { Bill } from "src/app/shared/models";
 
-import { BillDto } from "src/app/shared/dtos";
 import { AuthenticationService } from "src/app/core/authentication";
 import { BillService } from "src/app/core/http";
+import { BillType } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-bill-group",
@@ -21,7 +21,7 @@ export class BillGroupComponent implements OnInit {
 	) {}
 
 	public async ngOnInit() {
-		this.billType = BillType.ToPay;
+		this.billType = 1;
 
 		try {
 			this.bills = await this.billService.findByUserId(

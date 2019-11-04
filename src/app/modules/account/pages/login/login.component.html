@@ -26,10 +26,12 @@
 			<button type="submit" class="btn btn-primary">Ingresar</button>
 		</div>
 
+		<span>{{ errorMessage }}</span>
+
 		<div class="row">
 			<small class="form-text"
 				>¿No tienes una cuenta?
-				<a [routerLink]="['/register']">Regístrate</a></small
+				<a [routerLink]="['/account/register']">Regístrate</a></small
 			>
 		</div>
 	</form>

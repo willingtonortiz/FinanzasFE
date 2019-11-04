@@ -24,9 +24,9 @@ export class AuthenticationService {
 		return this.currentUserSubject.value;
 	}
 
-	public login(username: string, password: string) {
+	public login(username: string, password: string): Promise<any> {
 		return this.http
-			.post<any>(`${environment.apiUrl}/users/authenticate`, {
+			.post<any>(`${environment.apiUrl}/authentication/login`, {
 				username,
 				password
 			})
