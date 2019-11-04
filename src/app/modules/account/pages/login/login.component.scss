@@ -8,11 +8,9 @@
 		display: flex;
 		flex-flow: column wrap;
 		width: 400px;
-		// border: 1px solid red;
 
 		.row {
 			margin: 2rem 0;
-			// border: 1px solid green;
 			display: flex;
 			flex-flow: column wrap;
 
@@ -31,12 +29,14 @@
 			label {
 				margin: 0.5rem 0;
 			}
+
 			input {
-				border-left: none;
-				border-right: none;
-				border-top: none;
+				border-left-style: none;
+				border-right-style: none;
+				border-top-style: none;
 				padding: 1rem;
 			}
+
 			button {
 				padding: 1rem 2rem;
 				background-color: #54d691;
@@ -44,6 +44,7 @@
 				border: none;
 				border-radius: 7px;
 			}
+
 			small {
 				font-size: 1rem;
 			}
@@ -51,26 +52,12 @@
 	}
 }
 
-@media only screen and (min-width: 768px) {
-	// .container {
-	// 	form {
-	// 		width: 400px;
-	// 	}
-	// }
-}
-
-// @media only screen and (max-width: 767px) {
-// 	.container {
-// 		form {
-// 			width: 500px;
-// 		}
-// 	}
-// }
-
-@media only screen and (max-width: 767px) {
-	// .container {
-	// 	form {
-	// 		width: 350px;
-	// 	}
-	// }
+// Form validation
+.container .row input.ng-dirty {
+	&.ng-valid {
+		border: 2px solid mediumseagreen;
+	}
+	&.ng-invalid {
+		border: 2px solid tomato;
+	}
 }

@@ -11,6 +11,26 @@
 				placeholder="Ingrese su número RUC"
 				formControlName="username"
 			/>
+
+			<div
+				class="form-errors"
+				*ngIf="fusername.errors && fusername.dirty"
+			>
+				<div *ngIf="fusername.hasError('required')">
+					El RUC es requerido
+				</div>
+				<div
+					*ngIf="
+						fusername.hasError('minlength') ||
+						fusername.hasError('maxlength')
+					"
+				>
+					El tamaño del ruc es de 11 digitos
+				</div>
+				<div *ngIf="fusername.hasError('pattern')">
+					El RUC está compuesto de dígitos solamente
+				</div>
+			</div>
 		</div>
 
 		<div class="row">
@@ -20,6 +40,18 @@
 				placeholder="Ingrese su contraseña"
 				formControlName="password"
 			/>
+
+			<div
+				class="form-errors"
+				*ngIf="fpassword.errors && fpassword.dirty"
+			>
+				<div *ngIf="fpassword.hasError('required')">
+					La contraseña es requerida
+				</div>
+				<div *ngIf="fpassword.hasError('minlength')">
+					El tamaño mínimo es 8 caracteres
+				</div>
+			</div>
 		</div>
 
 		<div class="row">

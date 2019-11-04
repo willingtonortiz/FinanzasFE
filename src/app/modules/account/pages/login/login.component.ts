@@ -1,8 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+	FormBuilder,
+	FormGroup,
+	Validators,
+	AbstractControl
+} from "@angular/forms";
 import { Router } from "@angular/router";
-import { HttpErrorResponse } from "@angular/common/http";
-import { first } from "rxjs/operators";
 import { AuthenticationService } from "src/app/core/authentication";
 
 @Component({
@@ -31,10 +34,11 @@ export class LoginComponent implements OnInit {
 				Validators.compose([
 					Validators.required,
 					Validators.minLength(11),
-					Validators.maxLength(11)
+					Validators.maxLength(11),
+					Validators.pattern(/20\d{9}/)
 				])
 			],
-			password: ["", Validators.required]
+			password: ["", [Validators.required, Validators.minLength(8)]]
 		});
 	}
 
@@ -55,5 +59,13 @@ export class LoginComponent implements OnInit {
 			this.errorMessage = "Usuario o contraseña incorrectos";
 			// console.log(error);
 		}
+	}
+
+	public get fusername(): AbstractControl {
+		return this.loginForm.get("username");
+	}
+
+	public get fpassword(): AbstractControl {
+		return this.loginForm.get("password");
 	}
 }
