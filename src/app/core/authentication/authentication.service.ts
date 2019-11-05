@@ -57,7 +57,7 @@ export class AuthenticationService {
 
 	public register(user: RegisterUser) {
 		return this.http
-			.post<any>(`${environment.apiUrl}/users/register`, user)
+			.post<any>(`${environment.apiUrl}/authentication/register`, user)
 			.pipe(
 				map(user => {
 					if (user && user.token) {
