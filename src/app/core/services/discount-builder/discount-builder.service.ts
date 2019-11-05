@@ -24,13 +24,13 @@ export class DiscountBuilderService {
 
 		return {
 			amount: currentBill.amount,
-			billType: currentBill.billType,
+			type: currentBill.type,
 			currencyCode: currentBill.currencyCode,
 			draweeRuc: currentBill.draweeRuc,
 			drawerRuc: currentBill.drawerRuc,
 			startDate: currentBill.startDate,
 			endDate: currentBill.endDate,
-			billStatus: BillStatus.VALID
+			status: BillStatus.VALID
 		};
 	}
 

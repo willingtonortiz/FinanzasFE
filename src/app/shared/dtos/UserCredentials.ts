@@ -1,6 +1,5 @@
-export class User {
+export interface UserCredentials {
 	id?: number;
-	username?: string;
 	role?: string;
 	token?: string;
 }

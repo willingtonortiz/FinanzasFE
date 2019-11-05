@@ -5,31 +5,35 @@ import { map } from "rxjs/operators";
 import { User } from "src/app/shared/models";
 import { environment } from "../../../environments/environment";
 import { RegisterUser } from "src/app/shared/dtos/registerUser";
+import { UserCredentials } from "src/app/shared/dtos";
 
 @Injectable({
 	providedIn: "root"
 })
 export class AuthenticationService {
-	private currentUserSubject: BehaviorSubject<User>;
-	public currentUser: Observable<User>;
+	private currentUserSubject: BehaviorSubject<UserCredentials>;
+	public currentUser: Observable<UserCredentials>;
 
 	constructor(private http: HttpClient) {
-		this.currentUserSubject = new BehaviorSubject<User>(
+		this.currentUserSubject = new BehaviorSubject<UserCredentials>(
 			JSON.parse(localStorage.getItem("currentUser"))
 		);
 		this.currentUser = this.currentUserSubject.asObservable();
 	}
 
-	public get currentUserValue(): User {
+	public get currentUserValue(): UserCredentials {
 		return this.currentUserSubject.value;
 	}
 
-	public login(username: string, password: string): Promise<any> {
+	public login(username: string, password: string): Promise<UserCredentials> {
 		return this.http
-			.post<any>(`${environment.apiUrl}/authentication/login`, {
-				username,
-				password
-			})
+			.post<UserCredentials>(
+				`${environment.apiUrl}/authentication/login`,
+				{
+					username,
+					password
+				}
+			)
 			.pipe(
 				map(user => {
 					if (user && user.token) {
@@ -43,10 +47,10 @@ export class AuthenticationService {
 					return user;
 				})
 			)
-			.toPromise<any>();
+			.toPromise<UserCredentials>();
 	}
 
-	public logout() {
+	public logout(): void {
 		localStorage.removeItem("currentUser");
 		this.currentUserSubject.next(null);
 	}

@@ -103,6 +103,10 @@
 				}
 
 				.button {
+					display: flex;
+					flex-flow: column wrap;
+					align-items: center;
+
 					button {
 						margin: 8px 0;
 						margin-right: 8px;
@@ -112,6 +116,11 @@
 						font-size: 24px;
 						border: none;
 						border-radius: 3px;
+					}
+
+					div {
+						font-size: 30px;
+						color: #54d691;
 					}
 				}
 			}

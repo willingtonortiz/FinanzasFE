@@ -41,8 +41,6 @@ export class BillGroupComponent implements OnInit {
 	}
 
 	updateBills() {
-		this.selectedBills = this.bills.filter(
-			x => x.billType === this.billType
-		);
+		this.selectedBills = this.bills.filter(x => x.type === this.billType);
 	}
 }

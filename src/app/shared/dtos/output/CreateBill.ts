@@ -1,8 +1,6 @@
-import { Cost } from "../cost/cost";
 import { CurrencyCode, BillType, BillStatus } from "../../enums";
 
-export interface Bill {
-	id?: number;
+export interface CreateBill {
 	startDate?: Date;
 	endDate?: Date;
 	currencyCode?: CurrencyCode;
@@ -11,4 +9,5 @@ export interface Bill {
 	status?: BillStatus;
 	drawerRuc?: string;
 	draweeRuc?: string;
+	pymeId?: number;
 }

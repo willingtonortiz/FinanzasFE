@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
 import { DiscountDateService } from "../discount-date/discount-date.service";
 import { Discount, Cost, DiscountPool } from "src/app/shared/models";
 import { DiscountFormulasAdapter } from "../../clases";
-import { CostType } from 'src/app/shared/enums';
+import { CostType } from "src/app/shared/enums";
 
 @Injectable({
 	providedIn: "root"
@@ -28,6 +28,7 @@ export class DiscountProcessService implements OnDestroy {
 		private _discountDateService: DiscountDateService
 	) {
 		this._suscriptions = new Array<Subscription>();
+
 		this._suscriptions.push(
 			this._discountDateService.discountDateObservable.subscribe({
 				next: (date: Date) => {
