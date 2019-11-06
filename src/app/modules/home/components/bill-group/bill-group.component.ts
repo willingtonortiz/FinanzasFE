@@ -33,7 +33,15 @@ export class BillGroupComponent implements OnInit {
 		}
 	}
 
+	changeActive(type:number){
+		var actives = document.getElementsByClassName("active")[0];
+		actives.classList.remove("active");
+		var newActives=document.getElementsByClassName("nav-link");
+		newActives[type+1].classList.add("active");
+	}
+
 	changeType(type: number) {
+		this.changeActive(type);
 		if (type !== this.billType) {
 			this.billType = type;
 			this.updateBills();
