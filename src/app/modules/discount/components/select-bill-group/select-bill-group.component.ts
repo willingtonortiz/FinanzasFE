@@ -18,16 +18,15 @@ export class SelectBillGroupComponent implements OnInit {
 
 	constructor(
 		private authenticationService: AuthenticationService,
-		// private billService: BillService,
 		private billListService: BillListService,
 		private discountBillModalService: DiscountBillModalService
 	) {
 		this.user = this.authenticationService.currentUserValue;
 	}
 
-	async ngOnInit() {
+	public async ngOnInit() {
 		// this.bills = [];
-		this.bills = this.billListService.billsToCharge;
+		this.bills = await this.billListService.getBillsToPay();
 		// try {
 		// 	this.bills = await this.billService.findByUserId(this.user.id);
 		// } catch (error) {

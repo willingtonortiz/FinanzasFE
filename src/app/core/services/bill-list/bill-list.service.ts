@@ -16,8 +16,13 @@ export class BillListService {
 		private authenticationService: AuthenticationService,
 		private billService: BillService
 	) {
+		this.bills = null;
 		this.currentUser = this.authenticationService.currentUserValue;
-		this.fetchBills();
+		this.initialize();
+	}
+
+	public async initialize(): Promise<void> {
+		await this.fetchBills();
 	}
 
 	public async fetchBills() {
@@ -38,11 +43,19 @@ export class BillListService {
 		}
 	}
 
-	public get billsToPay(): Array<Bill> {
+	public async checkBills(): Promise<void> {
+		if (this.bills === null) {
+			await this.fetchBills();
+		}
+	}
+
+	public async getBillsToPay(): Promise<Array<Bill>> {
+		await this.checkBills();
 		return this.bills.filter(x => x.type === BillType.TO_PAY);
 	}
 
-	public get billsToCharge(): Array<Bill> {
+	public async getBillsToCharge(): Promise<Array<Bill>> {
+		await this.checkBills();
 		return this.bills.filter(
 			x =>
 				x.type === BillType.TO_CHARGE &&
@@ -50,7 +63,8 @@ export class BillListService {
 		);
 	}
 
-	public get discountedBills(): Array<Bill> {
+	public async getDiscountedBills(): Promise<Array<Bill>> {
+		await this.checkBills();
 		return this.bills.filter(x => x.status === BillStatus.DISCOUNTED);
 	}
 }

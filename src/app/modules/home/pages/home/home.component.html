@@ -1,12 +1,19 @@
-<!-- <app-navbar></app-navbar> -->
-
 <div class="container">
-	<div class="row">
-		<div class="col-2 options">
-			<button class="text-sm-center nav-link buttons-left" routerLink="/bill/add-bill">Agregar una letra</button>
-			<button class="text-sm-center nav-link buttons-left" >Descontar letras</button>
+	<app-navbar></app-navbar>
+
+	<div class="home">
+		<div class="buttons">
+			<div class="button-group">
+				<a routerLink="/bill/add-bill">
+					Agregar una letra
+				</a>
+				<a>
+					Descontar letras
+				</a>
+			</div>
 		</div>
-		<div class="col-10">
+
+		<div class="bill-group">
 			<app-bill-group></app-bill-group>
 		</div>
 	</div>

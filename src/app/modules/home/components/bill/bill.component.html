@@ -1,31 +1,28 @@
-<div class="card">
-	<div class="card-body row">
-		<div class="col-12">
-			<h6>Días Transcurridos</h6>
-			<div class="progress">
-				<div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25"
-					aria-valuemin="0" aria-valuemax="100"></div>
-			</div>
-		</div>
-			<div class="col-9">
+<div class="container">
+	<div class="passed-days">
+		<h6 class="title">Días Transcurridos</h6>
 
-			<ul class="list-group">
-				<li class="list-group-item">
-					Fecha de giro: {{ bill.startDate.toLocaleDateString() }}
-				</li>
-				<li class="list-group-item">
-					Fecha de vencimiento: {{ bill.endDate.toLocaleDateString() }}
-				</li>
-				<li class="list-group-item">Valor nominal: {{ bill.amount }}</li>
-				<li class="list-group-item">Estado: ??</li>
-			</ul>
+		<div class="progress">
+			<div class="progress-bar" [ngStyle]="{ width: percentage }"></div>
 		</div>
-		<div class="col-3 actions-buttons">
-				<button class="btn btn-primary" routerLink="/billDetail/{{bill.billId}}">
-					Detalles
-				</button>
-				<button class="btn btn-primary">Pagar</button>
-			</div>
 	</div>
 
+	<div class="details">
+		<div class="info">
+			<div>Fecha de giro: {{ bill.startDate.toLocaleDateString() }}</div>
+			<div>
+				Fecha de vencimiento:
+				{{ bill.endDate.toLocaleDateString() }}
+			</div>
+			<div>Valor nominal: {{ bill | billAmount }}</div>
+			<div>Estado: ??</div>
+		</div>
+
+		<div class="options">
+			<button routerLink="/billDetail/{{ bill.id }}">
+				Detalles
+			</button>
+			<button>Pagar</button>
+		</div>
+	</div>
 </div>

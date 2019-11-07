@@ -1,22 +1,77 @@
-.actions-buttons{
-	grid-column: 1 / span 1;
-	// padding: 16px;
-	padding: 10px;
+.container {
+	width: 450px;
+	padding: 16px;
+
 	display: flex;
-	flex-flow: column nowrap;
-	justify-content: center;
-	align-items: center;
-	button{
-		margin: 5px 0;
-		width: 100%;
-		//background-color: #54d691;
-		color: white;
-		//font-size: 24px;
-		border: none;
-		border-radius: 3px;
+	flex-flow: column wrap;
+
+	.passed-days {
+		// border: 1px solid red;
+		margin-bottom: 12px;
+
+		.title {
+			margin-bottom: 4px;
+			font-weight: normal;
+			font-size: 18px;
+		}
+
+		.progress {
+			width: 100%;
+			// border: 1px solid red;
+			border-radius: 5px;
+			background-color: #e9ecef;
+
+			.progress-bar {
+				border-radius: 5px;
+				// width: 50%;
+				height: 20px;
+				background-color: #28a745;
+			}
+		}
+	}
+
+	.details {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+
+		.info {
+			display: flex;
+			flex-flow: column nowrap;
+
+			div {
+				margin: 4px 0;
+			}
+		}
+
+		.options {
+			display: flex;
+			flex-flow: column wrap;
+			justify-content: space-around;
+
+			button {
+				border: none;
+				background-color: #007bff;
+				font-size: 16px;
+				color: white;
+				padding: 8px 16px;
+				border: 5px;
+				cursor: pointer;
+			}
+		}
 	}
 }
 
-.card{
-	margin: 0vh;
+@media (max-width: 600px) {
+	.container {
+		width: 100%;
+
+		.details {
+			.options {
+				width: 100%;
+				margin-top: 8px;
+				flex-direction: row;
+			}
+		}
+	}
 }
