@@ -15,6 +15,8 @@ export class DiscountDateService {
 			new Date(today.getFullYear(), today.getMonth(), today.getDate())
 		);
 
+		// console.log(this._discountDateSubject.value);
+
 		this._discountDateObservable = this._discountDateSubject.asObservable();
 	}
 

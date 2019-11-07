@@ -7,6 +7,12 @@ import {
 	DiscountBillCostsService
 } from "src/app/core/services";
 import { CostType, PaymentType } from "src/app/shared/enums";
+import {
+	FormGroup,
+	FormBuilder,
+	AbstractControl,
+	Validators
+} from "@angular/forms";
 
 @Component({
 	selector: "app-select-cost",
@@ -17,26 +23,41 @@ export class SelectCostComponent implements OnInit {
 	public bill: Bill;
 	public initialCosts: Array<Cost>;
 	public finalCosts: Array<Cost>;
+	public initialCostForm: FormGroup;
+	public finalCostForm: FormGroup;
 
 	// TODO, AGREGAR VALIDACIÓN DE CAMPOS
 	// Para un costo inicial
-	public initialReason: string;
-	public initialPaymentType: PaymentType;
-	public initialValue: string;
 	public initialTotal: number;
 
 	// Para un costo final
-	public finalReason: string;
-	public finalPaymentType: PaymentType;
-	public finalValue: string;
 	public finalTotal: number;
 
 	constructor(
 		private _discountProcessService: DiscountProcessService,
 		private _discountBillModalService: DiscountBillModalService,
 		private _discountBillService: DiscountBillService,
-		private _discountBillCostsService: DiscountBillCostsService
+		private _discountBillCostsService: DiscountBillCostsService,
+		private _formBuilder: FormBuilder
 	) {
+		this.initialCostForm = this._formBuilder.group({
+			initialReason: ["Portes iniciales", []],
+			initialPaymentType: ["1", []],
+			initialValue: [
+				"",
+				[Validators.required, Validators.pattern(/^\d+\.?\d*$/)]
+			]
+		});
+
+		this.finalCostForm = this._formBuilder.group({
+			finalReason: ["Portes finales", []],
+			finalPaymentType: ["1", []],
+			finalValue: [
+				"",
+				[Validators.required, Validators.pattern(/^\d+\.?\d*$/)]
+			]
+		});
+
 		this.bill = this._discountBillService.billValue;
 		this.initialCosts = new Array<Cost>();
 		this.finalCosts = new Array<Cost>();
@@ -47,12 +68,18 @@ export class SelectCostComponent implements OnInit {
 	ngOnInit() {}
 
 	public addInitialCost(): void {
-		const value: number = parseFloat(this.initialValue);
+		if (this.initialCostForm.invalid) {
+			// console.log("Es invalido");
+			this.maskFieldsAsDirty();
+			return;
+		}
+		const value: number = parseFloat(this.initialValue.value);
+		const paymentType: number = parseFloat(this.initialPaymentType.value);
 
 		this._discountBillCostsService.addInitialCost({
-			reason: this.initialReason,
+			reason: this.initialReason.value,
 			costType: CostType.INITIAL,
-			paymentType: this.initialPaymentType,
+			paymentType: paymentType,
 			amount: value
 		});
 
@@ -61,12 +88,19 @@ export class SelectCostComponent implements OnInit {
 	}
 
 	public addFinalCost(): void {
-		const value: number = parseFloat(this.finalValue);
+		if (this.finalCostForm.invalid) {
+			// console.log("Es invalido");
+			this.maskFieldsAsDirty();
+			return;
+		}
+
+		const value: number = parseFloat(this.finalValue.value);
+		const paymentType: number = parseInt(this.initialPaymentType.value);
 
 		this._discountBillCostsService.addFinalCost({
-			reason: this.finalReason,
+			reason: this.finalReason.value,
 			costType: CostType.FINAL,
-			paymentType: this.finalPaymentType,
+			paymentType: paymentType,
 			amount: value
 		});
 
@@ -78,5 +112,34 @@ export class SelectCostComponent implements OnInit {
 		this._discountBillModalService.hide();
 		this._discountBillModalService.setPage(1);
 		this._discountProcessService.discountCurrentBill();
+	}
+
+	public maskFieldsAsDirty() {
+		this.initialValue.markAsDirty();
+		this.finalValue.markAsDirty();
+	}
+
+	public get initialReason(): AbstractControl {
+		return this.initialCostForm.get("initialReason");
+	}
+
+	public get initialPaymentType(): AbstractControl {
+		return this.initialCostForm.get("initialPaymentType");
+	}
+
+	public get initialValue(): AbstractControl {
+		return this.initialCostForm.get("initialValue");
+	}
+
+	public get finalReason(): AbstractControl {
+		return this.finalCostForm.get("finalReason");
+	}
+
+	public get finalPaymentType(): AbstractControl {
+		return this.finalCostForm.get("finalPaymentType");
+	}
+
+	public get finalValue(): AbstractControl {
+		return this.finalCostForm.get("finalValue");
 	}
 }

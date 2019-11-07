@@ -12,12 +12,19 @@ import {
 	DiscountPoolOverviewComponent
 } from "./components";
 import { DiscountContainerComponent } from "./pages";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PipesModule } from "src/app/shared/pipes/pipes.module";
 import { DisplaySelectedRateComponent } from "./components/display-selected-rate/display-selected-rate.component";
+import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
 
 @NgModule({
-	imports: [CommonModule, FormsModule, DiscountRoutingModule, PipesModule],
+	imports: [
+		CommonModule,
+		FormsModule,
+		DiscountRoutingModule,
+		PipesModule,
+		ReactiveFormsModule
+	],
 	exports: [],
 	declarations: [
 		DiscountContainerComponent,
@@ -29,6 +36,7 @@ import { DisplaySelectedRateComponent } from "./components/display-selected-rate
 		SelectBillGroupComponent,
 		SelectCostComponent,
 		DisplaySelectedRateComponent
-	]
+	],
+	providers: [BillListService]
 })
 export class DiscountModule {}

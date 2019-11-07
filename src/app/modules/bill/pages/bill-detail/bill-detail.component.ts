@@ -25,7 +25,10 @@ export class BillDetailComponent implements OnInit, OnDestroy {
 	}
 
 	public async ngOnInit() {
-		const billId = this.activatedRoute.snapshot.paramMap.get("id");
+		const billIdString: string = this.activatedRoute.snapshot.paramMap.get(
+			"id"
+		);
+		const billId = parseInt(billIdString);
 
 		try {
 			this.bill = await this.billService.findById(billId);

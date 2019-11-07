@@ -44,15 +44,15 @@
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				font-size: 20px;
+				font-size: 18px;
 
 				select,
 				input {
-					font-size: 20px;
+					font-size: 18px;
 					padding: 8px 8px;
-					border-radius: 5px;
+					// border-radius: 5px;
 					border: none;
-					border-bottom: 1px solid lightgray;
+					border-bottom: 2px solid lightgray;
 				}
 
 				input[type="text"] {
@@ -87,6 +87,9 @@
 		}
 
 		.bill {
+			grid-column: 2 / span 1;
+			grid-row: 1 / span 1;
+
 			display: flex;
 			flex-flow: column nowrap;
 			font-size: 20px;
@@ -169,11 +172,6 @@
 			grid-row: 2 / span 1;
 		}
 
-		.bill {
-			grid-column: 2 / span 1;
-			grid-row: 1 / span 1;
-		}
-
 		.addFinalCost {
 			grid-column: 3 / span 1;
 			grid-row: 1 / span 1;
@@ -182,6 +180,22 @@
 		.finalCostList {
 			grid-column: 3 / span 1;
 			grid-row: 2 / span 1;
+		}
+	}
+}
+
+.container .grid {
+	.addInitialCost,
+	.addFinalCost {
+		.row {
+			input.ng-dirty {
+				&.ng-valid {
+					border: 2px solid mediumseagreen;
+				}
+				&.ng-invalid {
+					border: 2px solid tomato;
+				}
+			}
 		}
 	}
 }

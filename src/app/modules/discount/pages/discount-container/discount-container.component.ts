@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { Rate, DiscountPool } from "src/app/shared/models";
 import { DiscountService } from "src/app/core/http";
 import { DiscountBillModalService } from "src/app/core/services";
+import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
 
 @Component({
 	selector: "app-discount-container",
@@ -17,7 +18,10 @@ export class DiscountContainerComponent implements OnInit, OnDestroy {
 	public suscription: Subscription;
 	public modalStatus: boolean;
 
-	constructor(private discountBillModalService: DiscountBillModalService) {
+	constructor(
+		private discountBillModalService: DiscountBillModalService,
+		private billListService: BillListService
+	) {
 		this.suscription = this.discountBillModalService.Display.subscribe({
 			next: (value: boolean) => {
 				this.modalStatus = value;

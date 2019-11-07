@@ -6,11 +6,11 @@ export class DiscountFormulas {
 	public constructor() {}
 
 	public static daysBetween(startTime: Date, endTime: Date): number {
+		// console.log(startTime);
+		// console.log(endTime);
 		const days =
 			(endTime.getTime() - startTime.getTime()) / (1000 * 3600 * 24);
 
-		// console.log(startTime);
-		// console.log(endTime);
 
 		return days;
 	}
@@ -19,6 +19,7 @@ export class DiscountFormulas {
 		discountDays: number,
 		rate: Rate
 	): number {
+
 		let tep: number;
 		const days: number = RateTermConverter.fromString(rate.rateTerm);
 

@@ -4,34 +4,48 @@
 	</div>
 
 	<div class="grid">
-		<div class="addInitialCost">
+		<div class="addInitialCost" [formGroup]="initialCostForm">
 			<div class="center">
 				<h1>Costes iniciales</h1>
 			</div>
 
 			<div class="row">
 				<p>Motivo</p>
-				<select [(ngModel)]="initialReason">
-					<option value="PORTES_INICIALES">Portes iniciales</option>
-					<option value="FOTOCOPIAS">Fotocopias</option>
+				<select formControlName="initialReason">
+					<option value="Portes iniciales">Portes iniciales</option>
+					<option value="Fotocopias">Fotocopias</option>
 				</select>
 			</div>
 
 			<div class="row">
 				<p>Tipo de valor</p>
-				<select [(ngModel)]="initialValueType">
-					<option value="EFECTIVO">Efectivo</option>
-					<option value="PORCENTAJE">Porcentaje</option>
+				<select formControlName="initialPaymentType">
+					<option value="1">Efectivo</option>
+					<option value="2">Porcentaje</option>
 				</select>
 			</div>
 
 			<div class="row">
 				<p>Monto</p>
 				<input
-					[(ngModel)]="initialValue"
+					formControlName="initialValue"
 					type="text"
 					placeholder="Ingrese el valor"
 				/>
+			</div>
+
+			<div class="row">
+				<div
+					class="form-errors"
+					*ngIf="initialValue.errors && initialValue.dirty"
+				>
+					<div *ngIf="initialValue.hasError('required')">
+						Campo requerido
+					</div>
+					<div *ngIf="initialValue.hasError('pattern')">
+						Deben ser sólo dígitos
+					</div>
+				</div>
 			</div>
 
 			<div class="center">
@@ -105,34 +119,48 @@
 			</div>
 		</div>
 
-		<div class="addFinalCost">
+		<div class="addFinalCost" [formGroup]="finalCostForm">
 			<div class="center">
 				<h1>Costes finales</h1>
 			</div>
 
 			<div class="row">
 				<p>Motivo</p>
-				<select [(ngModel)]="finalReason">
-					<option value="PORTES_INICIALES">Portes iniciales</option>
-					<option value="FOTOCOPIAS">Fotocopias</option>
+				<select formControlName="finalReason">
+					<option value="Portes finales">Portes finales</option>
+					<option value="Fotocopias">Fotocopias</option>
 				</select>
 			</div>
 
 			<div class="row">
 				<p>Tipo de valor</p>
-				<select [(ngModel)]="finalValueType">
-					<option value="EFECTIVO">Efectivo</option>
-					<option value="PORCENTAJE">Porcentaje</option>
+				<select formControlName="finalPaymentType">
+					<option value="1">Efectivo</option>
+					<option value="2">Porcentaje</option>
 				</select>
 			</div>
 
 			<div class="row">
 				<p>Monto</p>
 				<input
-					[(ngModel)]="finalValue"
+					formControlName="finalValue"
 					type="text"
 					placeholder="Ingrese el valor"
 				/>
+			</div>
+
+			<div class="row">
+				<div
+					class="form-errors"
+					*ngIf="finalValue.errors && finalValue.dirty"
+				>
+					<div *ngIf="finalValue.hasError('required')">
+						Campo requerido
+					</div>
+					<div *ngIf="finalValue.hasError('pattern')">
+						Deben ser sólo dígitos
+					</div>
+				</div>
 			</div>
 
 			<div class="center">

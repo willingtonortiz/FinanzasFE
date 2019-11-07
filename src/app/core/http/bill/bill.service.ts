@@ -17,7 +17,7 @@ export class BillService {
 			.toPromise<Bill[]>();
 	}
 
-	public findById(id: string): Promise<Bill> {
+	public findById(id: number): Promise<Bill> {
 		return this.http
 			.get<Bill>(`${environment.apiUrl}/bills/${id}`)
 			.toPromise<Bill>();
