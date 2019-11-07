@@ -1,0 +1,22 @@
+.container {
+	width: 100vw;
+	height: 100px;
+	padding: 0 128px;
+	border-bottom: 3px solid lightgray;
+
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+
+	.col {
+		font-size: 30px;
+
+		a {
+			font-size: 40px;
+			font-weight: bold;
+			color: #54d691;
+			text-decoration: none;
+		}
+	}
+}

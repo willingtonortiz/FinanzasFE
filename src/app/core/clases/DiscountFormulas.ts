@@ -11,7 +11,6 @@ export class DiscountFormulas {
 		const days =
 			(endTime.getTime() - startTime.getTime()) / (1000 * 3600 * 24);
 
-
 		return days;
 	}
 
@@ -19,18 +18,18 @@ export class DiscountFormulas {
 		discountDays: number,
 		rate: Rate
 	): number {
-
 		let tep: number;
 		const days: number = RateTermConverter.fromString(rate.rateTerm);
+		const capitalizationDays: number = RateTermConverter.fromString(
+			rate.capitalizationTerm
+		);
 
 		if (rate.rateType === RateType.EFFECTIVE) {
 			tep = Math.pow(1.0 + rate.rateValue, discountDays / days) - 1;
 
 			// Si es nominal
 		} else {
-			tep =
-				Math.pow(1 + rate.rateValue / rate.capitalizationDays, days) -
-				1;
+			tep = Math.pow(1 + rate.rateValue / capitalizationDays, days) - 1;
 		}
 
 		return tep;

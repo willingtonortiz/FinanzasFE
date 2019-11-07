@@ -8,9 +8,9 @@
 			</div>
 
 			<div class="col">
-				<input type="radio" formControlName="currency" value="SOLES" />
+				<input type="radio" formControlName="currency" value="1" />
 				Soles
-				<input type="radio" formControlName="currency" value="DOLARES" />
+				<input type="radio" formControlName="currency" value="2" />
 				Dólares
 			</div>
 		</div>
@@ -21,10 +21,29 @@
 			</div>
 
 			<div class="col">
-				<input type="radio" formControlName="rateType" value="NOMINAL" />
+				<input type="radio" formControlName="rateType" value="1" />
 				Nominal
-				<input type="radio" formControlName="rateType" value="EFECTIVA" />
+				<input type="radio" formControlName="rateType" value="2" />
 				Efectiva
+			</div>
+		</div>
+
+		<div *ngIf="rateType.value === '1'" class="row">
+			<div class="col">
+				<p>Periodo de capitalización</p>
+			</div>
+
+			<div class="col">
+				<select formControlName="capitalizationTerm">
+					<option value="1">Diario</option>
+					<option value="2">Quincenal</option>
+					<option value="3">Mensual</option>
+					<option value="4">Bimestral</option>
+					<option value="5">Trimestral</option>
+					<option value="6">Cuatrimestral</option>
+					<option value="7">Semestral</option>
+					<option value="8">Anual</option>
+				</select>
 			</div>
 		</div>
 
@@ -35,14 +54,14 @@
 
 			<div class="col">
 				<select formControlName="rateTerm">
-					<option value="DIARIO">Diario</option>
-					<option value="QUINCENAL">Quincenal</option>
-					<option value="MENSUAL">Mensual</option>
-					<option value="BIMESTRAL">Bimestral</option>
-					<option value="TRIMESTRAL">Trimestral</option>
-					<option value="CUATRIMESTRAL">Cuatrimestral</option>
-					<option value="SEMESTRAL">Semestral</option>
-					<option value="ANUAL">Anual</option>
+					<option value="1">Diario</option>
+					<option value="2">Quincenal</option>
+					<option value="3">Mensual</option>
+					<option value="4">Bimestral</option>
+					<option value="5">Trimestral</option>
+					<option value="6">Cuatrimestral</option>
+					<option value="7">Semestral</option>
+					<option value="8">Anual</option>
 				</select>
 			</div>
 		</div>
@@ -54,12 +73,23 @@
 
 			<div class="col">
 				<input formControlName="rateValue" type="text" />%
-				<!-- <span *ngIf="rateForm.get('rateValue').hasError('min')">
-					Valor mínimo de 0.00000001
-				</span>
-				<span *ngIf="rateForm.get('rateValue').hasError('max')">
-					Valor máximo de 100.0
-				</span> -->
+			</div>
+
+			<div
+				class="form-errors"
+				*ngIf="rateValue.errors && rateValue.dirty"
+			>
+				<div *ngIf="rateValue.hasError('required')">
+					Campo requerido
+				</div>
+
+				<div *ngIf="rateValue.hasError('pattern')">
+					Ingrese un número válido
+				</div>
+
+				<div *ngIf="rateValue.hasError('min')">
+					No puede ser negativo ni cero
+				</div>
 			</div>
 		</div>
 

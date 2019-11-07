@@ -1,23 +1,29 @@
 .container {
-	max-height: 100vh;
+	height: 100%;
+	display: flex;
+	flex-flow: column nowrap;
 
-	.row {
-		width: 90%;
-		margin: auto;
-		display: flex;
+	.select-rate {
+		flex: 1;
 
-		.cola,
-		.colb {
+		.row {
+			width: 90%;
+			margin: auto;
 			display: flex;
-			justify-content: center;
-		}
 
-		.cola {
-			width: 60%;
-		}
+			.cola,
+			.colb {
+				display: flex;
+				justify-content: center;
+			}
 
-		.colb {
-			width: 40%;
+			.cola {
+				width: 60%;
+			}
+
+			.colb {
+				width: 40%;
+			}
 		}
 	}
 }

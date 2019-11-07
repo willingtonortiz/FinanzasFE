@@ -1,10 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import {
+	FormGroup,
+	FormBuilder,
+	Validators,
+	AbstractControl
+} from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { Rate } from "src/app/shared/models";
 import { DiscountPoolRateService } from "src/app/core/services";
-import { CurrencyCode, RateType, RateTerm } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-create-rate",
@@ -22,40 +26,84 @@ export class CreateRateComponent implements OnInit {
 
 	ngOnInit() {
 		this.rateForm = this.formBuilder.group({
-			currency: [CurrencyCode.PEN, Validators.required],
-			rateType: [RateType.EFFECTIVE, Validators.required],
-			rateTerm: [RateTerm.ANNUAL, Validators.required],
+			currency: ["1", Validators.required],
+			rateType: ["2", Validators.required],
+			capitalizationTerm: ["8"],
+			rateTerm: ["8", Validators.required],
 			rateValue: [
 				"0.00",
 				Validators.compose([
 					Validators.required,
-					Validators.min(0),
-					Validators.max(100)
+					Validators.min(0.0000001),
+					Validators.pattern(/^\d+\.?\d*$/)
 				])
 			]
+		});
+
+		this.rateForm.get("rateType").valueChanges.subscribe({
+			next: (data: string) => {
+				const capitalizationTerm = this.rateForm.get(
+					"capitalizationTerm"
+				);
+
+				if (data === "1") {
+					capitalizationTerm.setValidators(Validators.required);
+				} else {
+					capitalizationTerm.clearValidators();
+				}
+			}
 		});
 	}
 
 	public onSubmit() {
 		if (this.rateForm.invalid) {
+			console.log("invalido");
 			return;
 		}
 
-		const formData = this.rateForm.value;
+		const capitalizationTerm: number = parseInt(
+			this.capitalizationTerm.value
+		);
+		const currencyCode: number = parseInt(this.currency.value);
+		const rateValue: number = parseFloat(this.rateValue.value) / 100;
+		const rateTerm: number = parseInt(this.rateTerm.value);
+		const rateType: number = parseInt(this.rateType.value);
 
-		// Falta trabajar con tasas nominales { capitalizationDays }
+		// Se podrian crear dos tipos de Rates
+		// Siguiente versión
+
 		const rate: Rate = {
 			businessName: "NONE",
-			capitalizationDays: 360,
-			currencyCode: formData.currency,
-			rateValue: parseFloat(formData.rateTerm),
-			rateTerm: formData.rateTerm,
-			rateType: formData.rateType
+			capitalizationTerm: capitalizationTerm,
+			currencyCode: currencyCode,
+			rateValue: rateValue,
+			rateTerm: rateTerm,
+			rateType: rateType
 		};
 
 		this.discountPoolRateService.setRate(rate);
 		console.log(rate);
 
 		this.router.navigate(["/discount"]);
+	}
+
+	public get rateType(): AbstractControl {
+		return this.rateForm.get("rateType");
+	}
+
+	public get capitalizationTerm(): AbstractControl {
+		return this.rateForm.get("capitalizationTerm");
+	}
+
+	public get currency(): AbstractControl {
+		return this.rateForm.get("currency");
+	}
+
+	public get rateTerm(): AbstractControl {
+		return this.rateForm.get("rateTerm");
+	}
+
+	public get rateValue(): AbstractControl {
+		return this.rateForm.get("rateValue");
 	}
 }

@@ -5,6 +5,6 @@ export interface Rate {
 	currencyCode?: CurrencyCode;
 	rateType?: RateType;
 	rateTerm?: RateTerm;
+	capitalizationTerm?: RateTerm;
 	rateValue?: number;
-	capitalizationDays?: number;
 }

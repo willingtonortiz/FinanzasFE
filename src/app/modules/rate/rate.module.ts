@@ -9,9 +9,15 @@ import {
 	CreateRateComponent,
 	DisplayBankComponent
 } from "./components";
+import { ComponentsModule } from "src/app/shared/components/components.module";
 
 @NgModule({
-	imports: [CommonModule, ReactiveFormsModule, RateRoutingModule],
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
+		RateRoutingModule,
+		ComponentsModule
+	],
 	declarations: [
 		SelectRateComponent,
 		BankGroupComponent,
