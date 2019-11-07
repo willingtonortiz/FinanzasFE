@@ -1,15 +1,18 @@
 <div class="container">
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-pills flex-column flex-sm-row">
 		<li class="nav-item">
-			<a class="nav-link" (click)="changeType(1)">Por pagar</a>
+			<a class="flex-sm-fill text-sm-center nav-link active" (click)="changeType(1)">Por pagar</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" (click)="changeType(2)">Por cobrar</a>
+			<a class="flex-sm-fill text-sm-center nav-link " (click)="changeType(2)">Por cobrar</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" (click)="changeType(3)">Cartera descontada</a>
+			<a class="flex-sm-fill text-sm-center nav-link" (click)="changeType(3)">Cartera descontada</a>
 		</li>
 	</ul>
-
-	<app-bill *ngFor="let item of selectedBills" [bill]="item"></app-bill>
+	<div class="conatiner">
+		<div class="row">
+			<app-bill class="col-6" *ngFor="let item of selectedBills" [bill]="item"></app-bill>
+		</div>
+	</div>
 </div>

@@ -4,9 +4,13 @@ import { HomeComponent } from "./pages";
 import { BillGroupComponent } from "./components";
 
 const routes: Routes = [
+	// {
+	// 	path: "",
+	// 	component: BillGroupComponent
+	// }
 	{
 		path: "",
-		component: BillGroupComponent
+		component: HomeComponent
 	}
 ];
 

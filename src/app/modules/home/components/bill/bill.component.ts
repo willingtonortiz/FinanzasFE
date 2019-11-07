@@ -12,5 +12,10 @@ export class BillComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		//console.log(this.bill);
+		this.bill.startDate=new Date(this.bill.startDate);
+		this.bill.endDate=new Date(this.bill.endDate);
+		//console.log(d.toDateString());
+	}
 }
