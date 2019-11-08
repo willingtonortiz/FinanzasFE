@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 		private router: Router
 	) {
 		if (this.authenticationService.currentUserValue) {
-			this.router.navigate(["/home"]);
+			// this.router.navigate(["/home"]);
 		}
 	}
 

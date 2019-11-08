@@ -1,46 +1,40 @@
-.container {
-	height: 100%;
+:host {
+	flex: 1;
+
 	display: flex;
-	flex-flow: column nowrap;
+	flex-flow: row nowrap;
 
-	.home {
-		flex: 1;
+	.buttons {
+		width: 300px;
 
-		display: flex;
-		flex-flow: row nowrap;
+		.button-group {
+			margin-top: 64px;
 
-		.buttons {
-			width: 300px;
+			display: flex;
+			flex-flow: column nowrap;
+			align-items: center;
 
-			.button-group {
-				margin-top: 64px;
+			a {
+				margin: 8px 0;
+				padding: 16px 40px;
+				background-color: #54d691;
+				font-size: 20px;
+				color: white;
+				border-radius: 3px;
+				transition: all 0.3s ease;
+				text-decoration: none;
 
-				display: flex;
-				flex-flow: column nowrap;
-				align-items: center;
-
-				a {
-					margin: 8px 0;
-					padding: 16px 40px;
-					background-color: #54d691;
-					font-size: 20px;
-					color: white;
-					border-radius: 3px;
-					transition: all 0.3s ease;
-					text-decoration: none;
-
-					&:hover {
-						transform: scale(1.05);
-					}
+				&:hover {
+					transform: scale(1.05);
 				}
 			}
 		}
+	}
 
-		.bill-group {
-			flex: 1;
-			// height: 500px;
-			max-height: 900px;
-		}
+	.bill-group {
+		flex: 1;
+		// height: 500px;
+		max-height: 900px;
 	}
 }
 

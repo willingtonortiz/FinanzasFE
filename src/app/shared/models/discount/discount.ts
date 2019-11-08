@@ -1,4 +1,4 @@
-import { Bill } from "../bill/bill";
+import { Bill } from "../bill/Bill";
 import { Cost } from "../cost/cost";
 
 export interface Discount {

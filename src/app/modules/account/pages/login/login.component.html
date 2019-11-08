@@ -1,70 +1,62 @@
-<div class="container">
-	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-		<div class="row">
-			<h1>Iniciar sesión</h1>
-		</div>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+	<div class="row">
+		<h1>Iniciar sesión</h1>
+	</div>
 
-		<div class="row">
-			<label for="username">RUC</label>
-			<input
-				type="text"
-				placeholder="Ingrese su número RUC"
-				formControlName="username"
-			/>
+	<div class="row">
+		<label for="username">RUC</label>
+		<input
+			type="text"
+			placeholder="Ingrese su número RUC"
+			formControlName="username"
+		/>
 
+		<div class="form-errors" *ngIf="fusername.errors && fusername.dirty">
+			<div *ngIf="fusername.hasError('required')">
+				El RUC es requerido
+			</div>
 			<div
-				class="form-errors"
-				*ngIf="fusername.errors && fusername.dirty"
+				*ngIf="
+					fusername.hasError('minlength') ||
+					fusername.hasError('maxlength')
+				"
 			>
-				<div *ngIf="fusername.hasError('required')">
-					El RUC es requerido
-				</div>
-				<div
-					*ngIf="
-						fusername.hasError('minlength') ||
-						fusername.hasError('maxlength')
-					"
-				>
-					El tamaño del ruc es de 11 digitos
-				</div>
-				<div *ngIf="fusername.hasError('pattern')">
-					El RUC está compuesto de dígitos solamente
-				</div>
+				El tamaño del ruc es de 11 digitos
+			</div>
+			<div *ngIf="fusername.hasError('pattern')">
+				El RUC está compuesto de dígitos solamente
 			</div>
 		</div>
+	</div>
 
-		<div class="row">
-			<label for="password">PASSWORD</label>
-			<input
-				type="password"
-				placeholder="Ingrese su contraseña"
-				formControlName="password"
-			/>
+	<div class="row">
+		<label for="password">PASSWORD</label>
+		<input
+			type="password"
+			placeholder="Ingrese su contraseña"
+			formControlName="password"
+		/>
 
-			<div
-				class="form-errors"
-				*ngIf="fpassword.errors && fpassword.dirty"
-			>
-				<div *ngIf="fpassword.hasError('required')">
-					La contraseña es requerida
-				</div>
-				<div *ngIf="fpassword.hasError('minlength')">
-					El tamaño mínimo es 8 caracteres
-				</div>
+		<div class="form-errors" *ngIf="fpassword.errors && fpassword.dirty">
+			<div *ngIf="fpassword.hasError('required')">
+				La contraseña es requerida
+			</div>
+			<div *ngIf="fpassword.hasError('minlength')">
+				El tamaño mínimo es 8 caracteres
 			</div>
 		</div>
+	</div>
 
-		<div class="row">
-			<button type="submit" class="btn btn-primary">Ingresar</button>
-		</div>
+	<div class="row">
+		<button type="submit" class="btn btn-primary">Ingresar</button>
+	</div>
 
-		<span>{{ errorMessage }}</span>
+	<span>{{ errorMessage }}</span>
 
-		<div class="row">
-			<small class="form-text"
-				>¿No tienes una cuenta?
-				<a [routerLink]="['/account/register']">Regístrate</a></small
-			>
-		</div>
-	</form>
-</div>
+	<div class="row">
+		<small class="form-text"
+			>¿No tienes una cuenta?
+			<a [routerLink]="['/account/register']">Regístrate</a></small
+		>
+	</div>
+</form>

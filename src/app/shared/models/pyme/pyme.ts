@@ -1,5 +1,6 @@
 export class Pyme {
-	ruc: number;
-	businessName: string;
-	address: string;
+	id?: number;
+	ruc?: number;
+	businessName?: string;
+	address?: string;
 }

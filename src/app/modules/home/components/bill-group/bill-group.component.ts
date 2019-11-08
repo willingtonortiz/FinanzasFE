@@ -13,25 +13,31 @@ import { BillListService } from "src/app/core/services/bill-list/bill-list.servi
 })
 export class BillGroupComponent implements OnInit {
 	public bills: Bill[];
-	// public selectedBills: Bill[];
-	public billType: number;
+	public option: number;
 
 	constructor(private billListService: BillListService) {
 		this.bills = [];
 	}
 
 	public async ngOnInit() {
-		this.billType = 1;
+		this.option = 1;
 
 		this.bills = await this.billListService.getBillsToPay();
-		// try {
-		// 	this.bills = await this.billListService.findByUserId(
-		// 		this.authenticationService.currentUserValue.id
-		// 	);
-		// 	this.updateBills();
-		// } catch (error) {
-		// 	console.log(error);
-		// }
+	}
+
+	public async changeOption(option: number) {
+		// console.log(option);
+		if (option === this.option) return;
+		this.option = option;
+
+		console.log(option);
+		if (option === 1) {
+			this.bills = await this.billListService.getBillsToPay();
+		} else if (option === 2) {
+			this.bills = await this.billListService.getBillsToCharge();
+		} else {
+			this.bills = await this.billListService.getDiscountedBills();
+		}
 	}
 
 	changeActive(type: number) {
@@ -39,14 +45,6 @@ export class BillGroupComponent implements OnInit {
 		// actives.classList.remove("active");
 		// var newActives = document.getElementsByClassName("nav-link");
 		// newActives[type + 1].classList.add("active");
-	}
-
-	changeType(type: number) {
-		// this.changeActive(type);
-		// if (type !== this.billType) {
-		// 	this.billType = type;
-		// 	this.updateBills();
-		// }
 	}
 
 	updateBills() {

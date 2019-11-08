@@ -11,4 +11,6 @@ export interface Bill {
 	status?: BillStatus;
 	drawerRuc?: string;
 	draweeRuc?: string;
+	paymentPlace?: string;
+	signPlace?: string;
 }

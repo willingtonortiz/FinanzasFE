@@ -9,5 +9,7 @@ export interface CreateBill {
 	status?: BillStatus;
 	drawerRuc?: string;
 	draweeRuc?: string;
+	paymentPlace?: string;
+	signPlace?: string;
 	pymeId?: number;
 }

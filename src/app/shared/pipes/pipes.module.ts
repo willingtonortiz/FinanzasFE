@@ -7,6 +7,8 @@ import { CurrencyTypePipe } from "./currency-type/currency-type.pipe";
 import { RateTermPipe } from "./rate-term/rate-term.pipe";
 import { RateTypePipe } from "./rate-type/rate-type.pipe";
 import { BillAmountPipe } from "./bill-amount/bill-amount.pipe";
+import { BillStatusPipe } from "./bill-status/bill-status.pipe";
+import { CurrencyCodePipe } from "./currency-code/currency-code.pipe";
 
 @NgModule({
 	imports: [CommonModule],
@@ -15,14 +17,19 @@ import { BillAmountPipe } from "./bill-amount/bill-amount.pipe";
 		CurrencyTypePipe,
 		RateTermPipe,
 		RateTypePipe,
-		BillAmountPipe
+		BillAmountPipe,
+		BillStatusPipe,
+		BillStatusPipe,
+		CurrencyCodePipe
 	],
 	exports: [
 		BillTypePipe,
 		CurrencyTypePipe,
 		RateTermPipe,
 		RateTypePipe,
-		BillAmountPipe
+		BillAmountPipe,
+		BillStatusPipe,
+		CurrencyCodePipe
 	]
 })
 export class PipesModule {}

@@ -1,169 +1,167 @@
-<div class="container">
-	<div class="options">
-		<button>Regresar</button>
-		<button>Opcion 2</button>
-		<button>Opcion 3</button>
+<div class="options">
+	<button>Regresar</button>
+	<button>Opcion 2</button>
+	<button>Opcion 3</button>
+</div>
+
+<div class="add-bill">
+	<div class="bill-type">
+		<button>Por pagar</button>
+		<button>Por cobrar</button>
 	</div>
 
-	<div class="add-bill">
-		<div class="bill-type">
-			<button>Por pagar</button>
-			<button>Por cobrar</button>
+	<form class="bill" [formGroup]="billForm" (ngSubmit)="onSubmit()">
+		<div class="row">
+			<div class="title">
+				<h1>Letra de cambio</h1>
+			</div>
 		</div>
 
-		<form class="bill" [formGroup]="billForm" (ngSubmit)="onSubmit()">
-			<div class="row">
-				<div class="title">
-					<h1>Letra de cambio</h1>
+		<div class="row">
+			<div class="col">
+				<div class="group">
+					<label>RUC del Librador</label>
+					<input
+						type="text"
+						placeholder="20123456789"
+						formControlName="drawerRuc"
+					/>
+
+					<div
+						class="form-errors"
+						*ngIf="drawerRuc.errors && drawerRuc.dirty"
+					>
+						<div *ngIf="drawerRuc.hasError('required')">
+							Campo requerido
+						</div>
+
+						<div
+							*ngIf="
+								drawerRuc.hasError('minlength') ||
+								drawerRuc.hasError('maxlength')
+							"
+						>
+							Debe ser de 11 digitos
+						</div>
+						<div *ngIf="drawerRuc.hasError('pattern')">
+							Deben ser sólo dígitos
+						</div>
+					</div>
+				</div>
+
+				<div class="group">
+					<label>RUC del Librado</label>
+					<input
+						type="text"
+						placeholder="20123456789"
+						formControlName="draweeRuc"
+					/>
+
+					<div
+						class="form-errors"
+						*ngIf="draweeRuc.errors && draweeRuc.dirty"
+					>
+						<div *ngIf="draweeRuc.hasError('required')">
+							Campo requerido
+						</div>
+
+						<div
+							*ngIf="
+								draweeRuc.hasError('minlength') ||
+								draweeRuc.hasError('maxlength')
+							"
+						>
+							Debe ser de 11 digitos
+						</div>
+						<div *ngIf="draweeRuc.hasError('pattern')">
+							Deben ser sólo dígitos
+						</div>
+					</div>
+				</div>
+
+				<div class="group">
+					<label>Fecha de giro</label>
+					<input type="date" formControlName="startDate" />
+				</div>
+
+				<div class="group">
+					<label>Fecha de vencimiento</label>
+					<input type="date" formControlName="endDate" />
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col">
-					<div class="group">
-						<label>RUC del Librador</label>
-						<input
-							type="text"
-							placeholder="20123456789"
-							formControlName="drawerRuc"
-						/>
-
-						<div
-							class="form-errors"
-							*ngIf="drawerRuc.errors && drawerRuc.dirty"
-						>
-							<div *ngIf="drawerRuc.hasError('required')">
-								Campo requerido
-							</div>
-
-							<div
-								*ngIf="
-									drawerRuc.hasError('minlength') ||
-									drawerRuc.hasError('maxlength')
-								"
-							>
-								Debe ser de 11 digitos
-							</div>
-							<div *ngIf="drawerRuc.hasError('pattern')">
-								Deben ser sólo dígitos
-							</div>
+			<div class="col">
+				<div class="group">
+					<label>Lugar de giro</label>
+					<input
+						type="text"
+						placeholder="Av. Huaylas..."
+						formControlName="signPlace"
+					/>
+					<div
+						class="form-errors"
+						*ngIf="signPlace.errors && signPlace.dirty"
+					>
+						<div *ngIf="signPlace.hasError('required')">
+							Campo requerido
 						</div>
-					</div>
-
-					<div class="group">
-						<label>RUC del Librado</label>
-						<input
-							type="text"
-							placeholder="20123456789"
-							formControlName="draweeRuc"
-						/>
-
-						<div
-							class="form-errors"
-							*ngIf="draweeRuc.errors && draweeRuc.dirty"
-						>
-							<div *ngIf="draweeRuc.hasError('required')">
-								Campo requerido
-							</div>
-
-							<div
-								*ngIf="
-									draweeRuc.hasError('minlength') ||
-									draweeRuc.hasError('maxlength')
-								"
-							>
-								Debe ser de 11 digitos
-							</div>
-							<div *ngIf="draweeRuc.hasError('pattern')">
-								Deben ser sólo dígitos
-							</div>
-						</div>
-					</div>
-
-					<div class="group">
-						<label>Fecha de giro</label>
-						<input type="date" formControlName="startDate" />
-					</div>
-
-					<div class="group">
-						<label>Fecha de vencimiento</label>
-						<input type="date" formControlName="endDate" />
 					</div>
 				</div>
 
-				<div class="col">
-					<div class="group">
-						<label>Lugar de giro</label>
-						<input
-							type="text"
-							placeholder="Av. Huaylas..."
-							formControlName="signPlace"
-						/>
-						<div
-							class="form-errors"
-							*ngIf="signPlace.errors && signPlace.dirty"
-						>
-							<div *ngIf="signPlace.hasError('required')">
-								Campo requerido
-							</div>
+				<div class="group">
+					<label>Lugar de pago</label>
+					<input
+						type="text"
+						placeholder="Av. Huaylas..."
+						formControlName="paymentPlace"
+					/>
+					<div
+						class="form-errors"
+						*ngIf="paymentPlace.errors && paymentPlace.dirty"
+					>
+						<div *ngIf="paymentPlace.hasError('required')">
+							Campo requerido
 						</div>
 					</div>
+				</div>
 
-					<div class="group">
-						<label>Lugar de pago</label>
-						<input
-							type="text"
-							placeholder="Av. Huaylas..."
-							formControlName="paymentPlace"
-						/>
-						<div
-							class="form-errors"
-							*ngIf="paymentPlace.errors && paymentPlace.dirty"
-						>
-							<div *ngIf="paymentPlace.hasError('required')">
-								Campo requerido
-							</div>
+				<div class="group">
+					<label>Moneda</label>
+					<select formControlName="currencyType">
+						<option value="1">Soles</option>
+						<option value="2">Dolares</option>
+					</select>
+				</div>
+
+				<div class="group">
+					<label>Valor nominal</label>
+					<input
+						type="text"
+						placeholder="10000"
+						formControlName="amount"
+					/>
+					<div
+						class="form-errors"
+						*ngIf="amount.errors && amount.dirty"
+					>
+						<div *ngIf="amount.hasError('required')">
+							Campo requerido
 						</div>
-					</div>
 
-					<div class="group">
-						<label>Moneda</label>
-						<select formControlName="currencyType">
-							<option value="1">Soles</option>
-							<option value="2">Dolares</option>
-						</select>
-					</div>
-
-					<div class="group">
-						<label>Valor nominal</label>
-						<input
-							type="text"
-							placeholder="10000"
-							formControlName="amount"
-						/>
-						<div
-							class="form-errors"
-							*ngIf="amount.errors && amount.dirty"
-						>
-							<div *ngIf="amount.hasError('required')">
-								Campo requerido
-							</div>
-
-							<div *ngIf="amount.hasError('pattern')">
-								Ingrese un número válido
-							</div>
+						<div *ngIf="amount.hasError('pattern')">
+							Ingrese un número válido
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="row">
-				<div class="button">
-					<button type="submit">Agregar letra</button>
+		<div class="row">
+			<div class="button">
+				<button type="submit">Agregar letra</button>
 
-					<div>{{ message }}</div>
-				</div>
+				<div>{{ message }}</div>
 			</div>
-		</form>
-	</div>
+		</div>
+	</form>
 </div>

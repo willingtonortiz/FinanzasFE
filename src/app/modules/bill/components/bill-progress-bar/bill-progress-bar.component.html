@@ -1,0 +1,21 @@
+<h1 class="header">
+	<h1>Tiempo transcurrido</h1>
+</h1>
+
+<div class="progress">
+	<div class="progress-bar" [ngStyle]="{ width: percentage }"></div>
+</div>
+
+<div class="info">
+	<div class="row">
+		<p>Dias Totales: {{ totalDays }}</p>
+	</div>
+
+	<div class="row">
+		<p>Dias restantes: {{ remainingDays }}</p>
+	</div>
+
+	<div class="row">
+		<p>Dias transcurridos: {{ elapsedDays }}</p>
+	</div>
+</div>

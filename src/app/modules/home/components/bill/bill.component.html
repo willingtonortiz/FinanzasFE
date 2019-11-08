@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="passed-days">
-		<h6 class="title">Días Transcurridos</h6>
+		<h6 class="title">Tiempo transcurrido</h6>
 
 		<div class="progress">
 			<div class="progress-bar" [ngStyle]="{ width: percentage }"></div>
@@ -15,14 +15,16 @@
 				{{ bill.endDate.toLocaleDateString() }}
 			</div>
 			<div>Valor nominal: {{ bill | billAmount }}</div>
-			<div>Estado: ??</div>
+			<div>Estado: {{ bill | billStatus }}</div>
 		</div>
 
 		<div class="options">
-			<button routerLink="/billDetail/{{ bill.id }}">
+			<button routerLink="/bill/bill-detail/{{ bill.id }}">
 				Detalles
 			</button>
-			<button>Pagar</button>
+
+			<button *ngIf="bill.type === 1">Pagar</button>
+			<button *ngIf="bill.type === 2">Cobrar</button>
 		</div>
 	</div>
 </div>

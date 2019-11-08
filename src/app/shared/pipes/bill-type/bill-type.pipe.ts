@@ -1,16 +1,16 @@
 import { Pipe, PipeTransform } from "@angular/core";
+import { Bill } from "../../models";
+import { BillType } from "../../enums";
 
 @Pipe({
 	name: "billType"
 })
 export class BillTypePipe implements PipeTransform {
-	transform(value: any, ...args: any[]): any {
-		if (value === 1) {
+	transform(value: Bill, ...args: any[]): any {
+		if (value.type === BillType.TO_PAY) {
 			return "Por cobrar";
-		} else if (value === 2) {
+		} else if (value === BillType.TO_CHARGE) {
 			return "Por pagar";
-		} else {
-			return "Descontada";
 		}
 	}
 }

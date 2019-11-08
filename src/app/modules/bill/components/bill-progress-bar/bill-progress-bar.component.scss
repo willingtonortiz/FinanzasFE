@@ -1,0 +1,46 @@
+:host {
+	width: 300px;
+	margin-left: 20px;
+	margin-top: 32px;
+	padding: 16px;
+	border-radius: 5px;
+	border: 1px solid lightgray;
+
+	flex-flow: column nowrap;
+	display: flex;
+
+	.header {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		h1 {
+			font-size: 20px;
+			font-weight: normal;
+		}
+	}
+
+	.progress {
+		width: 100%;
+		margin: 16px 0;
+		// border: 1px solid red;
+		border-radius: 5px;
+		background-color: #e9ecef;
+
+		.progress-bar {
+			border-radius: 5px;
+			// width: 50%;
+			height: 20px;
+			background-color: #28a745;
+		}
+	}
+
+	.info {
+		display: flex;
+		flex-flow: column nowrap;
+
+		.row {
+			margin: 8px 0;
+		}
+	}
+}

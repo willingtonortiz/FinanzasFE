@@ -31,12 +31,6 @@ export class BillListService {
 				this.currentUser.id
 			);
 
-			// Arreglando las fechas de las letras
-			this.bills.forEach(x => {
-				x.startDate = new Date(x.startDate);
-				x.endDate = new Date(x.endDate);
-			});
-
 			// console.log("Letras cargadas", this.bills);
 		} catch (error) {
 			console.log("ERROR EN => BILL_LIST_SERVICES");

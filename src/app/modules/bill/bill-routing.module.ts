@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AddBillComponent } from "./pages";
+import { AddBillComponent, BillDetailComponent } from "./pages";
 
 const routes: Routes = [
 	{
@@ -11,6 +11,10 @@ const routes: Routes = [
 	{
 		path: "add-bill",
 		component: AddBillComponent
+	},
+	{
+		path: "bill-detail/:id",
+		component: BillDetailComponent
 	}
 ];
 
