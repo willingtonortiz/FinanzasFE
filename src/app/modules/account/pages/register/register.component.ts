@@ -18,7 +18,11 @@ export class RegisterComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private authenticationService: AuthenticationService,
 		private router: Router
-	) { }
+	) {
+		if (this.authenticationService.currentUserValue) {
+			this.router.navigate(["/home"]);
+		}
+	}
 
 	ngOnInit() {
 		this.registerForm = this.formBuilder.group({

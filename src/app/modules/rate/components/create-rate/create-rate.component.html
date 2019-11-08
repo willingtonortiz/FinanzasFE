@@ -1,102 +1,97 @@
-<div class="container">
-	<h1>Datos personalizados</h1>
+<h1>Datos personalizados</h1>
 
-	<form [formGroup]="rateForm" class="form" (ngSubmit)="onSubmit()">
-		<div class="row">
-			<div class="col">
-				<p>Moneda</p>
-			</div>
-
-			<div class="col">
-				<input type="radio" formControlName="currency" value="1" />
-				Soles
-				<input type="radio" formControlName="currency" value="2" />
-				Dólares
-			</div>
+<form [formGroup]="rateForm" class="form" (ngSubmit)="onSubmit()">
+	<div class="row">
+		<div class="col">
+			<p>Moneda</p>
 		</div>
 
-		<div class="row">
-			<div class="col">
-				<p>Tipo de tasa</p>
-			</div>
+		<div class="col">
+			<input type="radio" formControlName="currency" value="1" />
+			Soles
+			<input type="radio" formControlName="currency" value="2" />
+			Dólares
+		</div>
+	</div>
 
-			<div class="col">
-				<input type="radio" formControlName="rateType" value="1" />
-				Nominal
-				<input type="radio" formControlName="rateType" value="2" />
-				Efectiva
-			</div>
+	<div class="row">
+		<div class="col">
+			<p>Tipo de tasa</p>
 		</div>
 
-		<div *ngIf="rateType.value === '1'" class="row">
-			<div class="col">
-				<p>Periodo de capitalización</p>
-			</div>
+		<div class="col">
+			<input type="radio" formControlName="rateType" value="1" />
+			Nominal
+			<input type="radio" formControlName="rateType" value="2" />
+			Efectiva
+		</div>
+	</div>
 
-			<div class="col">
-				<select formControlName="capitalizationTerm">
-					<option value="1">Diario</option>
-					<option value="2">Quincenal</option>
-					<option value="3">Mensual</option>
-					<option value="4">Bimestral</option>
-					<option value="5">Trimestral</option>
-					<option value="6">Cuatrimestral</option>
-					<option value="7">Semestral</option>
-					<option value="8">Anual</option>
-				</select>
-			</div>
+	<div *ngIf="rateType.value === '1'" class="row">
+		<div class="col">
+			<p>Periodo de capitalización</p>
 		</div>
 
-		<div class="row">
-			<div class="col">
-				<p>Plazo de la tasa</p>
-			</div>
+		<div class="col">
+			<select formControlName="capitalizationTerm">
+				<option value="1">Diario</option>
+				<option value="2">Quincenal</option>
+				<option value="3">Mensual</option>
+				<option value="4">Bimestral</option>
+				<option value="5">Trimestral</option>
+				<option value="6">Cuatrimestral</option>
+				<option value="7">Semestral</option>
+				<option value="8">Anual</option>
+			</select>
+		</div>
+	</div>
 
-			<div class="col">
-				<select formControlName="rateTerm">
-					<option value="1">Diario</option>
-					<option value="2">Quincenal</option>
-					<option value="3">Mensual</option>
-					<option value="4">Bimestral</option>
-					<option value="5">Trimestral</option>
-					<option value="6">Cuatrimestral</option>
-					<option value="7">Semestral</option>
-					<option value="8">Anual</option>
-				</select>
-			</div>
+	<div class="row">
+		<div class="col">
+			<p>Plazo de la tasa</p>
 		</div>
 
-		<div class="row">
-			<div class="col">
-				<p>Valor de la tasa</p>
-			</div>
+		<div class="col">
+			<select formControlName="rateTerm">
+				<option value="1">Diario</option>
+				<option value="2">Quincenal</option>
+				<option value="3">Mensual</option>
+				<option value="4">Bimestral</option>
+				<option value="5">Trimestral</option>
+				<option value="6">Cuatrimestral</option>
+				<option value="7">Semestral</option>
+				<option value="8">Anual</option>
+			</select>
+		</div>
+	</div>
 
-			<div class="col">
-				<input formControlName="rateValue" type="text" />%
-			</div>
-
-			<div
-				class="form-errors"
-				*ngIf="rateValue.errors && rateValue.dirty"
-			>
-				<div *ngIf="rateValue.hasError('required')">
-					Campo requerido
-				</div>
-
-				<div *ngIf="rateValue.hasError('pattern')">
-					Ingrese un número válido
-				</div>
-
-				<div *ngIf="rateValue.hasError('min')">
-					No puede ser negativo ni cero
-				</div>
-			</div>
+	<div class="row">
+		<div class="col">
+			<p>Valor de la tasa</p>
 		</div>
 
-		<!-- <div class="row"> -->
-		<!-- </div> -->
-		<div class="button">
-			<button type="submit">Aceptar</button>
+		<div class="col">
+			<input formControlName="rateValue" type="text" />%
 		</div>
-	</form>
-</div>
+
+		<div class="form-errors" *ngIf="rateValue.errors && rateValue.dirty">
+			<div *ngIf="rateValue.hasError('required')">
+				Campo requerido
+			</div>
+
+			<div *ngIf="rateValue.hasError('pattern')">
+				Ingrese un número válido
+			</div>
+
+			<div *ngIf="rateValue.hasError('min')">
+				No puede ser negativo ni cero
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="row"> -->
+	<!-- </div> -->
+	<div class="button">
+		<button type="submit">Aceptar</button>
+	</div>
+</form>

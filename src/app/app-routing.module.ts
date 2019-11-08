@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { AuthGuard } from "./core/guards";
 
 const routes: Routes = [
 	{
@@ -8,7 +9,13 @@ const routes: Routes = [
 	},
 	{
 		path: "",
-		loadChildren: "./modules/nav-page/nav-page.module#NavPageModule"
+		loadChildren: "./modules/nav-page/nav-page.module#NavPageModule",
+		canActivate: [AuthGuard]
+	},
+	{
+		path: "**",
+		redirectTo: "account",
+		pathMatch: "full"
 	}
 ];
 

@@ -32,8 +32,24 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 		// 	1}-${today.getDate()}`;
 
 		const currentDate = this._discountDateService.discountDateValue;
-		this.discountDate = `${currentDate.getFullYear()}-${currentDate.getMonth() +
-			1}-${currentDate.getDate()}`;
+
+		// this.discountDate = `${currentDate.getFullYear()}-${currentDate.getMonth() +
+		// 	1}-${currentDate.getDate()}`;
+
+		const month: string =
+			currentDate.getMonth() + 1 > 9
+				? `${currentDate.getMonth() + 1}`
+				: `0${currentDate.getMonth()}`;
+
+		const day: string =
+			currentDate.getDate() > 9
+				? `${currentDate.getDate()}`
+				: `0${currentDate.getDate()}`;
+
+		this.discountDate = `${currentDate.getFullYear()}-${month}-${day}`;
+
+		console.log(this.discountDate);
+		// this.discountDate = currentDate;
 
 		this._suscriptions.push(
 			this._discountPoolRate.rateObservable.subscribe({
