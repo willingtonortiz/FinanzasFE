@@ -1,42 +1,60 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Bill } from "src/app/shared/models";
 
-import { AuthenticationService } from "src/app/core/authentication";
-import { BillService } from "src/app/core/http";
-import { BillType } from "src/app/shared/enums";
 import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
+import { Subscription } from "rxjs";
 
 @Component({
 	selector: "app-bill-group",
 	templateUrl: "./bill-group.component.html",
 	styleUrls: ["./bill-group.component.scss"]
 })
-export class BillGroupComponent implements OnInit {
+export class BillGroupComponent implements OnInit, OnDestroy {
 	public bills: Bill[];
 	public option: number;
+	private _suscriptions: Subscription[];
 
 	constructor(private billListService: BillListService) {
 		this.bills = [];
+		this._suscriptions = [];
 	}
 
 	public async ngOnInit() {
 		this.option = 1;
 
-		this.bills = await this.billListService.getBillsToPay();
+		this._suscriptions.push(
+			this.billListService.getBillsToPay().subscribe(x => {
+				this.bills = x;
+			})
+		);
+	}
+
+	ngOnDestroy(): void {
+		this._suscriptions.forEach(x => x.unsubscribe());
 	}
 
 	public async changeOption(option: number) {
-		// console.log(option);
 		if (option === this.option) return;
 		this.option = option;
 
-		console.log(option);
 		if (option === 1) {
-			this.bills = await this.billListService.getBillsToPay();
+			this._suscriptions.push(
+				this.billListService.getBillsToPay().subscribe(x => {
+					this.bills = x;
+				})
+			);
 		} else if (option === 2) {
-			this.bills = await this.billListService.getBillsToCharge();
+			this._suscriptions.push(
+				this.billListService.getBillsToCharge().subscribe(x => {
+					this.bills = x;
+				})
+			);
 		} else {
-			this.bills = await this.billListService.getDiscountedBills();
+			this._suscriptions.push(
+				this.billListService.getDiscountedBills().subscribe(x => {
+					this.bills = x;
+				})
+			);
 		}
 	}
 
@@ -45,9 +63,5 @@ export class BillGroupComponent implements OnInit {
 		// actives.classList.remove("active");
 		// var newActives = document.getElementsByClassName("nav-link");
 		// newActives[type + 1].classList.add("active");
-	}
-
-	updateBills() {
-		// this.selectedBills = this.bills.filter(x => x.type === this.billType);
 	}
 }

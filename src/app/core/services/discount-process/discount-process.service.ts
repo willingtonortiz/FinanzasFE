@@ -10,6 +10,14 @@ import { DiscountDateService } from "../discount-date/discount-date.service";
 import { Discount, Cost, DiscountPool } from "src/app/shared/models";
 import { DiscountFormulasAdapter } from "../../clases";
 import { CostType } from "src/app/shared/enums";
+import {
+	CreateDiscountPool,
+	CreateDiscount,
+	CreateCost
+} from "src/app/shared/dtos/output";
+import { AuthenticationService } from "../../authentication";
+import { UserCredentials } from "src/app/shared/dtos";
+import { DiscountPoolService } from "../../http";
 
 @Injectable({
 	providedIn: "root"
@@ -18,14 +26,21 @@ import { CostType } from "src/app/shared/enums";
 export class DiscountProcessService implements OnDestroy {
 	private _suscriptions: Array<Subscription>;
 
+	// TODO: Falta incluir el banco en el descuento
+	// En la vista de rate, se debe especificar si se seleccionó un banco
+	// Se puede(debe) utilizar rate en su lugar
+	// Falta agregar la retención en la letra
+
 	public constructor(
+		private _discountPoolService: DiscountPoolService,
 		private _createNewDiscountService: CreateNewDiscountService,
 		private _discountPoolRateService: DiscountPoolRateService,
 		private _discountBillService: DiscountBillService,
 		private _discountBillCostsService: DiscountBillCostsService,
 		private _discountPoolDataService: DiscountPoolDataService,
 		private _discountListService: DiscountsListService,
-		private _discountDateService: DiscountDateService
+		private _discountDateService: DiscountDateService,
+		private _authenticationService: AuthenticationService
 	) {
 		this._suscriptions = new Array<Subscription>();
 
@@ -103,6 +118,83 @@ export class DiscountProcessService implements OnDestroy {
 		this._createNewDiscountService.setDiscount(newDiscount);
 		this.updateDiscountPool();
 		this._discountBillCostsService.restart();
+	}
+
+	public discountDiscountPool() {
+		const discountPool: DiscountPool = this._discountPoolDataService
+			.discountPoolValue;
+		const discountDate: Date = this._discountDateService.discountDateValue;
+		const currentUser: UserCredentials = this._authenticationService
+			.currentUserValue;
+		const discounts: Discount[] = this._discountListService.discountsValue;
+
+		const month: string =
+			discountDate.getMonth() + 1 > 9
+				? `${discountDate.getMonth() + 1}`
+				: `0${discountDate.getMonth()}`;
+
+		const day: string =
+			discountDate.getDate() > 9
+				? `${discountDate.getDate()}`
+				: `0${discountDate.getDate()}`;
+
+		const date: string = `${discountDate.getFullYear()}-${month}-${day}`;
+
+		// Creando la cartera
+		const createDiscountPool: CreateDiscountPool = {
+			bankId: -1,
+			deliveredValue: discountPool.deliveredValue,
+			receivedValue: discountPool.receivedValue,
+			tcea: discountPool.tcea,
+			discountDate: date,
+			pymeId: currentUser.id
+		};
+
+		const createDiscounts: CreateDiscount[] = [];
+
+		// Creando los descuentos
+		discounts.forEach(x => {
+			const newDiscount: CreateDiscount = {
+				billId: x.bill.id,
+				deliveredValue: x.deliveredValue,
+				receivedValue: x.receivedValue,
+				discountDays: x.discountDays,
+				discountRate: x.discountRate,
+				finalCost: x.finalCost,
+				initialCost: x.initialCost,
+				netValue: x.netValue,
+				retention: x.retention,
+				tcea: x.tcea,
+				tep: x.tep
+			};
+
+			// Creando los costos
+			const costs: CreateCost[] = [];
+			x.costs.forEach(y => {
+				const newCost: CreateCost = {
+					amount: y.amount,
+					costType: y.costType,
+					currencyCode: y.currencyCode,
+					paymentType: y.paymentType,
+					reason: y.reason
+				};
+
+				costs.push(newCost);
+			});
+
+			newDiscount.costs = costs;
+
+			createDiscounts.push(newDiscount);
+		});
+
+		createDiscountPool.discounts = createDiscounts;
+		console.log(createDiscountPool);
+
+		try {
+			this._discountPoolService.createDiscountPool(createDiscountPool);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	public saveChanges(): void {}

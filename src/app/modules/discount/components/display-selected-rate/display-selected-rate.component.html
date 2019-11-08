@@ -1,11 +1,10 @@
-<div class="container">
 	<div class="center">
 		<h1>{{ rate.businessName }}</h1>
 	</div>
 
 	<div class="row">
 		<div class="col">
-			<p>TEA en {{ rate.currency | lowercase }}</p>
+			<p>TEA en {{ rate.currencyCode | currencyCode }}</p>
 		</div>
 		<div class="col">
 			<p>{{ rate.rateValue | percent: "2.2-5" }}</p>
@@ -28,4 +27,3 @@
 	<div class="center">
 		<button (click)="showModal()">Agregar letra</button>
 	</div>
-</div>

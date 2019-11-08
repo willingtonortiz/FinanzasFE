@@ -23,8 +23,12 @@
 				Detalles
 			</button>
 
-			<button *ngIf="bill.type === 1">Pagar</button>
-			<button *ngIf="bill.type === 2">Cobrar</button>
+			<button *ngIf="bill.type === 1" (click)="deleteBill()">
+				Pagar
+			</button>
+			<button *ngIf="bill.type === 2" (click)="deleteBill()">
+				Cobrar
+			</button>
 		</div>
 	</div>
 </div>

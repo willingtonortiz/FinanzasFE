@@ -2,10 +2,10 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { User } from "src/app/shared/models";
 import { environment } from "../../../environments/environment";
 import { RegisterUser } from "src/app/shared/dtos/registerUser";
 import { UserCredentials } from "src/app/shared/dtos";
+import { Router } from "@angular/router";
 
 @Injectable({
 	providedIn: "root"
@@ -14,7 +14,7 @@ export class AuthenticationService {
 	private currentUserSubject: BehaviorSubject<UserCredentials>;
 	public currentUser: Observable<UserCredentials>;
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private _router: Router) {
 		this.currentUserSubject = new BehaviorSubject<UserCredentials>(
 			JSON.parse(localStorage.getItem("currentUser"))
 		);
@@ -53,6 +53,7 @@ export class AuthenticationService {
 	public logout(): void {
 		localStorage.removeItem("currentUser");
 		this.currentUserSubject.next(null);
+		this._router.navigate(["account/login"]);
 	}
 
 	public register(user: RegisterUser) {

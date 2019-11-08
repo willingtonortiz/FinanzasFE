@@ -19,7 +19,6 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private discountProcessService: DiscountProcessService,
-		private discountPoolService: DiscountPoolService,
 		private _discountPoolData: DiscountPoolDataService
 	) {}
 
@@ -45,7 +44,10 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 
 	public onSubmit() {
 		// Falta el metodo para construir el discountPool y enviarlo a la base de datos
-		this.discountPoolService.createDiscountPool(this.discountPool);
-		console.log(this.discountPool);
+		try {
+			this.discountProcessService.discountDiscountPool();
+		} catch (error) {
+			console.log(error);
+		}
 	}
 }

@@ -1,6 +1,5 @@
 :host {
-	height: 100vh;
-	padding: 32px;
+	padding: 16px 0;
 
 	display: grid;
 	grid-template-columns: 3fr 9fr;
@@ -27,6 +26,7 @@
 			font-size: 24px;
 			border: none;
 			border-radius: 3px;
+			cursor: pointer;
 		}
 	}
 
@@ -93,11 +93,12 @@
 						select {
 							width: 300px;
 							padding: 8px;
+							background-color: white;
+							border-bottom: 2px solid lightgray;
 							text-align: center;
 							border-left-style: none;
 							border-top-style: none;
 							border-right-style: none;
-							border-bottom: 2px solid lightgray;
 						}
 					}
 				}

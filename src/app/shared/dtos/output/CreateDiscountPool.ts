@@ -4,7 +4,7 @@ export interface CreateDiscountPool {
 	receivedValue?: number;
 	deliveredValue?: number;
 	tcea?: number;
-	discountDate?: Date;
+	discountDate?: Date | string;
 	pymeId?: number;
 	bankId?: number;
 	// Los descuentos

@@ -12,8 +12,8 @@ export class NavbarComponent implements OnInit {
 	public pyme: Pyme;
 
 	constructor(
-		private authenticationService: AuthenticationService,
-		private pymeHttpService: PymeHttpService
+		private _authenticationService: AuthenticationService,
+		private _pymeHttpService: PymeHttpService
 	) {
 		this.pyme = { businessName: "" };
 	}
@@ -24,10 +24,14 @@ export class NavbarComponent implements OnInit {
 
 	public async loadPyme(): Promise<void> {
 		try {
-			const id: number = this.authenticationService.currentUserValue.id;
-			this.pyme = await this.pymeHttpService.findById(id);
+			const id: number = this._authenticationService.currentUserValue.id;
+			this.pyme = await this._pymeHttpService.findById(id);
 		} catch (error) {
 			console.log("ERROR EN NAVBAR COMPONENT");
 		}
+	}
+
+	public logout() {
+		this._authenticationService.logout();
 	}
 }

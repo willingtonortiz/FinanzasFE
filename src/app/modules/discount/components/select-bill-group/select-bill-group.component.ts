@@ -25,13 +25,7 @@ export class SelectBillGroupComponent implements OnInit {
 	}
 
 	public async ngOnInit() {
-		// this.bills = [];
-		this.bills = await this.billListService.getBillsToPay();
-		// try {
-		// 	this.bills = await this.billService.findByUserId(this.user.id);
-		// } catch (error) {
-		// 	console.log(error);
-		// }
+		this.billListService.getBillsToCharge().subscribe(x => (this.bills = x));
 	}
 
 	public closeModal(): void {

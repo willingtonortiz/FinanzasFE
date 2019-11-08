@@ -1,13 +1,15 @@
-<div class="container">
-	<div class="bank">
-		<app-display-selected-rate></app-display-selected-rate>
-	</div>
-	<div class="overview">
-		<app-discount-pool-overview></app-discount-pool-overview>
-	</div>
-	<div class="bills">
-		<app-discounted-bill-group></app-discounted-bill-group>
-	</div>
+<div class="return">
+	<a routerLink="/home">Regresar</a>
+</div>
+
+<div class="bank">
+	<app-display-selected-rate></app-display-selected-rate>
+</div>
+<div class="overview">
+	<app-discount-pool-overview></app-discount-pool-overview>
+</div>
+<div class="bills">
+	<app-discounted-bill-group></app-discounted-bill-group>
 </div>
 
 <app-select-bill-container *ngIf="modalStatus"></app-select-bill-container>

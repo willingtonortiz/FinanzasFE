@@ -11,7 +11,6 @@ export class DiscountDateService {
 	public constructor() {
 		const today = new Date(Date.now());
 		this._discountDateSubject = new BehaviorSubject<Date>(
-			// new Date('10/12/2008')
 			new Date(today.getFullYear(), today.getMonth(), today.getDate())
 		);
 

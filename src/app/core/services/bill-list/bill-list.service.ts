@@ -4,20 +4,52 @@ import { Bill } from "src/app/shared/models";
 import { AuthenticationService } from "../../authentication";
 import { UserCredentials } from "src/app/shared/dtos";
 import { BillType, BillStatus } from "src/app/shared/enums";
+import { Observable, BehaviorSubject } from "rxjs";
+import { filter, map } from "rxjs/operators";
 
 @Injectable({
 	providedIn: "root"
 })
 export class BillListService {
-	public bills: Array<Bill>;
-	public currentUser: UserCredentials;
+	private billsSubject: BehaviorSubject<Bill[]>;
+	private billsToPayObservable: Observable<Bill[]>;
+	private billsToChargeObservable: Observable<Bill[]>;
+	private discountedBillsObservable: Observable<Bill[]>;
+
+	// private bills: Array<Bill>;
+	private currentUser: UserCredentials;
 
 	constructor(
-		private authenticationService: AuthenticationService,
-		private billService: BillService
+		private _authenticationService: AuthenticationService,
+		private _billService: BillService
 	) {
-		this.bills = null;
-		this.currentUser = this.authenticationService.currentUserValue;
+		// this.bills = [];
+		this.billsSubject = new BehaviorSubject<Bill[]>([]);
+
+		this.billsToPayObservable = this.billsSubject.pipe(
+			map((bills: Bill[]) =>
+				bills.filter(x => x.type === BillType.TO_PAY)
+			)
+		);
+
+		this.billsToChargeObservable = this.billsSubject.pipe(
+			map((bills: Bill[]) =>
+				bills.filter(
+					x =>
+						x.type === BillType.TO_CHARGE &&
+						x.status !== BillStatus.DISCOUNTED &&
+						x.status !== BillStatus.DISCOUNTING
+				)
+			)
+		);
+
+		this.discountedBillsObservable = this.billsSubject.pipe(
+			map((bills: Bill[]) =>
+				bills.filter(x => x.status === BillStatus.DISCOUNTED)
+			)
+		);
+
+		this.currentUser = this._authenticationService.currentUserValue;
 		this.initialize();
 	}
 
@@ -27,38 +59,34 @@ export class BillListService {
 
 	public async fetchBills() {
 		try {
-			this.bills = await this.billService.findByUserId(
+			const bills = await this._billService.findByUserId(
 				this.currentUser.id
 			);
 
-			// console.log("Letras cargadas", this.bills);
+			this.billsSubject.next(bills);
 		} catch (error) {
 			console.log("ERROR EN => BILL_LIST_SERVICES");
 		}
 	}
 
-	public async checkBills(): Promise<void> {
-		if (this.bills === null) {
+	public async deleteById(billId: number): Promise<void> {
+		try {
+			await this._billService.deleteById(billId);
 			await this.fetchBills();
+		} catch (error) {
+			return error;
 		}
 	}
 
-	public async getBillsToPay(): Promise<Array<Bill>> {
-		await this.checkBills();
-		return this.bills.filter(x => x.type === BillType.TO_PAY);
+	public getBillsToPay(): Observable<Bill[]> {
+		return this.billsToPayObservable;
 	}
 
-	public async getBillsToCharge(): Promise<Array<Bill>> {
-		await this.checkBills();
-		return this.bills.filter(
-			x =>
-				x.type === BillType.TO_CHARGE &&
-				x.status !== BillStatus.DISCOUNTING
-		);
+	public getBillsToCharge(): Observable<Bill[]> {
+		return this.billsToChargeObservable;
 	}
 
-	public async getDiscountedBills(): Promise<Array<Bill>> {
-		await this.checkBills();
-		return this.bills.filter(x => x.status === BillStatus.DISCOUNTED);
+	public getDiscountedBills(): Observable<Bill[]> {
+		return this.discountedBillsObservable;
 	}
 }

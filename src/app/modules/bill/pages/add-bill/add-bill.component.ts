@@ -7,10 +7,9 @@ import {
 } from "@angular/forms";
 import { Location } from "@angular/common";
 
-import { User, Bill } from "src/app/shared/models";
 import { AuthenticationService } from "src/app/core/authentication";
 import { BillService } from "src/app/core/http";
-import { BillType, CurrencyCode, BillStatus } from "src/app/shared/enums";
+import { BillType, BillStatus } from "src/app/shared/enums";
 import { CreateBill } from "src/app/shared/dtos/output";
 import { UserCredentials } from "src/app/shared/dtos";
 
@@ -33,7 +32,6 @@ export class AddBillComponent implements OnInit {
 	) {
 		this.billType = BillType.TO_PAY;
 		this.currentUser = this._authenticationService.currentUserValue;
-		// console.log(this.currentUser);
 	}
 
 	ngOnInit() {
