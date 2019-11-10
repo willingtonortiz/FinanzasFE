@@ -1,0 +1,26 @@
+:host {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.close {
+		top: 100px;
+		left: 100px;
+		padding: 8px 20px;
+		position: absolute;
+		background-color: #323232;
+		color: white;
+		font-size: 32px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+}

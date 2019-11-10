@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
+import { DateUtilsService } from "../date-utils/date-utils.service";
 
 @Injectable({
 	providedIn: "root"
@@ -8,10 +9,9 @@ export class DiscountDateService {
 	private _discountDateSubject: BehaviorSubject<Date>;
 	private _discountDateObservable: Observable<Date>;
 
-	public constructor() {
-		const today = new Date(Date.now());
+	public constructor(private _dateUtilsService: DateUtilsService) {
 		this._discountDateSubject = new BehaviorSubject<Date>(
-			new Date(today.getFullYear(), today.getMonth(), today.getDate())
+			this._dateUtilsService.getTodaysDate()
 		);
 
 		// console.log(this._discountDateSubject.value);

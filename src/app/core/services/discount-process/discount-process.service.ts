@@ -18,6 +18,7 @@ import {
 import { AuthenticationService } from "../../authentication";
 import { UserCredentials } from "src/app/shared/dtos";
 import { DiscountPoolService } from "../../http";
+import { DateUtilsService } from "../date-utils/date-utils.service";
 
 @Injectable({
 	providedIn: "root"
@@ -40,7 +41,8 @@ export class DiscountProcessService implements OnDestroy {
 		private _discountPoolDataService: DiscountPoolDataService,
 		private _discountListService: DiscountsListService,
 		private _discountDateService: DiscountDateService,
-		private _authenticationService: AuthenticationService
+		private _authenticationService: AuthenticationService,
+		private _dateUtilsService: DateUtilsService
 	) {
 		this._suscriptions = new Array<Subscription>();
 
@@ -128,17 +130,9 @@ export class DiscountProcessService implements OnDestroy {
 			.currentUserValue;
 		const discounts: Discount[] = this._discountListService.discountsValue;
 
-		const month: string =
-			discountDate.getMonth() + 1 > 9
-				? `${discountDate.getMonth() + 1}`
-				: `0${discountDate.getMonth()}`;
-
-		const day: string =
-			discountDate.getDate() > 9
-				? `${discountDate.getDate()}`
-				: `0${discountDate.getDate()}`;
-
-		const date: string = `${discountDate.getFullYear()}-${month}-${day}`;
+		const dateString = this._dateUtilsService.getAPIDateString(
+			discountDate
+		);
 
 		// Creando la cartera
 		const createDiscountPool: CreateDiscountPool = {
@@ -146,7 +140,7 @@ export class DiscountProcessService implements OnDestroy {
 			deliveredValue: discountPool.deliveredValue,
 			receivedValue: discountPool.receivedValue,
 			tcea: discountPool.tcea,
-			discountDate: date,
+			discountDate: dateString,
 			pymeId: currentUser.id
 		};
 

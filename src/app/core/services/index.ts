@@ -8,3 +8,4 @@ export * from "./discounts-list/discounts-list.service";
 export * from "./discounts-pool-data/discount-pool-data.service";
 export * from "./create-new-discount/create-new-discount.service";
 export * from "./discount-date/discount-date.service";
+export * from "./date-utils/date-utils.service"

@@ -13,5 +13,7 @@
 
 	<div class="bills">
 		<app-bill *ngFor="let item of bills" [bill]="item"></app-bill>
+
+		<app-no-bills-found *ngIf="bills.length === 0"></app-no-bills-found>
 	</div>
 </div>

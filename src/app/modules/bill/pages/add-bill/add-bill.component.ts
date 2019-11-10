@@ -12,6 +12,12 @@ import { BillService } from "src/app/core/http";
 import { BillType, BillStatus } from "src/app/shared/enums";
 import { CreateBill } from "src/app/shared/dtos/output";
 import { UserCredentials } from "src/app/shared/dtos";
+import { DateUtilsService } from "src/app/core/services";
+import { DateValidatorsService } from "src/app/shared/validators";
+import { Pyme, Bill } from "src/app/shared/models";
+import { CreatedBillService } from "src/app/core/services/bill";
+import { ModalContainerService } from "src/app/modules/nav-page/services";
+import { ModalValue } from "src/app/modules/nav-page/enums";
 
 @Component({
 	selector: "app-add-bill",
@@ -20,23 +26,33 @@ import { UserCredentials } from "src/app/shared/dtos";
 })
 export class AddBillComponent implements OnInit {
 	private currentUser: UserCredentials;
+	public currentPyme: Pyme;
 	public billForm: FormGroup;
 	public billType: number;
-	public message: string;
+	public dateError: boolean;
 
 	constructor(
 		private _formBuilder: FormBuilder,
 		private _authenticationService: AuthenticationService,
 		private _billService: BillService,
-		private _location: Location
+		private _location: Location,
+		private _dateUtilsService: DateUtilsService,
+		private _dateValidatorsService: DateValidatorsService,
+		private _createdBillService: CreatedBillService,
+		private _modalContainerService: ModalContainerService
 	) {
-		this.billType = BillType.TO_PAY;
+		this.dateError = false;
 		this.currentUser = this._authenticationService.currentUserValue;
 	}
 
-	ngOnInit() {
-		const today = this.getTodaysDateString();
+	public async ngOnInit() {
+		this.loadForm();
+		this.loadPyme();
+	}
 
+	public loadForm(): void {
+		const today = this._dateUtilsService.getCalendarTodaysString();
+		// Creación del formulario
 		this.billForm = this._formBuilder.group({
 			drawerRuc: [
 				"",
@@ -56,16 +72,42 @@ export class AddBillComponent implements OnInit {
 					Validators.pattern(/20\d{9}/)
 				]
 			],
-			startDate: [today, [Validators.required]],
-			endDate: [today, [Validators.required]],
+			startDate: [
+				today,
+				[
+					Validators.required,
+					this._dateValidatorsService.beforeDate(
+						this._dateUtilsService.getTodaysDate()
+					)
+				]
+			],
+			endDate: [
+				today,
+				[
+					Validators.required,
+					this._dateValidatorsService.afterDate(
+						this._dateUtilsService.getTodaysDate()
+					)
+				]
+			],
 			signPlace: ["", [Validators.required]],
 			paymentPlace: ["", [Validators.required]],
-			currencyType: [1, [Validators.required]],
+			currencyCode: ["1", [Validators.required]],
 			amount: [
 				"",
 				[Validators.required, Validators.pattern(/^\d+\.?\d*$/)]
 			]
 		});
+	}
+
+	public async loadPyme(): Promise<void> {
+		try {
+			this.currentPyme = await this._authenticationService.getCurrentPyme();
+		} catch (error) {
+			this.currentPyme = null;
+		}
+
+		this.changeBillToPay();
 	}
 
 	public async onSubmit() {
@@ -74,33 +116,31 @@ export class AddBillComponent implements OnInit {
 			return;
 		}
 
-		const formValue = this.billForm.value;
-
-		// TODO: Validar el tipo de letra a crear
-		// TODO: Validar que las fechas sean correctas
+		const currencyCode = parseInt(this.currencyCode.value);
 
 		const newBill: CreateBill = {
-			drawerRuc: formValue.drawerRuc,
-			draweeRuc: formValue.draweeRuc,
-			amount: parseFloat(formValue.amount),
-			startDate: formValue.startDate,
-			endDate: formValue.endDate,
-			currencyCode: formValue.currencyCode,
+			drawerRuc: this.drawerRuc.value,
+			draweeRuc: this.draweeRuc.value,
+			amount: parseFloat(this.amount.value),
+			startDate: this.startDate.value,
+			endDate: this.endDate.value,
+			currencyCode: currencyCode,
 			status: BillStatus.VALID,
-			type: BillType.TO_PAY,
+			type: this.billType,
+			paymentPlace: this.paymentPlace.value,
+			signPlace: this.signPlace.value,
 			pymeId: this.currentUser.id
 		};
 
 		try {
-			await this._billService.create(newBill);
+			const createdBill: Bill = await this._billService.create(newBill);
 
 			this.resetFields();
 
-			this.message = "Se ha creado la letra correctamente";
-
-			setTimeout(() => {
-				this.message = "";
-			}, 4000);
+			this._createdBillService.setBill(createdBill);
+			this._modalContainerService.openModalWithId(
+				ModalValue.CREATED_BILL
+			);
 		} catch (error) {
 			console.log(error);
 		}
@@ -115,55 +155,47 @@ export class AddBillComponent implements OnInit {
 	}
 
 	public resetFields(): void {
+		const today: string = this._dateUtilsService.getCalendarTodaysString();
 		this.drawerRuc.reset();
 		this.draweeRuc.reset();
-		const today: string = this.getTodaysDateString();
+		this.changeBillToPay();
 		this.startDate.setValue(today);
 		this.endDate.setValue(today);
 		this.signPlace.reset();
 		this.paymentPlace.reset();
-		this.currencyType.setValue(1);
-		this.amount.markAsDirty();
+		this.currencyCode.setValue("1");
+		this.amount.reset();
 	}
 
-	public changeBillType(option: BillType): void {
-		switch (option) {
-			case BillType.TO_PAY:
-				{
-					this.billForm.controls["drawerRuc"].setValue("");
-					this.billForm.controls["draweeRuc"].setValue("20123456789");
-				}
-				break;
+	public changeBillToPay(): void {
+		this.billType = BillType.TO_PAY;
+		this.drawerRuc.setValue("");
+		this.draweeRuc.setValue(this.currentPyme.ruc);
+	}
 
-			default:
-				{
-					this.billForm.controls["drawerRuc"].setValue("20123456789");
-					this.billForm.controls["draweeRuc"].setValue("");
-				}
-				break;
-		}
+	public changeBillToCharge(): void {
+		this.billType = BillType.TO_CHARGE;
+		this.drawerRuc.setValue(this.currentPyme.ruc);
+		this.draweeRuc.setValue("");
+	}
 
-		if (this.billType !== option) {
-			this.billType = option;
+	// TODO, preguntar a la profe si es posible registrar letras que aún
+	// No han sido creadas
+	// No han sido emitidas
+
+	public checkDateBill(): void {
+		const start: number = new Date(this.startDate.value).getTime();
+		const end: number = new Date(this.endDate.value).getTime();
+
+		if (start > end) {
+			this.dateError = true;
+		} else {
+			this.dateError = false;
 		}
 	}
 
 	public goBack() {
 		this._location.back();
-	}
-
-	public getTodaysDateString(): string {
-		let date = new Date(Date.now());
-		let year: number = date.getFullYear();
-		let month: number | string = date.getMonth() + 1;
-		let day: number | string = date.getDate();
-
-		month = month < 10 ? `0${month}` : month;
-		day = day < 10 ? `0${day}` : day;
-
-		let today: string = `${year}-${month}-${day}`;
-
-		return today;
 	}
 
 	public get drawerRuc(): AbstractControl {
@@ -190,8 +222,8 @@ export class AddBillComponent implements OnInit {
 		return this.billForm.get("paymentPlace");
 	}
 
-	public get currencyType(): AbstractControl {
-		return this.billForm.get("currencyType");
+	public get currencyCode(): AbstractControl {
+		return this.billForm.get("currencyCode");
 	}
 
 	public get amount(): AbstractControl {

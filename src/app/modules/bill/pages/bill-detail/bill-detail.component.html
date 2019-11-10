@@ -18,12 +18,12 @@
 
 			<div class="group">
 				<h4>Fecha de giro</h4>
-				<p>{{ bill.startDate.toLocaleDateString() }}</p>
+				<p>{{ bill.startDate | date: "dd/MM/yyyy" }}</p>
 			</div>
 
 			<div class="group">
 				<h4>Fecha de vencimiento</h4>
-				<p>{{ bill.endDate.toLocaleDateString() }}</p>
+				<p>{{ bill.endDate | date: "dd/MM/yyyy" }}</p>
 			</div>
 		</div>
 
