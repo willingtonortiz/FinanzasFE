@@ -3,70 +3,71 @@
 
 	<div class="form-group row">
 		<label for="ruc">Ruc</label>
-		<input
-			type="number"
-			class="form-control"
-			placeholder="Ingrese su número RUC"
-			formControlName="ruc"
-		/>
-		<span *ngIf="registerForm.get('ruc').hasError('required')">
-			Es requerido
-		</span>
-		<span
-			*ngIf="
+		<input type="number" class="form-control" placeholder="Ingrese su número RUC" formControlName="ruc" />
+		<div class="form-errors" *ngIf="fruc.errors && fruc.dirty">
+			<div *ngIf="fruc.hasError('required')">
+				El Ruc Social es requerido
+			</div>
+			<div *ngIf="
 				registerForm.get('ruc').hasError('min') ||
 				registerForm.get('ruc').hasError('max')
-			"
-		>
-			El tamaño del ruc es de 11 dígitos y empieza con 20
-		</span>
+			">
+				El tamaño del Ruc es de 11 dígitos
+			</div>
+			<div *ngIf="fruc.hasError('pattern')">
+				El Ruc empieza con 20
+			</div>
+		</div>
 	</div>
 
 	<div class="form-group row">
 		<label for="businessName">Razón social</label>
-		<input
-			type="text"
-			class="form-control"
-			placeholder="Ingrese su razón social"
-			formControlName="businessName"
-		/>
+		<input type="text" class="form-control" placeholder="Ingrese su razón social" formControlName="businessName" />
+		<div class="form-errors" *ngIf="fbusinessName.errors && fbusinessName.dirty">
+			<div *ngIf="fbusinessName.hasError('required')">
+				La Razón Social es requerida
+			</div>
+		</div>
 	</div>
 
 	<div class="form-group row">
 		<label for="address">Dirección</label>
-		<input
-			type="text"
-			class="form-control"
-			placeholder="Ingrese su dirección"
-			formControlName="address"
-		/>
+		<input type="text" class="form-control" placeholder="Ingrese su dirección" formControlName="address" />
+		<div class="form-errors" *ngIf="faddress.errors && faddress.dirty">
+			<div *ngIf="faddress.hasError('required')">
+				La direción es requerida
+			</div>
+		</div>
 	</div>
 
 	<div class="form-group row">
 		<label for="password">Contraseña</label>
-		<input
-			type="password"
-			class="form-control"
-			placeholder="Ingrese su contraseña"
-			formControlName="password"
-		/>
+		<input type="password" class="form-control" placeholder="Ingrese su contraseña" formControlName="password" />
+		<div class="form-errors" *ngIf="fpassword.errors && fpassword.dirty">
+			<div *ngIf="fpassword.hasError('required')">
+				La contraseña es requerida
+			</div>
+		</div>
 	</div>
 
 	<div class="form-group row">
 		<label for="confirmPassword">Confirmar contraseña</label>
-		<input
-			type="password"
-			class="form-control"
-			placeholder="Ingrese su contraseña"
-			formControlName="confirmPassword"
-		/>
+		<input type="password" class="form-control" placeholder="Ingrese su contraseña"
+			formControlName="confirmPassword" />
+		<div class="form-errors" *ngIf="(fconfirmPassword.errors || registerForm.value.password!=registerForm.value.confirmPassword) && fconfirmPassword.dirty">
+			<div *ngIf="fconfirmPassword.hasError('required')">
+				La confirmación de contraseña es requerida
+			</div>
+			<div *ngIf="registerForm.value.password!=registerForm.value.confirmPassword  &&  !fconfirmPassword.hasError('required')">
+				Debe ser la misma contraseña
+			</div>
+
+		</div>
 	</div>
 
 	<button type="submit" class="btn btn-primary ">Registrarse</button>
 
-	<small id="emailHelp" class="form-text text-muted helpText"
-		>¿Ya tienes una cuenta?
-		<a [routerLink]="['/account/login']">Inicia sesión</a></small
-	>
+	<small id="emailHelp" class="form-text text-muted helpText">¿Ya tienes una cuenta?
+		<a [routerLink]="['/account/login']">Inicia sesión</a></small>
 	<small class="text text-danger">{{ errorMessage }}</small>
 </form>

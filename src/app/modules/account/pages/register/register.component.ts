@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, Validators, FormBuilder, AbstractControl } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { RegisterUser } from "src/app/shared/dtos/registerUser";
@@ -30,8 +30,9 @@ export class RegisterComponent implements OnInit {
 				"",
 				Validators.compose([
 					Validators.required,
-					Validators.min(20000000000),
-					Validators.max(20999999999)
+					Validators.min(10000000000),
+					Validators.max(99999999999),
+					Validators.pattern(/^20/)
 				])
 			],
 			businessName: ["", [Validators.required]],
@@ -42,7 +43,7 @@ export class RegisterComponent implements OnInit {
 	}
 
 	onSubmit() {
-		if (this.registerForm.invalid) {
+		if (this.registerForm.invalid && this.isInvalid()) {
 			console.log("Is invalid");
 			console.log(this.registerForm);
 			console.log(this.registerForm.errors);
@@ -68,10 +69,34 @@ export class RegisterComponent implements OnInit {
 		});
 	}
 
-	public isInvalid(data) {
+	public isInvalid():boolean {
+		const data = this.registerForm.value;
+		console.log(data);
+		console.log("confirm password");
 		if (data.password !== data.confirmPassword) {
+			console.log("no son iguales");
 			return true;
 		}
 		return false;
+	}
+
+	public get fbusinessName(): AbstractControl {
+		return this.registerForm.get("businessName");
+	}
+
+	public get fpassword(): AbstractControl {
+		return this.registerForm.get("password");
+	}
+
+	public get fconfirmPassword(): AbstractControl {
+		return this.registerForm.get("confirmPassword");
+	}
+
+	public get fruc(): AbstractControl {
+		return this.registerForm.get("ruc");
+	}
+
+	public get faddress(): AbstractControl {
+		return this.registerForm.get("address");
 	}
 }
