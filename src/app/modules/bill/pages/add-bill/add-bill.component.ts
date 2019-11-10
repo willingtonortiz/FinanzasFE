@@ -88,7 +88,9 @@ export class AddBillComponent implements OnInit {
 			currencyCode: formValue.currencyCode,
 			status: BillStatus.VALID,
 			type: BillType.TO_PAY,
-			pymeId: this.currentUser.id
+			pymeId: this.currentUser.id,
+			signPlace: formValue.signPlace,
+			paymentPlace: formValue.paymentPlace
 		};
 
 		try {
