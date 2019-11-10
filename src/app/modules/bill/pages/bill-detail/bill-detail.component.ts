@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Subscription } from "rxjs";
 import { Location } from "@angular/common";
 
 import { Bill } from "src/app/shared/models";
@@ -47,6 +46,7 @@ export class BillDetailComponent implements OnInit {
 		this._location.back();
 	}
 
+	// Mostrar un modal de confirmación
 	public async deleteBill(): Promise<void> {
 		try {
 			const deletedBill: Bill = await this._billService.deleteById(

@@ -27,6 +27,11 @@
 			border: none;
 			border-radius: 3px;
 			cursor: pointer;
+			transition: all 0.25s ease;
+
+			&:hover {
+				transform: scale(1.05);
+			}
 		}
 	}
 
@@ -47,11 +52,21 @@
 				margin: 8px 0;
 				margin-right: 8px;
 				padding: 16px 20px;
-				background-color: #54d691;
+				background-color: lightgray;
 				color: white;
 				font-size: 24px;
 				border: none;
 				border-radius: 3px;
+				cursor: pointer;
+				transition: all 0.25s ease;
+
+				&.active {
+					background-color: #54d691;
+				}
+
+				&:hover {
+					transform: scale(1.05);
+				}
 			}
 		}
 
@@ -117,6 +132,12 @@
 						font-size: 24px;
 						border: none;
 						border-radius: 3px;
+						cursor: pointer;
+						transition: all 0.25s ease;
+
+						&:hover {
+							transform: scale(1.05);
+						}
 					}
 
 					div {
