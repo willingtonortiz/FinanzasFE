@@ -13,14 +13,7 @@ export class DiscountPoolRateService {
 	private _rate: Rate;
 
 	constructor() {
-		this._rate = {
-			businessName: "Empresa S.A.C.",
-			currencyCode: CurrencyCode.USD,
-			rateTerm: RateTerm.ANNUAL,
-			rateType: RateType.EFFECTIVE,
-			rateValue: 0.1
-		};
-		this._rateSubject = new BehaviorSubject<Rate>(this._rate);
+		this._rateSubject = new BehaviorSubject<Rate>(null);
 		this._rateObservable = this._rateSubject.asObservable();
 	}
 

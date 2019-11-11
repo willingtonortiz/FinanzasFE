@@ -37,4 +37,13 @@ export class DateUtilsService {
 	public getCalendarTodaysString(): string {
 		return this.getCalendarDateString(new Date());
 	}
+
+	public getDateFromCalendarDate(calendarDate: string): Date {
+		const parts: string[] = calendarDate.split("-");
+		const year = parseInt(parts[0]);
+		const month = parseInt(parts[1]) - 1;
+		const day = parseInt(parts[2]);
+
+		return new Date(year, month, day);
+	}
 }

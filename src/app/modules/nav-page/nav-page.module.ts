@@ -8,10 +8,11 @@ import { NavBarPageComponent } from "./pages";
 import { ModalContainerComponent } from "./components";
 import { ModalContainerService } from "./services";
 import { CreatedBillModalComponent } from './components/created-bill-modal/created-bill-modal.component';
+import { DeleteBillModalComponent } from './components/delete-bill-modal/delete-bill-modal.component';
 
 @NgModule({
 	imports: [CommonModule, NavPageRoutingModule, ComponentsModule],
-	declarations: [NavBarPageComponent, ModalContainerComponent, CreatedBillModalComponent],
+	declarations: [NavBarPageComponent, ModalContainerComponent, CreatedBillModalComponent, DeleteBillModalComponent],
 	providers: [ModalContainerService]
 })
 export class NavPageModule {}

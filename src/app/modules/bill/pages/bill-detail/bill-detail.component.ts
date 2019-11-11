@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from "@angular/common";
 
 import { Bill } from "src/app/shared/models";
 import { BillService } from "src/app/core/http";
 import { DateUtilsService } from "src/app/core/services";
+import { ModalContainerService } from "src/app/modules/nav-page/services";
+import { ModalValue } from "src/app/modules/nav-page/enums";
+import { SelectedBillService } from "src/app/core/services/bill";
 
 @Component({
 	selector: "app-bill-detail",
@@ -17,10 +19,11 @@ export class BillDetailComponent implements OnInit {
 
 	constructor(
 		private _activatedRoute: ActivatedRoute,
-		private _location: Location,
-		private _billService: BillService,
 		private _router: Router,
-		private _dateUtilsService: DateUtilsService
+		private _billService: BillService,
+		private _dateUtilsService: DateUtilsService,
+		private _modalContainerService: ModalContainerService,
+		private _selectedBillService: SelectedBillService
 	) {
 		this.bill = {
 			startDate: new Date(),
@@ -59,18 +62,11 @@ export class BillDetailComponent implements OnInit {
 	}
 
 	goBack() {
-		this._location.back();
+		this._router.navigate(["home"]);
 	}
 
-	// Mostrar un modal de confirmación
 	public async deleteBill(): Promise<void> {
-		try {
-			const deletedBill: Bill = await this._billService.deleteById(
-				this.bill.id
-			);
-			this._router.navigate(["home"]);
-		} catch (error) {
-			console.log("ERROR EN BILL DETAIL COMPONENT");
-		}
+		this._selectedBillService.setBill(this.bill);
+		this._modalContainerService.openModalWithId(ModalValue.SELECTED_BILL);
 	}
 }

@@ -80,18 +80,18 @@ export class AddBillComponent implements OnInit {
 				today,
 				[
 					Validators.required,
-					// this._dateValidatorsService.beforeDate(
-					// 	this._dateUtilsService.getTodaysDate()
-					// )
+					this._dateValidatorsService.beforeDate(
+						this._dateUtilsService.getTodaysDate()
+					)
 				]
 			],
 			endDate: [
 				today,
 				[
 					Validators.required,
-					// this._dateValidatorsService.afterDate(
-					// 	this._dateUtilsService.getTodaysDate()
-					// )
+					this._dateValidatorsService.afterDate(
+						this._dateUtilsService.getTodaysDate()
+					)
 				]
 			],
 			signPlace: ["", [Validators.required]],

@@ -6,8 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { TokenInterceptor, ErrorInterceptor } from "./core/interceptors";
 import { AppComponent } from "./app.component";
-import { BillListService } from "./core/services/bill-list/bill-list.service";
-import { AuthenticationService } from "./core/authentication";
 
 @NgModule({
 	imports: [

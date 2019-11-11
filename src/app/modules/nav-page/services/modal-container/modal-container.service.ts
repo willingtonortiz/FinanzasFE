@@ -12,7 +12,7 @@ export class ModalContainerService {
 	private _modalIdObservable: Observable<number>;
 
 	constructor() {
-		this._isActiveSubject = new BehaviorSubject<boolean>(true);
+		this._isActiveSubject = new BehaviorSubject<boolean>(false);
 		this._isActiveObservable = this._isActiveSubject.asObservable();
 
 		this._modalIdSubject = new BehaviorSubject<number>(1);

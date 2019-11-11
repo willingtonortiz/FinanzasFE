@@ -4,9 +4,11 @@ import {
 	DiscountBillModalService,
 	DiscountPoolRateService,
 	DiscountPoolDataService,
-	DiscountDateService
+	DiscountDateService,
+	DateUtilsService
 } from "src/app/core/services";
 import { Subscription } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-display-selected-rate",
@@ -22,34 +24,23 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 		private _discountBillModalService: DiscountBillModalService,
 		private _discountPoolRate: DiscountPoolRateService,
 		private _discountPoolData: DiscountPoolDataService,
-		private _discountDateService: DiscountDateService
-	) {}
+		private _discountDateService: DiscountDateService,
+		private _dateUtilsService: DateUtilsService,
+		private _router: Router
+	) {
+		this.rate = { businessName: "", rateValue: 0 };
+	}
 
-	ngOnInit() {
+	public async ngOnInit() {
 		this._suscriptions = new Array<Subscription>();
-		// const today = new Date();
-		// this.discountDate = `${today.getFullYear()}-${today.getMonth() +
-		// 	1}-${today.getDate()}`;
 
-		const currentDate = this._discountDateService.discountDateValue;
+		// Quitar para pruebas
+		if (this._discountPoolRate.rateValue === null) {
+			await this._router.navigate(["/rate"]);
+			return;
+		}
 
-		// this.discountDate = `${currentDate.getFullYear()}-${currentDate.getMonth() +
-		// 	1}-${currentDate.getDate()}`;
-
-		const month: string =
-			currentDate.getMonth() + 1 > 9
-				? `${currentDate.getMonth() + 1}`
-				: `0${currentDate.getMonth()}`;
-
-		const day: string =
-			currentDate.getDate() > 9
-				? `${currentDate.getDate()}`
-				: `0${currentDate.getDate()}`;
-
-		this.discountDate = `${currentDate.getFullYear()}-${month}-${day}`;
-
-		console.log(this.discountDate);
-		// this.discountDate = currentDate;
+		this.discountDate = this._dateUtilsService.getCalendarTodaysString();
 
 		this._suscriptions.push(
 			this._discountPoolRate.rateObservable.subscribe({

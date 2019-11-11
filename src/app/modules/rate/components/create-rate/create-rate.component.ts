@@ -73,7 +73,7 @@ export class CreateRateComponent implements OnInit {
 		// Siguiente versión
 
 		const rate: Rate = {
-			businessName: "NONE",
+			businessName: "Personalizado",
 			capitalizationTerm: capitalizationTerm,
 			currencyCode: currencyCode,
 			rateValue: rateValue,

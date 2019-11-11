@@ -12,8 +12,8 @@ export class DateValidatorsService {
 		return (
 			control: AbstractControl
 		): { [key: string]: boolean } | null => {
-			const controlDate: Date = this._dateUtilsService.getDate(
-				new Date(control.value)
+			const controlDate: Date = this._dateUtilsService.getDateFromCalendarDate(
+				control.value
 			);
 
 			const controlMilliseconds = controlDate.getTime();
@@ -31,8 +31,8 @@ export class DateValidatorsService {
 		return (
 			control: AbstractControl
 		): { [key: string]: boolean } | null => {
-			const controlDate: Date = this._dateUtilsService.getDate(
-				new Date(control.value)
+			const controlDate: Date = this._dateUtilsService.getDateFromCalendarDate(
+				control.value
 			);
 
 			const controlMilliseconds = controlDate.getTime();

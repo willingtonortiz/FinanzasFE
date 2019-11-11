@@ -1,0 +1,37 @@
+:host {
+	height: 300px;
+	width: 600px;
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid lightgray;
+
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-around;
+	align-items: center;
+
+	p{
+		font-size: 24px;
+	}
+
+	.options {
+		display: flex;
+		flex-flow: row nowrap;
+
+		button {
+			margin: 0 16px;
+			padding: 12px 20px;
+			background-color: #54d691;
+			color: white;
+			font-size: 24px;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+			transition: all 0.25s ease;
+
+			&:hover {
+				transform: scale(1.05);
+			}
+		}
+	}
+}
