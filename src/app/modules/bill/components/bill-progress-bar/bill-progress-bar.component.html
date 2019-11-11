@@ -3,7 +3,11 @@
 </h1>
 
 <div class="progress">
-	<div class="progress-bar" [ngStyle]="{ width: percentage }"></div>
+	<div
+		class="progress-bar"
+		[ngStyle]="{ width: percentage }"
+		[ngClass]="{ expired: isExpired }"
+	></div>
 </div>
 
 <div class="info">

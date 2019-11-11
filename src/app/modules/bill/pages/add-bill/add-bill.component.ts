@@ -18,12 +18,15 @@ import { Pyme, Bill } from "src/app/shared/models";
 import { CreatedBillService } from "src/app/core/services/bill";
 import { ModalContainerService } from "src/app/modules/nav-page/services";
 import { ModalValue } from "src/app/modules/nav-page/enums";
+import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
 
 @Component({
 	selector: "app-add-bill",
 	templateUrl: "./add-bill.component.html",
 	styleUrls: ["./add-bill.component.scss"]
 })
+// TODO: Reducir la complejidad de este componente
+// Tiene muchas responsabilidades
 export class AddBillComponent implements OnInit {
 	private currentUser: UserCredentials;
 	public currentPyme: Pyme;
@@ -39,7 +42,8 @@ export class AddBillComponent implements OnInit {
 		private _dateUtilsService: DateUtilsService,
 		private _dateValidatorsService: DateValidatorsService,
 		private _createdBillService: CreatedBillService,
-		private _modalContainerService: ModalContainerService
+		private _modalContainerService: ModalContainerService,
+		private _billListService: BillListService
 	) {
 		this.dateError = false;
 		this.currentUser = this._authenticationService.currentUserValue;
@@ -76,18 +80,18 @@ export class AddBillComponent implements OnInit {
 				today,
 				[
 					Validators.required,
-					this._dateValidatorsService.beforeDate(
-						this._dateUtilsService.getTodaysDate()
-					)
+					// this._dateValidatorsService.beforeDate(
+					// 	this._dateUtilsService.getTodaysDate()
+					// )
 				]
 			],
 			endDate: [
 				today,
 				[
 					Validators.required,
-					this._dateValidatorsService.afterDate(
-						this._dateUtilsService.getTodaysDate()
-					)
+					// this._dateValidatorsService.afterDate(
+					// 	this._dateUtilsService.getTodaysDate()
+					// )
 				]
 			],
 			signPlace: ["", [Validators.required]],
@@ -126,17 +130,10 @@ export class AddBillComponent implements OnInit {
 			endDate: this.endDate.value,
 			currencyCode: currencyCode,
 			status: BillStatus.VALID,
-<<<<<<< HEAD
-			type: BillType.TO_PAY,
-			pymeId: this.currentUser.id,
-			signPlace: formValue.signPlace,
-			paymentPlace: formValue.paymentPlace
-=======
 			type: this.billType,
 			paymentPlace: this.paymentPlace.value,
 			signPlace: this.signPlace.value,
 			pymeId: this.currentUser.id
->>>>>>> willi
 		};
 
 		try {
@@ -148,6 +145,7 @@ export class AddBillComponent implements OnInit {
 			this._modalContainerService.openModalWithId(
 				ModalValue.CREATED_BILL
 			);
+			this._billListService.fetchBills();
 		} catch (error) {
 			console.log(error);
 		}

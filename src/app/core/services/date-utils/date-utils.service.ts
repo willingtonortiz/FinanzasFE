@@ -16,20 +16,20 @@ export class DateUtilsService {
 
 	public getDate(currentDate: Date): Date {
 		return new Date(
-			currentDate.getUTCFullYear(),
-			currentDate.getUTCMonth(),
-			currentDate.getUTCDate()
+			currentDate.getFullYear(),
+			currentDate.getMonth(),
+			currentDate.getDate()
 		);
 	}
 
 	public getCalendarDateString(date: Date): string {
-		let month: number | string = date.getUTCMonth() + 1;
-		let day: number | string = date.getUTCDate();
+		let month: number | string = date.getMonth() + 1;
+		let day: number | string = date.getDate();
 
 		month = month > 9 ? `${month}` : `0${month}`;
 		day = day > 9 ? `${day}` : `0${day}`;
 
-		const dateString: string = `${date.getUTCFullYear()}-${month}-${day}`;
+		const dateString: string = `${date.getFullYear()}-${month}-${day}`;
 
 		return dateString;
 	}

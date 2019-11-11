@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Bill } from "src/app/shared/models";
 import { BillService } from "src/app/core/http";
 import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
+import { DateUtilsService } from "src/app/core/services";
 
 @Component({
 	selector: "app-bill",
@@ -11,21 +12,34 @@ import { BillListService } from "src/app/core/services/bill-list/bill-list.servi
 export class BillComponent implements OnInit {
 	@Input() bill: Bill;
 	public percentage: string = "0px";
+	public isExpired: boolean = false;
 
-	constructor(private _billListService: BillListService) {}
+	constructor(
+		private _billListService: BillListService,
+		private _dateUtilsService: DateUtilsService
+	) {}
 
 	ngOnInit() {
 		this.setDaysPercentage();
 	}
 
 	public async setDaysPercentage(): Promise<void> {
-		return new Promise((resolve, reject) => {
+		return new Promise<void>((resolve, reject) => {
 			const start: number = this.bill.startDate.getTime();
 			const end: number = this.bill.endDate.getTime();
-			const today = Date.now();
+			const today = this._dateUtilsService.getTodaysDate().getTime();
+
+			if (end < today) {
+				this.percentage = "100%";
+				this.isExpired = true;
+				resolve();
+				return;
+			}
 
 			const percentage = ((today - start) / (end - start)) * 100;
 			this.percentage = `${percentage}%`;
+
+			resolve();
 		});
 	}
 

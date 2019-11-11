@@ -1,34 +1,37 @@
-<div class="container">
-	<div class="passed-days">
-		<h6 class="title">Tiempo transcurrido</h6>
+<div class="passed-days">
+	<h6 class="title">Tiempo transcurrido</h6>
 
-		<div class="progress">
-			<div class="progress-bar" [ngStyle]="{ width: percentage }"></div>
+	<div class="progress">
+		<div
+			class="progress-bar"
+			[ngStyle]="{ width: percentage }"
+			[ngClass]="{ expired: isExpired }"
+		></div>
+	</div>
+</div>
+
+<div class="details">
+	<div class="info">
+		<div>Fecha de giro: {{ bill.startDate.toLocaleDateString() }}</div>
+		<div>
+			Fecha de vencimiento:
+			{{ bill.endDate.toLocaleDateString() }}
 		</div>
+		<div>Valor nominal: {{ bill | billAmount }}</div>
+		<div>Estado: {{ bill | billStatus }}</div>
 	</div>
 
-	<div class="details">
-		<div class="info">
-			<div>Fecha de giro: {{ bill.startDate.toLocaleDateString() }}</div>
-			<div>
-				Fecha de vencimiento:
-				{{ bill.endDate.toLocaleDateString() }}
-			</div>
-			<div>Valor nominal: {{ bill | billAmount }}</div>
-			<div>Estado: {{ bill | billStatus }}</div>
-		</div>
+	<div class="options">
+		<button routerLink="/bill/bill-detail/{{ bill.id }}">
+			Detalles
+		</button>
 
-		<div class="options">
-			<button routerLink="/bill/bill-detail/{{ bill.id }}">
-				Detalles
-			</button>
-
-			<button *ngIf="bill.type === 1" (click)="deleteBill()">
+		<!-- <button *ngIf="bill.type === 1" (click)="deleteBill()">
 				Pagar
 			</button>
+
 			<button *ngIf="bill.type === 2" (click)="deleteBill()">
 				Cobrar
-			</button>
-		</div>
+			</button> -->
 	</div>
 </div>

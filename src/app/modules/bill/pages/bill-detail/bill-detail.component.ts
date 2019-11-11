@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 
 import { Bill } from "src/app/shared/models";
 import { BillService } from "src/app/core/http";
+import { DateUtilsService } from "src/app/core/services";
 
 @Component({
 	selector: "app-bill-detail",
@@ -12,12 +13,14 @@ import { BillService } from "src/app/core/http";
 })
 export class BillDetailComponent implements OnInit {
 	public bill: Bill;
+	public isExpired: boolean;
 
 	constructor(
 		private _activatedRoute: ActivatedRoute,
 		private _location: Location,
 		private _billService: BillService,
-		private _router: Router
+		private _router: Router,
+		private _dateUtilsService: DateUtilsService
 	) {
 		this.bill = {
 			startDate: new Date(),
@@ -26,7 +29,8 @@ export class BillDetailComponent implements OnInit {
 	}
 
 	public async ngOnInit() {
-		this.loadBill();
+		await this.loadBill();
+		this.loadStatus();
 	}
 
 	public async loadBill() {
@@ -39,6 +43,18 @@ export class BillDetailComponent implements OnInit {
 			this.bill = await this._billService.findById(billId);
 		} catch (error) {
 			console.log(error);
+		}
+	}
+
+	public loadStatus(): void {
+		// const start: number = this.bill.startDate.getTime();
+		const end: number = this.bill.endDate.getTime();
+		// console.log(this._dateUtilsService.getTodaysDate());
+		const today: number = this._dateUtilsService.getTodaysDate().getTime();
+
+		if (end < today) {
+			this.isExpired = true;
+			return;
 		}
 	}
 

@@ -4,7 +4,8 @@
 	margin-top: 32px;
 	padding: 16px;
 	border-radius: 5px;
-	border: 1px solid lightgray;
+	// border: 1px solid lightgray;
+	box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
 
 	flex-flow: column nowrap;
 	display: flex;
@@ -32,6 +33,10 @@
 			// width: 50%;
 			height: 20px;
 			background-color: #28a745;
+
+			&.expired {
+				background-color: tomato;
+			}
 		}
 	}
 
