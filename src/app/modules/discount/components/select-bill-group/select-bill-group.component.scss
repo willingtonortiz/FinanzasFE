@@ -15,15 +15,16 @@
 
 	.bills {
 		height: 65vh;
-
-		display: grid;
-		row-gap: 32px;
-		grid-template-columns: repeat(3, 1fr);
+		border: 1px solid red;
 		overflow-y: scroll;
 
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: center;
+
 		app-select-bill {
-			margin-bottom: 1px;
-			justify-self: center;
+			margin: 16px;
 		}
 	}
 }

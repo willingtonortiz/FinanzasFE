@@ -1,29 +1,29 @@
-	<div class="center">
-		<h1>{{ rate.businessName }}</h1>
-	</div>
+<div class="center">
+	<h1>{{ rate.businessName }}</h1>
+</div>
 
-	<div class="row">
-		<div class="col">
-			<p>TEA en {{ rate.currencyCode | currencyCode }}</p>
-		</div>
-		<div class="col">
-			<p>{{ rate.rateValue | percent: "2.2-5" }}</p>
-		</div>
+<div class="row">
+	<div class="col">
+		<p>TEA en {{ rate.currencyCode | currencyCode }}</p>
 	</div>
+	<div class="col">
+		<p>{{ rate.rateValue | percent: "2.2-5" }}</p>
+	</div>
+</div>
 
-	<div class="row">
-		<div class="col">
-			<p>Fecha de descuento</p>
-		</div>
-		<div class="col">
-			<input
-				type="date"
-				[(ngModel)]="discountDate"
-				(change)="updateDiscountDate()"
-			/>
-		</div>
+<div class="row">
+	<div class="col">
+		<p>Fecha de descuento</p>
 	</div>
+	<div class="col">
+		<input
+			type="date"
+			[(ngModel)]="discountDate"
+			(change)="updateDiscountDate()"
+		/>
+	</div>
+</div>
 
-	<div class="center">
-		<button (click)="showModal()">Agregar letra</button>
-	</div>
+<div class="center">
+	<button (click)="showModal()">Agregar letra</button>
+</div>

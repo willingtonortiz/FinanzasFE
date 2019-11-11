@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { Bill } from "src/app/shared/models";
 import { DateUtilsService } from "src/app/core/services";
+import { BillStatus } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-bill-progress-bar",
@@ -19,11 +20,16 @@ export class BillProgressBarComponent implements OnInit, OnChanges {
 	public remainingDays: number = 0;
 	public totalDays: number = 0;
 	public elapsedDays: number = 0;
+
 	public isExpired: boolean = false;
 
 	constructor(private _dateUtilsService: DateUtilsService) {}
 
-	async ngOnInit() {}
+	async ngOnInit() {
+		if (this.bill.status === BillStatus.EXPIRED) {
+			this.isExpired = true;
+		}
+	}
 
 	async ngOnChanges(changes: SimpleChanges): Promise<void> {
 		this.setDaysPercentage();
@@ -37,7 +43,6 @@ export class BillProgressBarComponent implements OnInit, OnChanges {
 
 		if (end < today) {
 			this.percentage = `${100}%`;
-			this.isExpired = true;
 			return;
 		}
 

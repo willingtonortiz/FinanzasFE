@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { Discount, DiscountPool } from "src/app/shared/models";
-import {
-	DiscountProcessService,
-	DiscountsListService
-} from "src/app/core/services";
+import { DiscountsListService } from "src/app/core/services";
 
 @Component({
 	selector: "app-discounted-bill-group",

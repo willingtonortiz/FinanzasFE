@@ -9,6 +9,7 @@ import {
 } from "src/app/core/services";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
+import { RateTerm, CurrencyCode, RateType } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-display-selected-rate",
@@ -27,25 +28,32 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 		private _discountDateService: DiscountDateService,
 		private _dateUtilsService: DateUtilsService,
 		private _router: Router
-	) {
-		this.rate = { businessName: "", rateValue: 0 };
-	}
+	) {}
 
 	public async ngOnInit() {
+		this.rate = {
+			businessName: "TEMPORAL[BORRAR]",
+			rateValue: 0.12,
+			capitalizationTerm: RateTerm.ANNUAL,
+			currencyCode: CurrencyCode.PEN,
+			rateTerm: RateTerm.ANNUAL,
+			rateType: RateType.EFFECTIVE
+		};
 		this._suscriptions = new Array<Subscription>();
 
 		// Quitar para pruebas
-		if (this._discountPoolRate.rateValue === null) {
-			await this._router.navigate(["/rate"]);
-			return;
-		}
+
+		// if (this._discountPoolRate.rateValue === null) {
+		// 	await this._router.navigate(["/rate"]);
+		// 	return;
+		// }
 
 		this.discountDate = this._dateUtilsService.getCalendarTodaysString();
 
 		this._suscriptions.push(
 			this._discountPoolRate.rateObservable.subscribe({
 				next: (rate: Rate) => {
-					this.rate = rate;
+					// this.rate = rate;
 				},
 				error: error => {
 					console.log("Error en display-selected-rate.component");

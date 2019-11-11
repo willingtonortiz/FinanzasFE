@@ -11,28 +11,26 @@ import { filter, map } from "rxjs/operators";
 	providedIn: "root"
 })
 export class BillListService {
-	private billsSubject: BehaviorSubject<Bill[]>;
-	private billsToPayObservable: Observable<Bill[]>;
-	private billsToChargeObservable: Observable<Bill[]>;
-	private discountedBillsObservable: Observable<Bill[]>;
+	private _billsSubject: BehaviorSubject<Bill[]>;
+	private _billsToPayObservable: Observable<Bill[]>;
+	private _billsToChargeObservable: Observable<Bill[]>;
+	private _discountedBillsObservable: Observable<Bill[]>;
 
-	// private bills: Array<Bill>;
 	private currentUser: UserCredentials;
 
 	constructor(
 		private _authenticationService: AuthenticationService,
 		private _billService: BillService
 	) {
-		// this.bills = [];
-		this.billsSubject = new BehaviorSubject<Bill[]>([]);
+		this._billsSubject = new BehaviorSubject<Bill[]>([]);
 
-		this.billsToPayObservable = this.billsSubject.pipe(
+		this._billsToPayObservable = this._billsSubject.pipe(
 			map((bills: Bill[]) =>
 				bills.filter(x => x.type === BillType.TO_PAY)
 			)
 		);
 
-		this.billsToChargeObservable = this.billsSubject.pipe(
+		this._billsToChargeObservable = this._billsSubject.pipe(
 			map((bills: Bill[]) =>
 				bills.filter(
 					x =>
@@ -43,7 +41,7 @@ export class BillListService {
 			)
 		);
 
-		this.discountedBillsObservable = this.billsSubject.pipe(
+		this._discountedBillsObservable = this._billsSubject.pipe(
 			map((bills: Bill[]) =>
 				bills.filter(x => x.status === BillStatus.DISCOUNTED)
 			)
@@ -62,8 +60,7 @@ export class BillListService {
 			const bills = await this._billService.findByUserId(
 				this.currentUser.id
 			);
-
-			this.billsSubject.next(bills);
+			this._billsSubject.next(bills);
 		} catch (error) {
 			console.log("ERROR EN => BILL_LIST_SERVICES");
 		}
@@ -78,15 +75,23 @@ export class BillListService {
 		}
 	}
 
+	public getValidBillsToCharge(): Observable<Bill[]> {
+		return this._billsToChargeObservable.pipe(
+			map((bills: Bill[]) =>
+				bills.filter(x => x.status === BillStatus.VALID)
+			)
+		);
+	}
+
 	public getBillsToPay(): Observable<Bill[]> {
-		return this.billsToPayObservable;
+		return this._billsToPayObservable;
 	}
 
 	public getBillsToCharge(): Observable<Bill[]> {
-		return this.billsToChargeObservable;
+		return this._billsToChargeObservable;
 	}
 
 	public getDiscountedBills(): Observable<Bill[]> {
-		return this.discountedBillsObservable;
+		return this._discountedBillsObservable;
 	}
 }

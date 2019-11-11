@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 import { Bill } from "src/app/shared/models";
 import { BillService } from "src/app/core/http";
-import { DateUtilsService } from "src/app/core/services";
 import { ModalContainerService } from "src/app/modules/nav-page/services";
 import { ModalValue } from "src/app/modules/nav-page/enums";
 import { SelectedBillService } from "src/app/core/services/bill";
+import { BillStatus } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-bill-detail",
@@ -21,7 +21,6 @@ export class BillDetailComponent implements OnInit {
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
 		private _billService: BillService,
-		private _dateUtilsService: DateUtilsService,
 		private _modalContainerService: ModalContainerService,
 		private _selectedBillService: SelectedBillService
 	) {
@@ -33,7 +32,6 @@ export class BillDetailComponent implements OnInit {
 
 	public async ngOnInit() {
 		await this.loadBill();
-		this.loadStatus();
 	}
 
 	public async loadBill() {
@@ -44,20 +42,15 @@ export class BillDetailComponent implements OnInit {
 
 		try {
 			this.bill = await this._billService.findById(billId);
+			this.checkExpired();
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	public loadStatus(): void {
-		// const start: number = this.bill.startDate.getTime();
-		const end: number = this.bill.endDate.getTime();
-		// console.log(this._dateUtilsService.getTodaysDate());
-		const today: number = this._dateUtilsService.getTodaysDate().getTime();
-
-		if (end < today) {
+	public checkExpired(): void {
+		if (this.bill.status === BillStatus.EXPIRED) {
 			this.isExpired = true;
-			return;
 		}
 	}
 
