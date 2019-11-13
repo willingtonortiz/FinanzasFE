@@ -9,6 +9,20 @@
 	justify-content: center;
 	align-items: center;
 
+	.close-button {
+		padding: 10px 16px;
+		position: absolute;
+		top: 130px;
+		left: 200px;
+		border: none;
+		border-radius: 5px;
+		background-color: #323232;
+		color: white;
+		font-size: 18px;
+		z-index: 2;
+		cursor: pointer;
+	}
+
 	.background {
 		position: fixed;
 		width: 100vw;

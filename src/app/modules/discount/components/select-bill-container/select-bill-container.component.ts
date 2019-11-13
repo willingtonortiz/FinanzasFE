@@ -22,6 +22,10 @@ export class SelectBillContainerComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {}
 
+	public closeModal(): void {
+		this.discountBillModalService.hide();
+	}
+
 	ngOnDestroy() {
 		this.pageSuscription.unsubscribe();
 	}

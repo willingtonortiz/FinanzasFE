@@ -6,7 +6,7 @@ import {
 	DiscountProcessService,
 	DiscountBillCostsService
 } from "src/app/core/services";
-import { CostType, PaymentType } from "src/app/shared/enums";
+import { CostType } from "src/app/shared/enums";
 import {
 	FormGroup,
 	FormBuilder,
@@ -26,11 +26,8 @@ export class SelectCostComponent implements OnInit {
 	public initialCostForm: FormGroup;
 	public finalCostForm: FormGroup;
 
-	// TODO, AGREGAR VALIDACIÓN DE CAMPOS
-	// Para un costo inicial
 	public initialTotal: number;
 
-	// Para un costo final
 	public finalTotal: number;
 
 	constructor(
@@ -39,7 +36,9 @@ export class SelectCostComponent implements OnInit {
 		private _discountBillService: DiscountBillService,
 		private _discountBillCostsService: DiscountBillCostsService,
 		private _formBuilder: FormBuilder
-	) {
+	) {}
+
+	public ngOnInit() {
 		this.initialCostForm = this._formBuilder.group({
 			initialReason: ["Portes iniciales", []],
 			initialPaymentType: ["1", []],
@@ -65,15 +64,13 @@ export class SelectCostComponent implements OnInit {
 		this.finalTotal = 0;
 	}
 
-	ngOnInit() {}
-
 	public addInitialCost(): void {
 		if (this.initialCostForm.invalid) {
-			// console.log("Es invalido");
-			this.maskFieldsAsDirty();
+			this.markFieldsAsDirty();
 			return;
 		}
-		const value: number = parseFloat(this.initialValue.value);
+
+		const value: number = parseFloat(this.initialValue.value) / 100;
 		const paymentType: number = parseFloat(this.initialPaymentType.value);
 
 		this._discountBillCostsService.addInitialCost({
@@ -90,11 +87,11 @@ export class SelectCostComponent implements OnInit {
 	public addFinalCost(): void {
 		if (this.finalCostForm.invalid) {
 			// console.log("Es invalido");
-			this.maskFieldsAsDirty();
+			this.markFieldsAsDirty();
 			return;
 		}
 
-		const value: number = parseFloat(this.finalValue.value);
+		const value: number = parseFloat(this.finalValue.value) / 100;
 		const paymentType: number = parseInt(this.initialPaymentType.value);
 
 		this._discountBillCostsService.addFinalCost({
@@ -114,7 +111,7 @@ export class SelectCostComponent implements OnInit {
 		this._discountProcessService.discountCurrentBill();
 	}
 
-	public maskFieldsAsDirty() {
+	public markFieldsAsDirty() {
 		this.initialValue.markAsDirty();
 		this.finalValue.markAsDirty();
 	}

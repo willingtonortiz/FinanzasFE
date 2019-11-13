@@ -3,9 +3,10 @@ import { BillService } from "../../http";
 import { Bill } from "src/app/shared/models";
 import { AuthenticationService } from "../../authentication";
 import { UserCredentials } from "src/app/shared/dtos";
-import { BillType, BillStatus } from "src/app/shared/enums";
+import { BillType, BillStatus, CurrencyCode } from "src/app/shared/enums";
 import { Observable, BehaviorSubject } from "rxjs";
-import { filter, map } from "rxjs/operators";
+import { map } from "rxjs/operators";
+import { DiscountPoolRateService } from "../discount-pool-rate/discount-pool-rate.service";
 
 @Injectable({
 	providedIn: "root"
@@ -20,7 +21,8 @@ export class BillListService {
 
 	constructor(
 		private _authenticationService: AuthenticationService,
-		private _billService: BillService
+		private _billService: BillService,
+		private _discountPoolRateService: DiscountPoolRateService
 	) {
 		this._billsSubject = new BehaviorSubject<Bill[]>([]);
 
@@ -71,14 +73,21 @@ export class BillListService {
 			await this._billService.deleteById(billId);
 			await this.fetchBills();
 		} catch (error) {
-			return error;
+			console.log("ERROR EN => BILL LIST SERVICE => DELETE BY ID");
 		}
 	}
 
 	public getValidBillsToCharge(): Observable<Bill[]> {
+		const currencyCode: CurrencyCode = this._discountPoolRateService
+			.rateValue.currencyCode;
+
 		return this._billsToChargeObservable.pipe(
 			map((bills: Bill[]) =>
-				bills.filter(x => x.status === BillStatus.VALID)
+				bills.filter(
+					x =>
+						x.status === BillStatus.VALID &&
+						x.currencyCode === currencyCode
+				)
 			)
 		);
 	}

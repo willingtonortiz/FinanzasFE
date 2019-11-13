@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Cost } from "src/app/shared/models";
 import { BehaviorSubject, Observable } from "rxjs";
+import { PaymentType } from "src/app/shared/enums";
+import { DiscountBillService } from "../discount-bill/discount-bill.service";
 
 @Injectable({
 	providedIn: "root"
@@ -13,7 +15,7 @@ export class DiscountBillCostsService {
 	private _finalCostsSubject: BehaviorSubject<Array<Cost>>;
 	private _finalCostsObservable: Observable<Array<Cost>>;
 
-	public constructor() {
+	public constructor(private _discountBillService: DiscountBillService) {
 		this._initialCostsSubject = new BehaviorSubject<Array<Cost>>(
 			new Array<Cost>()
 		);
@@ -45,10 +47,11 @@ export class DiscountBillCostsService {
 	public get initialCostTotal(): number {
 		let total: number = 0;
 		const initialCosts: Array<Cost> = this.initialCostsValue;
+		const bill = this._discountBillService.billValue;
 
-		// TODO, VALIDAR QUE SEA PORCENTAJE O MONTO, DEPENDIENDO DEL TIPO
 		initialCosts.forEach((x: Cost) => {
-			total += x.amount;
+			if (x.paymentType === PaymentType.CASH) total += x.amount;
+			else total += bill.amount * x.amount;
 		});
 
 		return total;
@@ -57,10 +60,11 @@ export class DiscountBillCostsService {
 	public get finalCostTotal(): number {
 		let total: number = 0;
 		const finalCosts: Array<Cost> = this.finalCostsValue;
+		const bill = this._discountBillService.billValue;
 
-		// TODO, VALIDAR QUE SEA PORCENTAJE O MONTO, DEPENDIENDO DEL TIPO
 		finalCosts.forEach((x: Cost) => {
-			total += x.amount;
+			if (x.paymentType === PaymentType.CASH) total += x.amount;
+			else total += bill.amount * x.amount;
 		});
 
 		return total;

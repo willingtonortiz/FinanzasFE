@@ -1,13 +1,28 @@
 <div class="container">
 	<div class="options">
 		<div class="option">
-			<button (click)="changeOption(1)">Por pagar</button>
+			<button
+				(click)="changeOption(1)"
+				[ngClass]="{ selected: option === 1 }"
+			>
+				Por pagar
+			</button>
 		</div>
 		<div class="option">
-			<button (click)="changeOption(2)">Por cobrar</button>
+			<button
+				(click)="changeOption(2)"
+				[ngClass]="{ selected: option === 2 }"
+			>
+				Por cobrar
+			</button>
 		</div>
 		<div class="option">
-			<button (click)="changeOption(3)">Cartera descontada</button>
+			<button
+				(click)="changeOption(3)"
+				[ngClass]="{ selected: option === 3 }"
+			>
+				Cartera descontada
+			</button>
 		</div>
 	</div>
 

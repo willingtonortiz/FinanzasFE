@@ -4,6 +4,7 @@ import { ModalContainerService } from "../../services";
 import { Router } from "@angular/router";
 import { Bill } from "src/app/shared/models";
 import { BillService } from "src/app/core/http";
+import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
 
 @Component({
 	selector: "app-delete-bill-modal",
@@ -17,7 +18,7 @@ export class DeleteBillModalComponent implements OnInit {
 		private _selectedBillService: SelectedBillService,
 		private _modalContainerService: ModalContainerService,
 		private _router: Router,
-		private _billHttpService: BillService
+		private _billListService: BillListService
 	) {
 		this.bill = this._selectedBillService.billValue;
 	}
@@ -26,10 +27,7 @@ export class DeleteBillModalComponent implements OnInit {
 
 	public async deleteBill() {
 		try {
-			const deletedBill: Bill = await this._billHttpService.deleteById(
-				this.bill.id
-			);
-			// TODO: Validar la lista de letras?
+			await this._billListService.deleteById(this.bill.id);
 			this.closeModal();
 			this._router.navigate(["home"]);
 		} catch (error) {
