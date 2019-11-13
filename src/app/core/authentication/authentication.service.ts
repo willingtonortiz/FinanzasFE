@@ -78,7 +78,7 @@ export class AuthenticationService {
 		this._router.navigate(["account/login"]);
 	}
 
-	public register(user: RegisterUser) {
+	public register(user: RegisterUser): Promise<UserCredentials> {
 		return this.http
 			.post<any>(`${environment.apiUrl}/authentication/register`, user)
 			.pipe(
@@ -93,6 +93,7 @@ export class AuthenticationService {
 
 					return user;
 				})
-			);
+			)
+			.toPromise<UserCredentials>();
 	}
 }

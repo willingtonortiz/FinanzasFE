@@ -1,38 +1,51 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 	<h1>Registrarse</h1>
 
-	<div class="form-group row">
-		<label for="ruc">Ruc</label>
-		<input type="number" class="form-control" placeholder="Ingrese su número RUC" formControlName="ruc" />
+	<div class="row">
+		<label for="ruc">RUC</label>
+		<input type="text" placeholder="Ingrese su RUC" formControlName="ruc" />
+
 		<div class="form-errors" *ngIf="fruc.errors && fruc.dirty">
 			<div *ngIf="fruc.hasError('required')">
-				El Ruc Social es requerido
+				El RUC es requerido
 			</div>
-			<div *ngIf="
-				registerForm.get('ruc').hasError('min') ||
-				registerForm.get('ruc').hasError('max')
-			">
+			<div
+				*ngIf="fruc.hasError('minlength') || fruc.hasError('maxlength')"
+			>
 				El tamaño del Ruc es de 11 dígitos
 			</div>
 			<div *ngIf="fruc.hasError('pattern')">
-				El Ruc empieza con 20
+				El RUC empieza con 20 y está compuesto de dígitos
 			</div>
 		</div>
 	</div>
 
-	<div class="form-group row">
+	<div class="row">
 		<label for="businessName">Razón social</label>
-		<input type="text" class="form-control" placeholder="Ingrese su razón social" formControlName="businessName" />
-		<div class="form-errors" *ngIf="fbusinessName.errors && fbusinessName.dirty">
+		<input
+			type="text"
+			placeholder="Ingrese la razón social"
+			formControlName="businessName"
+		/>
+
+		<div
+			class="form-errors"
+			*ngIf="fbusinessName.errors && fbusinessName.dirty"
+		>
 			<div *ngIf="fbusinessName.hasError('required')">
-				La Razón Social es requerida
+				La razón social es requerida
 			</div>
 		</div>
 	</div>
 
-	<div class="form-group row">
+	<div class="row">
 		<label for="address">Dirección</label>
-		<input type="text" class="form-control" placeholder="Ingrese su dirección" formControlName="address" />
+		<input
+			type="text"
+			placeholder="Ingrese su dirección"
+			formControlName="address"
+		/>
+
 		<div class="form-errors" *ngIf="faddress.errors && faddress.dirty">
 			<div *ngIf="faddress.hasError('required')">
 				La direción es requerida
@@ -40,34 +53,66 @@
 		</div>
 	</div>
 
-	<div class="form-group row">
+	<div class="row">
 		<label for="password">Contraseña</label>
-		<input type="password" class="form-control" placeholder="Ingrese su contraseña" formControlName="password" />
-		<div class="form-errors" *ngIf="fpassword.errors && fpassword.dirty">
-			<div *ngIf="fpassword.hasError('required')">
+		<input
+			type="password"
+			placeholder="Ingrese su contraseña"
+			formControlName="password"
+		/>
+
+		<div class="form-errors" *ngIf="fPassword.errors && fPassword.dirty">
+			<div *ngIf="fPassword.hasError('required')">
 				La contraseña es requerida
 			</div>
+			<div *ngIf="fPassword.hasError('minlength')">
+				El tamaño mínimo es 8 caracteres
+			</div>
 		</div>
 	</div>
 
-	<div class="form-group row">
+	<div class="row">
 		<label for="confirmPassword">Confirmar contraseña</label>
-		<input type="password" class="form-control" placeholder="Ingrese su contraseña"
-			formControlName="confirmPassword" />
-		<div class="form-errors" *ngIf="(fconfirmPassword.errors || registerForm.value.password!=registerForm.value.confirmPassword) && fconfirmPassword.dirty">
-			<div *ngIf="fconfirmPassword.hasError('required')">
-				La confirmación de contraseña es requerida
+		<input
+			type="password"
+			placeholder="Ingrese nuevamente su contraseña"
+			formControlName="confirmPassword"
+		/>
+
+		<div
+			class="form-errors"
+			*ngIf="
+				(fConfirmPassword.errors ||
+					fPassword.value !== fConfirmPassword.value) &&
+				fConfirmPassword.dirty
+			"
+		>
+			<div *ngIf="fConfirmPassword.hasError('required')">
+				Este campo es requerido
 			</div>
-			<div *ngIf="registerForm.value.password!=registerForm.value.confirmPassword  &&  !fconfirmPassword.hasError('required')">
+			<div
+				*ngIf="
+					fPassword.value !== fConfirmPassword.value &&
+					!fPassword.hasError('required')
+				"
+			>
 				Debe ser la misma contraseña
 			</div>
-
 		</div>
 	</div>
 
-	<button type="submit" class="btn btn-primary ">Registrarse</button>
+	<div class="center">
+		<button type="submit">Registrarse</button>
+	</div>
 
-	<small id="emailHelp" class="form-text text-muted helpText">¿Ya tienes una cuenta?
-		<a [routerLink]="['/account/login']">Inicia sesión</a></small>
-	<small class="text text-danger">{{ errorMessage }}</small>
+	<div class="center">
+		<small
+			>¿Ya tienes una cuenta?
+			<a [routerLink]="['/account/login']">Inicia sesión</a></small
+		>
+	</div>
+
+	<div class="center">
+		<p>{{ errorMessage }}</p>
+	</div>
 </form>

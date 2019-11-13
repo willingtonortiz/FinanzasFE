@@ -1,9 +1,15 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, Validators, FormBuilder, AbstractControl } from "@angular/forms";
+import {
+	FormGroup,
+	Validators,
+	FormBuilder,
+	AbstractControl
+} from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { RegisterUser } from "src/app/shared/dtos/registerUser";
 import { AuthenticationService } from "src/app/core/authentication";
+import { UserCredentials } from "src/app/shared/dtos";
 
 @Component({
 	selector: "app-register",
@@ -30,51 +36,51 @@ export class RegisterComponent implements OnInit {
 				"",
 				Validators.compose([
 					Validators.required,
-					Validators.min(10000000000),
-					Validators.max(99999999999),
-					Validators.pattern(/^20/)
+					Validators.minLength(11),
+					Validators.maxLength(11),
+					Validators.pattern(/20\d{9}/)
 				])
 			],
 			businessName: ["", [Validators.required]],
 			address: ["", [Validators.required]],
-			password: ["", [Validators.required]],
+			password: ["", [Validators.required, Validators.minLength(8)]],
 			confirmPassword: ["", [Validators.required]]
 		});
 	}
 
-	onSubmit() {
-		if (this.registerForm.invalid && this.isInvalid()) {
-			console.log("Is invalid");
-			console.log(this.registerForm);
-			console.log(this.registerForm.errors);
+	public async onSubmit() {
+		if (this.registerForm.invalid || !this.passwordMatches()) {
+			this.showErrors();
 			return;
 		}
-		const data = this.registerForm.value;
 
 		const user: RegisterUser = {
-			username: data.ruc.toString(),
-			password: data.password,
-			address: data.address,
-			businessName: data.businessName
+			username: this.fruc.value,
+			password: this.fPassword.value,
+			address: this.faddress.value,
+			businessName: this.fbusinessName.value
 		};
 
-		this.authenticationService.register(user).subscribe({
-			next: (res: any) => {
-				this.router.navigate(["/home"]);
-			},
-			error: (res: any) => {
-				console.log(res);
-				// this.errorMessage = res.error.message;
-			}
-		});
+		try {
+			const newUser: UserCredentials = await this.authenticationService.register(
+				user
+			);
+			this.router.navigate(["/home"]);
+		} catch (error) {
+			this.errorMessage = "El RUC ya existe";
+		}
 	}
 
-	public isInvalid():boolean {
-		const data = this.registerForm.value;
-		console.log(data);
-		console.log("confirm password");
-		if (data.password !== data.confirmPassword) {
-			console.log("no son iguales");
+	public showErrors(): void {
+		this.fruc.markAsDirty();
+		this.fbusinessName.markAsDirty();
+		this.faddress.markAsDirty();
+		this.fPassword.markAsDirty();
+		this.fConfirmPassword.markAsDirty();
+	}
+
+	public passwordMatches(): boolean {
+		if (this.fPassword.value === this.fConfirmPassword.value) {
 			return true;
 		}
 		return false;
@@ -84,11 +90,11 @@ export class RegisterComponent implements OnInit {
 		return this.registerForm.get("businessName");
 	}
 
-	public get fpassword(): AbstractControl {
+	public get fPassword(): AbstractControl {
 		return this.registerForm.get("password");
 	}
 
-	public get fconfirmPassword(): AbstractControl {
+	public get fConfirmPassword(): AbstractControl {
 		return this.registerForm.get("confirmPassword");
 	}
 

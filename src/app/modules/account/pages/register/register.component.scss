@@ -1,76 +1,74 @@
 :host {
+	height: 100vh;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
-
-	h1 {
-		width: 100%;
-	}
-
-	.helpText {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 80%;
-		font-size: 1rem;
-	}
 
 	form {
-		display: flex;
-		flex-wrap: wrap;
-		width: 800px;
-		// border: 1px solid red;
+		width: 500px;
+		padding: 16px;
+
+		h1 {
+			width: 100%;
+			text-align: center;
+		}
 
 		.row {
-			margin: 0.5rem 0.5rem;
-			// border: 1px solid green;
+			margin: 20px 0;
+
 			display: flex;
 			flex-flow: column wrap;
-			width: 40%;
 
 			label,
 			input,
 			button {
-				font-size: 1rem;
-			}
-
-			button,
-			small,
-			h1 {
-				align-self: center;
+				font-size: 16px;
 			}
 
 			label {
-				margin: 0.5rem 0;
+				margin: 4px 0;
 			}
+
 			input {
 				border-left: none;
 				border-right: none;
 				border-top: none;
-				padding: 0.5rem;
+				padding: 8px;
 			}
-			button {
-				background-color: #54d691;
-				color: #eeeeee;
-				border: none;
-				border-radius: 7px;
-			}
+
 			small {
 				font-size: 1rem;
 			}
+
+			.form-errors {
+				font-size: 14px;
+			}
 		}
 
-		button {
-			margin: 1rem 20%;
-			font-size: 2rem;
-			align-self: center;
-			width: 40%;
-			//height: 5vh;
-			background-color: #54d691;
-			color: #eeeeee;
-			border: none;
-			border-radius: 7px;
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			button {
+				font-size: 20px;
+				background-color: #54d691;
+				color: #eeeeee;
+				border: none;
+				border-radius: 5px;
+				padding: 12px 16px;
+			}
+
+			small {
+				margin-top: 16px;
+			}
+
+			p {
+				margin-top: 16px;
+				color: tomato;
+				font-size: 24px;
+			}
 		}
 	}
 }
