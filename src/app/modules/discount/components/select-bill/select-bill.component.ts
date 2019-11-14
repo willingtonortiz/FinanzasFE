@@ -15,27 +15,15 @@ export class SelectBillComponent implements OnInit {
 	@Input() public bill: Bill;
 
 	constructor(
-		private discountBillModalService: DiscountBillModalService,
+		private _discountBillModalService: DiscountBillModalService,
 		private _discountBillService: DiscountBillService
-	) {
-		// this.bill = {
-		// 	currencyCode: CurrencyCode.PEN,
-		// 	startDate: new Date(2019, 9, 1),
-		// 	endDate: new Date(2019, 9, 31),
-		// 	amount: 10000
-		// };
-	}
+	) {}
 
-	public ngOnInit() {
-		// console.log(this.bill);
-		// this.bill = {};
-	}
+	public ngOnInit() {}
 
 	public selectBill() {
-		// this.discountService.CurrentBill = this.bill;
-		// console.log(this.discountService.CurrentBill);
 		this.bill.status = BillStatus.DISCOUNTING;
 		this._discountBillService.setBill(this.bill);
-		this.discountBillModalService.setPage(2);
+		this._discountBillModalService.setPage(2);
 	}
 }

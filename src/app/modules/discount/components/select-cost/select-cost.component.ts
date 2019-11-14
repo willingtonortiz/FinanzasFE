@@ -6,7 +6,7 @@ import {
 	DiscountProcessService,
 	DiscountBillCostsService
 } from "src/app/core/services";
-import { CostType } from "src/app/shared/enums";
+import { CostType, PaymentType } from "src/app/shared/enums";
 import {
 	FormGroup,
 	FormBuilder,
@@ -70,8 +70,11 @@ export class SelectCostComponent implements OnInit {
 			return;
 		}
 
-		const value: number = parseFloat(this.initialValue.value) / 100;
 		const paymentType: number = parseFloat(this.initialPaymentType.value);
+		let value: number = parseFloat(this.initialValue.value);
+		if (paymentType === PaymentType.PERCENTAGE) {
+			value /= 100;
+		}
 
 		this._discountBillCostsService.addInitialCost({
 			reason: this.initialReason.value,
@@ -86,13 +89,16 @@ export class SelectCostComponent implements OnInit {
 
 	public addFinalCost(): void {
 		if (this.finalCostForm.invalid) {
-			// console.log("Es invalido");
 			this.markFieldsAsDirty();
 			return;
 		}
 
-		const value: number = parseFloat(this.finalValue.value) / 100;
 		const paymentType: number = parseInt(this.initialPaymentType.value);
+		let value: number = parseFloat(this.finalValue.value);
+
+		if (paymentType === PaymentType.PERCENTAGE) {
+			value /= 100;
+		}
 
 		this._discountBillCostsService.addFinalCost({
 			reason: this.finalReason.value,
@@ -106,9 +112,9 @@ export class SelectCostComponent implements OnInit {
 	}
 
 	public addBill() {
-		this._discountBillModalService.hide();
-		this._discountBillModalService.setPage(1);
+		this._discountBillModalService.restart();
 		this._discountProcessService.discountCurrentBill();
+		this._discountBillService.untrackBill();
 	}
 
 	public markFieldsAsDirty() {

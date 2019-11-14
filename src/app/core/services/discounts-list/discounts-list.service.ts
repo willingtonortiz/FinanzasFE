@@ -7,6 +7,8 @@ import { skip } from "rxjs/operators";
 @Injectable({
 	providedIn: "root"
 })
+// Maneja la lista de descuentos
+// Escucha si se agrega un nuevo descuento
 export class DiscountsListService implements OnDestroy {
 	private _discountsSubject: BehaviorSubject<Array<Discount>>;
 	private _discountsObservable: Observable<Array<Discount>>;
@@ -43,17 +45,23 @@ export class DiscountsListService implements OnDestroy {
 		this._discountsSubject.next(discounts);
 	}
 
-	public addDiscount(newDiscounts: Discount): void {
+	/**
+	 * Agrega un descuento a la lista
+	 * @param newDiscount nuevo descuento
+	 */
+	public addDiscount(newDiscount: Discount): void {
 		const discounts = this.discountsValue;
-		discounts.push(newDiscounts);
-		// this.discountPool.receivedValue += discount.receivedValue;
-		// this.discountPool.deliveredValue += discount.deliveredValue;
+		discounts.push(newDiscount);
 
 		this._discountsSubject.next(discounts);
 	}
 
 	public get discountsValue(): Array<Discount> {
 		return this._discountsSubject.value;
+	}
+
+	public restart(): void {
+		this.setDiscounts([]);
 	}
 
 	get discountsObservable(): Observable<Array<Discount>> {

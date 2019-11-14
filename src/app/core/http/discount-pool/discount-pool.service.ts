@@ -7,6 +7,7 @@ import { CreateDiscountPool } from "src/app/shared/dtos/output";
 @Injectable({
 	providedIn: "root"
 })
+// Permite la conexion a la base de datos del descuento
 export class DiscountPoolService {
 	constructor(private httpClient: HttpClient) {}
 

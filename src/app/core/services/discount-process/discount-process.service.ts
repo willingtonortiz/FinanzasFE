@@ -27,13 +27,9 @@ import { DateUtilsService } from "../date-utils/date-utils.service";
 export class DiscountProcessService implements OnDestroy {
 	private _suscriptions: Array<Subscription>;
 
-	// TODO: Falta incluir el banco en el descuento
-	// En la vista de rate, se debe especificar si se seleccionó un banco
-	// Se puede(debe) utilizar rate en su lugar
-	// Falta agregar la retención en la letra
-
+	// TODO: Falta agregar la retención en la letra
 	public constructor(
-		private _discountPoolService: DiscountPoolService,
+		private _discountPoolHttpService: DiscountPoolService,
 		private _createNewDiscountService: CreateNewDiscountService,
 		private _discountPoolRateService: DiscountPoolRateService,
 		private _discountBillService: DiscountBillService,
@@ -62,9 +58,6 @@ export class DiscountProcessService implements OnDestroy {
 		let discounts = this._discountListService.discountsValue;
 		const rate = this._discountPoolRateService.rateValue;
 		const date = this._discountDateService.discountDateValue;
-
-		// console.log(date);
-		// console.log(discounts[0].bill.endDate);
 
 		discounts = discounts.map((x: Discount) =>
 			DiscountFormulasAdapter.discountBill(
@@ -122,7 +115,7 @@ export class DiscountProcessService implements OnDestroy {
 		this._discountBillCostsService.restart();
 	}
 
-	public discountDiscountPool() {
+	public saveDiscountPool() {
 		const discountPool: DiscountPool = this._discountPoolDataService
 			.discountPoolValue;
 		const discountDate: Date = this._discountDateService.discountDateValue;
@@ -135,8 +128,9 @@ export class DiscountProcessService implements OnDestroy {
 		);
 
 		// Creando la cartera
+		let bankId: number = this._discountPoolRateService.rateValue.id;
 		const createDiscountPool: CreateDiscountPool = {
-			bankId: -1,
+			bankId: bankId,
 			deliveredValue: discountPool.deliveredValue,
 			receivedValue: discountPool.receivedValue,
 			tcea: discountPool.tcea,
@@ -185,13 +179,19 @@ export class DiscountProcessService implements OnDestroy {
 		console.log(createDiscountPool);
 
 		try {
-			this._discountPoolService.createDiscountPool(createDiscountPool);
+			this._discountPoolHttpService.createDiscountPool(
+				createDiscountPool
+			);
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
 	public saveChanges(): void {}
+
+	public cancelDiscount(): void {
+		this._discountListService.restart();
+	}
 
 	public ngOnDestroy() {
 		this._suscriptions.forEach(x => x.unsubscribe());

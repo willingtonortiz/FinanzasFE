@@ -5,16 +5,15 @@ import { Discount } from "src/app/shared/models";
 @Injectable({
 	providedIn: "root"
 })
+// Se encarga de trackear el descuento actual
 export class CreateNewDiscountService {
 	private _discountSubject: Subject<Discount>;
 	private _discountObservable: Observable<Discount>;
 
 	constructor() {
 		this._discountSubject = new Subject<Discount>();
-		// this._discountSubject.pipe(skip(1));
 
 		this._discountObservable = this._discountSubject.asObservable();
-		// .asObservable();
 	}
 
 	public setDiscount(discount: Discount): void {

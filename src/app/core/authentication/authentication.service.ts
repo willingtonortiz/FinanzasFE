@@ -13,22 +13,18 @@ import { PymeHttpService } from "../http";
 	providedIn: "root"
 })
 export class AuthenticationService {
-	private currentUserSubject: BehaviorSubject<UserCredentials>;
-	public currentUser: Observable<UserCredentials>;
+	private _currentUserSubject: BehaviorSubject<UserCredentials>;
+	private _currentUserObservable: Observable<UserCredentials>;
 
 	constructor(
 		private http: HttpClient,
 		private _router: Router,
 		private _pymeHttpService: PymeHttpService
 	) {
-		this.currentUserSubject = new BehaviorSubject<UserCredentials>(
+		this._currentUserSubject = new BehaviorSubject<UserCredentials>(
 			JSON.parse(localStorage.getItem("currentUser"))
 		);
-		this.currentUser = this.currentUserSubject.asObservable();
-	}
-
-	public get currentUserValue(): UserCredentials {
-		return this.currentUserSubject.value;
+		this._currentUserObservable = this._currentUserSubject.asObservable();
 	}
 
 	// TODO: Abstraer los servicios relacionados a datos del usuario
@@ -63,7 +59,7 @@ export class AuthenticationService {
 							"currentUser",
 							JSON.stringify(user)
 						);
-						this.currentUserSubject.next(user);
+						this._currentUserSubject.next(user);
 					}
 
 					return user;
@@ -74,7 +70,7 @@ export class AuthenticationService {
 
 	public logout(): void {
 		localStorage.removeItem("currentUser");
-		this.currentUserSubject.next(null);
+		this._currentUserSubject.next(null);
 		this._router.navigate(["account/login"]);
 	}
 
@@ -88,12 +84,20 @@ export class AuthenticationService {
 							"currentUser",
 							JSON.stringify(user)
 						);
-						this.currentUserSubject.next(user);
+						this._currentUserSubject.next(user);
 					}
 
 					return user;
 				})
 			)
 			.toPromise<UserCredentials>();
+	}
+
+	public get currentUserValue(): UserCredentials {
+		return this._currentUserSubject.value;
+	}
+
+	public get currentUserObservable(): Observable<UserCredentials> {
+		return this._currentUserObservable;
 	}
 }

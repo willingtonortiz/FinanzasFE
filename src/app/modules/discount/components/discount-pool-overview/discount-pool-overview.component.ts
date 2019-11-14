@@ -43,11 +43,12 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 	}
 
 	public onSubmit() {
-		// Falta el metodo para construir el discountPool y enviarlo a la base de datos
 		try {
-			this.discountProcessService.discountDiscountPool();
+			this.discountProcessService.saveDiscountPool();
 		} catch (error) {
-			console.log(error);
+			console.log(
+				"ERROR => DISCOUNT POOL OVERVIEW COMPONENT => ONSUBMIT"
+			);
 		}
 	}
 }

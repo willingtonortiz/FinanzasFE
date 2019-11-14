@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy, OnInit } from "@angular/core";
 import { BillService } from "../../http";
 import { Bill } from "src/app/shared/models";
 import { AuthenticationService } from "../../authentication";
 import { UserCredentials } from "src/app/shared/dtos";
 import { BillType, BillStatus, CurrencyCode } from "src/app/shared/enums";
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable, BehaviorSubject, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
 import { DiscountPoolRateService } from "../discount-pool-rate/discount-pool-rate.service";
 
@@ -12,18 +12,20 @@ import { DiscountPoolRateService } from "../discount-pool-rate/discount-pool-rat
 	providedIn: "root"
 })
 export class BillListService {
+	private _suscriptions: Subscription[];
 	private _billsSubject: BehaviorSubject<Bill[]>;
 	private _billsToPayObservable: Observable<Bill[]>;
 	private _billsToChargeObservable: Observable<Bill[]>;
 	private _discountedBillsObservable: Observable<Bill[]>;
-
-	private currentUser: UserCredentials;
+	private _currentUser: UserCredentials;
 
 	constructor(
 		private _authenticationService: AuthenticationService,
 		private _billService: BillService,
 		private _discountPoolRateService: DiscountPoolRateService
 	) {
+		this._suscriptions = new Array<Subscription>();
+
 		this._billsSubject = new BehaviorSubject<Bill[]>([]);
 
 		this._billsToPayObservable = this._billsSubject.pipe(
@@ -49,18 +51,24 @@ export class BillListService {
 			)
 		);
 
-		this.currentUser = this._authenticationService.currentUserValue;
-		this.initialize();
-	}
-
-	public async initialize(): Promise<void> {
-		await this.fetchBills();
+		this._suscriptions.push(
+			this._authenticationService.currentUserObservable.subscribe({
+				next: (user: UserCredentials) => {
+					this._currentUser = user;
+					this.fetchBills();
+				}
+			})
+		);
 	}
 
 	public async fetchBills() {
 		try {
+			if (this._currentUser === null) {
+				return;
+			}
+
 			const bills = await this._billService.findByUserId(
-				this.currentUser.id
+				this._currentUser.id
 			);
 			this._billsSubject.next(bills);
 		} catch (error) {
@@ -75,6 +83,16 @@ export class BillListService {
 		} catch (error) {
 			console.log("ERROR EN => BILL LIST SERVICE => DELETE BY ID");
 		}
+	}
+
+	public normalizeBills(): void {
+		const bills: Bill[] = this._billsSubject.value;
+		bills.forEach(x => {
+			if (x.status === BillStatus.DISCOUNTING) {
+				x.status = BillStatus.VALID;
+			}
+		});
+		this._billsSubject.next(bills);
 	}
 
 	public getValidBillsToCharge(): Observable<Bill[]> {
@@ -102,5 +120,9 @@ export class BillListService {
 
 	public getDiscountedBills(): Observable<Bill[]> {
 		return this._discountedBillsObservable;
+	}
+
+	public ngOnDestroy(): void {
+		this._suscriptions.forEach(x => x.unsubscribe());
 	}
 }

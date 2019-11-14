@@ -8,6 +8,7 @@ import { DiscountBillService } from "../discount-bill/discount-bill.service";
 	providedIn: "root"
 })
 // Maneja los descuentos de la letra a descontar
+// Depende de la letra actual
 export class DiscountBillCostsService {
 	private _initialCostsSubject: BehaviorSubject<Array<Cost>>;
 	private _initialCostsObservable: Observable<Array<Cost>>;

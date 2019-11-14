@@ -6,11 +6,10 @@ import { CurrencyCode, RateTerm, RateType } from "src/app/shared/enums";
 @Injectable({
 	providedIn: "root"
 })
+// Se encarga de trackear el "Rate" actual
 export class DiscountPoolRateService {
 	private _rateSubject: BehaviorSubject<Rate>;
 	private _rateObservable: Observable<Rate>;
-
-	private _rate: Rate;
 
 	constructor() {
 		this._rateSubject = new BehaviorSubject<Rate>(null);
