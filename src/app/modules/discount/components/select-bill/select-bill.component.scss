@@ -1,16 +1,14 @@
 :host {
 	width: 350px;
 	padding: 16px;
-	height: min-content;
+	border: 1px solid blue;
 
-	border: 1px solid lightgray;
-	border-radius: 5px;
-
-	display: grid;
-	grid-template-rows: repeat(4, 1fr);
-	gap: 8px;
+	display: flex;
+	flex-flow: column nowrap;
 
 	.row {
+		margin: 10px 0;
+
 		display: flex;
 		justify-content: space-between;
 		align-items: center;

@@ -15,15 +15,17 @@
 
 	.bills {
 		height: 65vh;
-		border: 1px solid red;
 		overflow-y: scroll;
 
 		display: flex;
 		flex-flow: row wrap;
-		justify-content: center;
-		align-items: center;
+		justify-content: space-around;
+		align-content: flex-start;
+		align-items: flex-start;
 
 		app-select-bill {
+			border: 1px solid lightgray;
+			border-radius: 5px;
 			margin: 16px;
 		}
 	}

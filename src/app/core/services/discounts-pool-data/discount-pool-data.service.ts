@@ -6,6 +6,7 @@ import { DiscountPool, Discount } from "src/app/shared/models";
 @Injectable({
 	providedIn: "root"
 })
+// Maneja los datos de la cartera de descuento
 export class DiscountPoolDataService {
 	private _discountPoolSubject: BehaviorSubject<DiscountPool>;
 	private _discountPoolObservable: Observable<DiscountPool>;

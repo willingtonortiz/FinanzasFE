@@ -4,7 +4,11 @@ import { Pipe, PipeTransform } from "@angular/core";
 	name: "rateType"
 })
 export class RateTypePipe implements PipeTransform {
-	transform(value: any, ...args: any[]): any {
-		return null;
+	transform(value: number, ...args: any[]): any {
+		if (value === 1) {
+			return "N";
+		} else if (value === 2) {
+			return "E";
+		}
 	}
 }

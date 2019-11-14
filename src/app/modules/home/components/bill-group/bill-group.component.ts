@@ -57,11 +57,4 @@ export class BillGroupComponent implements OnInit, OnDestroy {
 			);
 		}
 	}
-
-	changeActive(type: number) {
-		// var actives = document.getElementsByClassName("active")[0];
-		// actives.classList.remove("active");
-		// var newActives = document.getElementsByClassName("nav-link");
-		// newActives[type + 1].classList.add("active");
-	}
 }

@@ -5,6 +5,7 @@ import { DateUtilsService } from "../date-utils/date-utils.service";
 @Injectable({
 	providedIn: "root"
 })
+// Maneja la fecha del descuento
 export class DiscountDateService {
 	private _discountDateSubject: BehaviorSubject<Date>;
 	private _discountDateObservable: Observable<Date>;
@@ -13,8 +14,6 @@ export class DiscountDateService {
 		this._discountDateSubject = new BehaviorSubject<Date>(
 			this._dateUtilsService.getTodaysDate()
 		);
-
-		// console.log(this._discountDateSubject.value);
 
 		this._discountDateObservable = this._discountDateSubject.asObservable();
 	}

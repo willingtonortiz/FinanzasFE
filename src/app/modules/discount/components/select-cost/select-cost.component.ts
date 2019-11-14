@@ -26,11 +26,8 @@ export class SelectCostComponent implements OnInit {
 	public initialCostForm: FormGroup;
 	public finalCostForm: FormGroup;
 
-	// TODO, AGREGAR VALIDACIÓN DE CAMPOS
-	// Para un costo inicial
 	public initialTotal: number;
 
-	// Para un costo final
 	public finalTotal: number;
 
 	constructor(
@@ -39,7 +36,9 @@ export class SelectCostComponent implements OnInit {
 		private _discountBillService: DiscountBillService,
 		private _discountBillCostsService: DiscountBillCostsService,
 		private _formBuilder: FormBuilder
-	) {
+	) {}
+
+	public ngOnInit() {
 		this.initialCostForm = this._formBuilder.group({
 			initialReason: ["Portes iniciales", []],
 			initialPaymentType: ["1", []],
@@ -65,16 +64,17 @@ export class SelectCostComponent implements OnInit {
 		this.finalTotal = 0;
 	}
 
-	ngOnInit() {}
-
 	public addInitialCost(): void {
 		if (this.initialCostForm.invalid) {
-			// console.log("Es invalido");
-			this.maskFieldsAsDirty();
+			this.markFieldsAsDirty();
 			return;
 		}
-		const value: number = parseFloat(this.initialValue.value);
+
 		const paymentType: number = parseFloat(this.initialPaymentType.value);
+		let value: number = parseFloat(this.initialValue.value);
+		if (paymentType === PaymentType.PERCENTAGE) {
+			value /= 100;
+		}
 
 		this._discountBillCostsService.addInitialCost({
 			reason: this.initialReason.value,
@@ -89,13 +89,16 @@ export class SelectCostComponent implements OnInit {
 
 	public addFinalCost(): void {
 		if (this.finalCostForm.invalid) {
-			// console.log("Es invalido");
-			this.maskFieldsAsDirty();
+			this.markFieldsAsDirty();
 			return;
 		}
 
-		const value: number = parseFloat(this.finalValue.value);
 		const paymentType: number = parseInt(this.initialPaymentType.value);
+		let value: number = parseFloat(this.finalValue.value);
+
+		if (paymentType === PaymentType.PERCENTAGE) {
+			value /= 100;
+		}
 
 		this._discountBillCostsService.addFinalCost({
 			reason: this.finalReason.value,
@@ -109,12 +112,12 @@ export class SelectCostComponent implements OnInit {
 	}
 
 	public addBill() {
-		this._discountBillModalService.hide();
-		this._discountBillModalService.setPage(1);
+		this._discountBillModalService.restart();
 		this._discountProcessService.discountCurrentBill();
+		this._discountBillService.untrackBill();
 	}
 
-	public maskFieldsAsDirty() {
+	public markFieldsAsDirty() {
 		this.initialValue.markAsDirty();
 		this.finalValue.markAsDirty();
 	}

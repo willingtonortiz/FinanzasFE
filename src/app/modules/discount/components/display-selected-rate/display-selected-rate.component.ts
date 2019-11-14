@@ -31,17 +31,17 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 	) { }
 
 	public async ngOnInit() {
-		this.rate = {
-			businessName: "TEMPORAL[BORRAR]",
-			rateValue: 0.12,
-			capitalizationTerm: RateTerm.ANNUAL,
-			currencyCode: CurrencyCode.PEN,
-			rateTerm: RateTerm.ANNUAL,
-			rateType: RateType.EFFECTIVE
-		};
+		// this.rate = {
+		// 	businessName: "TEMPORAL[BORRAR]",
+		// 	rateValue: 0.12,
+		// 	capitalizationTerm: RateTerm.ANNUAL,
+		// 	currencyCode: CurrencyCode.PEN,
+		// 	rateTerm: RateTerm.ANNUAL,
+		// 	rateType: RateType.EFFECTIVE
+		// };
 		this._suscriptions = new Array<Subscription>();
 
-		// Quitar para pruebas
+		// Descomentar para producción
 
 		// if (this._discountPoolRate.rateValue === null) {
 		// 	await this._router.navigate(["/rate"]);
@@ -53,8 +53,9 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 		this._suscriptions.push(
 			this._discountPoolRate.rateObservable.subscribe({
 				next: (rate: Rate) => {
-					if (rate != null)
-						this.rate = rate;
+					this.rate = rate;
+
+
 				},
 				error: error => {
 					console.log("Error en display-selected-rate.component");

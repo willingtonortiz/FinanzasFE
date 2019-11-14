@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Bill } from "src/app/shared/models";
 import { Observable, BehaviorSubject } from "rxjs";
+import { BillStatus } from "src/app/shared/enums";
 
 @Injectable({
 	providedIn: "root"
@@ -11,7 +12,6 @@ export class DiscountBillService {
 	private _billObservable: Observable<Bill>;
 
 	public constructor() {
-		// this.bill = {};
 		this._billSubject = new BehaviorSubject<Bill>(null);
 		this._billObservable = this._billSubject.asObservable();
 	}
@@ -26,5 +26,24 @@ export class DiscountBillService {
 
 	public setBill(bill: Bill): void {
 		this._billSubject.next(bill);
+	}
+
+	/**
+	 * Deshace los cambios en la letra
+	 */
+	public rollback(): void {
+		const bill: Bill = this.billValue;
+		if (bill === null) return;
+		if (bill.status === BillStatus.DISCOUNTING) {
+			bill.status = BillStatus.VALID;
+		}
+		this.setBill(null);
+	}
+
+	/**
+	 * Deja de trackear la letra, pero los cambios siguen
+	 */
+	public untrackBill(): void {
+		this.setBill(null);
 	}
 }

@@ -57,7 +57,7 @@ export class CreateRateComponent implements OnInit {
 
 	public onSubmit() {
 		if (this.rateForm.invalid) {
-			console.log("invalido");
+			this.markFieldsAsDirty();
 			return;
 		}
 
@@ -69,6 +69,7 @@ export class CreateRateComponent implements OnInit {
 		const rateTerm: number = parseInt(this.rateTerm.value);
 		const rateType: number = parseInt(this.rateType.value);
 
+		// [IGNORAR] [NO_BORRAR]
 		// Se podrian crear dos tipos de Rates
 		// Siguiente versión
 
@@ -85,6 +86,10 @@ export class CreateRateComponent implements OnInit {
 		console.log(rate);
 
 		this.router.navigate(["/discount"]);
+	}
+
+	public markFieldsAsDirty(): void {
+		this.rateValue.markAsDirty();
 	}
 
 	public get rateType(): AbstractControl {

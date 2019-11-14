@@ -6,11 +6,15 @@ import { CurrencyCode } from "../../enums";
 	name: "currencyType"
 })
 export class CurrencyTypePipe implements PipeTransform {
-	transform(value: Bill, ...args: any[]): any {
-		if (value.currencyCode === CurrencyCode.PEN) {
-			return "S/. " + value.amount.toFixed(2);
+	transform(value: number, currencyCode?: CurrencyCode): any {
+		if (currencyCode === null) {
+			return "S/. " + value.toFixed(2);
+		}
+
+		if (currencyCode === CurrencyCode.PEN) {
+			return "S/. " + value.toFixed(2);
 		} else {
-			return "$ " + value.amount.toFixed(2);
+			return "$ " + value.toFixed(2);
 		}
 	}
 }

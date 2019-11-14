@@ -3,7 +3,10 @@ import { Subscription } from "rxjs";
 
 import { Rate, DiscountPool } from "src/app/shared/models";
 import { DiscountService } from "src/app/core/http";
-import { DiscountBillModalService } from "src/app/core/services";
+import {
+	DiscountBillModalService,
+	DiscountProcessService
+} from "src/app/core/services";
 import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
 
 @Component({
@@ -15,29 +18,29 @@ export class DiscountContainerComponent implements OnInit, OnDestroy {
 	public discountPool: DiscountPool;
 
 	// Para el modal
-	public suscription: Subscription;
+	public _suscription: Subscription;
 	public modalStatus: boolean;
 
 	constructor(
-		private discountBillModalService: DiscountBillModalService,
-		private billListService: BillListService
+		private _billListService: BillListService,
+		private _discountBillModalService: DiscountBillModalService,
+		private _discountProcessService: DiscountProcessService
 	) {
-		this.suscription = this.discountBillModalService.Display.subscribe({
+		this._suscription = this._discountBillModalService.Display.subscribe({
 			next: (value: boolean) => {
 				this.modalStatus = value;
 			}
 		});
-
-		// this.discountPool = {
-		// 	deliveredValue: 10000,
-		// 	receivedValue: 9000,
-		// 	tcea: 0.25
-		// };
 	}
 
 	ngOnInit() {}
 
 	ngOnDestroy() {
-		this.suscription.unsubscribe();
+		this._suscription.unsubscribe();
+	}
+
+	public goBack() {
+		this._billListService.normalizeBills();
+		this._discountProcessService.cancelDiscount();
 	}
 }

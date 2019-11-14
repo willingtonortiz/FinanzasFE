@@ -22,6 +22,7 @@ export class DisplayBankComponent implements OnInit {
 
 	public selectSoles() {
 		const rate: Rate = {
+			id: this.bank.id,
 			businessName: this.bank.businessName,
 			currencyCode: CurrencyCode.PEN,
 			rateTerm: RateTerm.ANNUAL,
@@ -35,6 +36,7 @@ export class DisplayBankComponent implements OnInit {
 
 	public selectDolares() {
 		const rate: Rate = {
+			id: this.bank.id,
 			businessName: this.bank.businessName,
 			currencyCode: CurrencyCode.USD,
 			rateTerm: RateTerm.ANNUAL,

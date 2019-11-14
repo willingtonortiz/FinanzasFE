@@ -19,6 +19,11 @@ export class DiscountBillModalService {
 		this.page = this.pageSubject.asObservable();
 	}
 
+	public restart(): void {
+		this.hide();
+		this.setPage(1);
+	}
+
 	// Para el modal
 	public show() {
 		this.displaySubject.next(true);

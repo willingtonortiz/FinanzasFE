@@ -79,7 +79,7 @@ export class AddBillComponent implements OnInit {
 			startDate: [
 				today,
 				[
-					Validators.required,
+					Validators.required
 					// this._dateValidatorsService.beforeDate(
 					// 	this._dateUtilsService.getTodaysDate()
 					// )
@@ -88,7 +88,7 @@ export class AddBillComponent implements OnInit {
 			endDate: [
 				today,
 				[
-					Validators.required,
+					Validators.required
 					// this._dateValidatorsService.afterDate(
 					// 	this._dateUtilsService.getTodaysDate()
 					// )
@@ -163,25 +163,42 @@ export class AddBillComponent implements OnInit {
 		const today: string = this._dateUtilsService.getCalendarTodaysString();
 		this.drawerRuc.reset();
 		this.draweeRuc.reset();
-		this.changeBillToPay();
+		// this.changeBillToPay();
+		if (this.billType === BillType.TO_PAY) {
+			this.drawerRuc.setValue("");
+			this.draweeRuc.setValue(this.currentPyme.ruc);
+		} else {
+			this.drawerRuc.setValue(this.currentPyme.ruc);
+			this.draweeRuc.setValue("");
+		}
 		this.startDate.setValue(today);
 		this.endDate.setValue(today);
 		this.signPlace.reset();
 		this.paymentPlace.reset();
-		this.currencyCode.setValue("1");
+		// this.currencyCode.setValue("1");
 		this.amount.reset();
 	}
 
 	public changeBillToPay(): void {
+		let previousDrawee: string = this.draweeRuc.value;
+		if (previousDrawee === this.currentPyme.ruc) {
+			previousDrawee = "";
+		}
+
 		this.billType = BillType.TO_PAY;
-		this.drawerRuc.setValue("");
+
+		this.drawerRuc.setValue(previousDrawee);
 		this.draweeRuc.setValue(this.currentPyme.ruc);
 	}
 
 	public changeBillToCharge(): void {
+		let previousDrawer: string = this.drawerRuc.value;
+		if (previousDrawer === this.currentPyme.ruc) {
+			previousDrawer = "";
+		}
 		this.billType = BillType.TO_CHARGE;
 		this.drawerRuc.setValue(this.currentPyme.ruc);
-		this.draweeRuc.setValue("");
+		this.draweeRuc.setValue(previousDrawer);
 	}
 
 	// TODO, preguntar a la profe si es posible registrar letras que aún
