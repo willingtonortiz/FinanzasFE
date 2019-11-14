@@ -105,7 +105,7 @@ export class BillListService {
 					x =>
 						x.status === BillStatus.VALID &&
 						x.currencyCode === currencyCode &&
-						(date === null || x.endDate >= date)
+						(date === null || (x.endDate >= date && date >= x.startDate))
 				)
 			)
 		);

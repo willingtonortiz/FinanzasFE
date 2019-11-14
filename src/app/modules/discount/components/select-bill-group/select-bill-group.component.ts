@@ -18,12 +18,12 @@ export class SelectBillGroupComponent implements OnInit {
 		private _billListService: BillListService,
 		private _discountBillModalService: DiscountBillModalService,
 		private _discountDateService: DiscountDateService
-	) {}
+	) { }
 
 	public async ngOnInit() {
 		//this.date=this._discountDateService.discountDateValue().subscribe();
-		this.date=this._discountDateService.discountDateValue;
-		this._billListService.getValidBillsToCharge(this.date).subscribe(x => {
+		this.date = this._discountDateService.discountDateValue;
+		this._billListService.getValidBillsToCharge( this.date ).subscribe(x => {
 			this.bills = x;
 			//console.log(this.bills);
 		});

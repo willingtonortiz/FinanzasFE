@@ -112,7 +112,10 @@ export class DiscountProcessService implements OnDestroy {
 
 		this._createNewDiscountService.setDiscount(newDiscount);
 		this.updateDiscountPool();
+		this._discountPoolDataService.setMaximumDiscountDate(bill.endDate);
+		this._discountPoolDataService.setMinimumDiscountDate(bill.startDate);
 		this._discountBillCostsService.restart();
+
 	}
 
 	public saveDiscountPool() {

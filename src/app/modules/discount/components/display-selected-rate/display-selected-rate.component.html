@@ -22,12 +22,16 @@
 	<div class="col">
 		<input type="date" [(ngModel)]="discountDate" (change)="updateDiscountDate()" />
 		<div class="form-errors" *ngIf="
-			!validateDate()
+			!validateDate() || afterMaximumDate() || beforeMinimumDate()
 		">
-			<div *ngIf="
-			!validateDate()
-			">
+			<div *ngIf="!validateDate()">
 				Fecha Invalida
+			</div>
+			<div *ngIf="afterMaximumDate()">
+				Fecha fuera del rango superior de descuento
+			</div>
+			<div *ngIf="beforeMinimumDate()">
+				Fecha fuera del rango inferior de descuento
 			</div>
 		</div>
 	</div>

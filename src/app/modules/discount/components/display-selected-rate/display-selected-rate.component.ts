@@ -69,20 +69,32 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 
 	public updateDiscountDate() {
 
-		if (this.validateDate()) {
+		if (this.validateDate() && !this.afterMaximumDate() && !this.beforeMinimumDate()) {
 			this._discountDateService.setDiscountDate(
 				new Date(this.discountDate + "T00:00:00")
 			);
 		}
 	}
 
-	private validateDate() {
+	private validateDate(): boolean {
 		let date = new Date(this.discountDate + "T00:00:00");
-		return date.getTime() == date.getTime()
+		//console.log(this._discountPoolData.maximumDiscountDateValue);
+		return (date.getTime() == date.getTime())
+	}
+
+	private afterMaximumDate(): boolean {
+		let date = new Date(this.discountDate + "T00:00:00");
+		return date > this._discountPoolData.maximumDiscountDateValue;
+	}
+
+	private beforeMinimumDate(): boolean {
+		let date = new Date(this.discountDate + "T00:00:00");
+		return date < this._discountPoolData.minimumDiscountDateValue;
 	}
 
 	public showModal() {
-		this._discountBillModalService.show();
+		if (this.validateDate() && !this.afterMaximumDate() && !this.beforeMinimumDate())
+			this._discountBillModalService.show();
 	}
 
 	public ngOnDestroy() {
