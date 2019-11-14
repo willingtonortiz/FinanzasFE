@@ -25,7 +25,7 @@ export class SelectBillGroupComponent implements OnInit {
 		this.date=this._discountDateService.discountDateValue;
 		this._billListService.getValidBillsToCharge(this.date).subscribe(x => {
 			this.bills = x;
-			console.log(this.bills);
+			//console.log(this.bills);
 		});
 	}
 

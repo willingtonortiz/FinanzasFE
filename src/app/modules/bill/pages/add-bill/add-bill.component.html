@@ -102,11 +102,12 @@
 
 					<div
 						class="form-errors"
-						*ngIf="startDate.errors && startDate.dirty"
+						*ngIf="(startDate.errors || startDate.hasError('validateDate')) && startDate.dirty"
 					>
 						<div *ngIf="startDate.hasError('beforeDate')">
 							La letra aún no ha sido emitida
 						</div>
+
 					</div>
 				</div>
 

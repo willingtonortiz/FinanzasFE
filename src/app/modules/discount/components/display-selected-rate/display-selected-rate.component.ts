@@ -54,7 +54,10 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 			this._discountPoolRate.rateObservable.subscribe({
 				next: (rate: Rate) => {
 					this.rate = rate;
-
+					if (rate === null) {
+						this._router.navigate(["/rate"]);
+						return;
+					}
 
 				},
 				error: error => {
@@ -65,9 +68,17 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 	}
 
 	public updateDiscountDate() {
-		this._discountDateService.setDiscountDate(
-			new Date(this.discountDate + "T00:00:00")
-		);
+
+		if (this.validateDate()) {
+			this._discountDateService.setDiscountDate(
+				new Date(this.discountDate + "T00:00:00")
+			);
+		}
+	}
+
+	private validateDate() {
+		let date = new Date(this.discountDate + "T00:00:00");
+		return date.getTime() == date.getTime()
 	}
 
 	public showModal() {

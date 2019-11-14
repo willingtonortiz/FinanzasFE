@@ -83,7 +83,7 @@ export class CreateRateComponent implements OnInit {
 		};
 
 		this.discountPoolRateService.setRate(rate);
-		console.log(rate);
+		//console.log(rate);
 
 		this.router.navigate(["/discount"]);
 	}

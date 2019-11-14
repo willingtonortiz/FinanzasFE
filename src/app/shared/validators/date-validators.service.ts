@@ -6,12 +6,13 @@ import { DateUtilsService } from "src/app/core/services";
 	providedIn: "root"
 })
 export class DateValidatorsService {
-	public constructor(private _dateUtilsService: DateUtilsService) {}
+	public constructor(private _dateUtilsService: DateUtilsService) { }
 
 	beforeDate(date: Date): ValidatorFn {
 		return (
 			control: AbstractControl
 		): { [key: string]: boolean } | null => {
+			console.log("before");
 			const controlDate: Date = this._dateUtilsService.getDateFromCalendarDate(
 				control.value
 			);
@@ -31,6 +32,7 @@ export class DateValidatorsService {
 		return (
 			control: AbstractControl
 		): { [key: string]: boolean } | null => {
+			console.log("after");
 			const controlDate: Date = this._dateUtilsService.getDateFromCalendarDate(
 				control.value
 			);
@@ -45,4 +47,5 @@ export class DateValidatorsService {
 			}
 		};
 	}
+
 }
