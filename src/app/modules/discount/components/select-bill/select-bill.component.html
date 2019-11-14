@@ -21,7 +21,7 @@
 		<p>Valor nominal</p>
 	</div>
 	<div class="col">
-		<p>{{ bill.amount | currency: bill.currencyCode }}</p>
+		<p>{{ bill.amount }} {{  bill.currencyCode  | currencyCode }}</p>
 	</div>
 </div>
 

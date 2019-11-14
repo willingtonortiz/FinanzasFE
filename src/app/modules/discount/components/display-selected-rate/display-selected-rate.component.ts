@@ -28,7 +28,7 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 		private _discountDateService: DiscountDateService,
 		private _dateUtilsService: DateUtilsService,
 		private _router: Router
-	) {}
+	) { }
 
 	public async ngOnInit() {
 		this.rate = {
@@ -53,7 +53,8 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 		this._suscriptions.push(
 			this._discountPoolRate.rateObservable.subscribe({
 				next: (rate: Rate) => {
-					// this.rate = rate;
+					if (rate != null)
+						this.rate = rate;
 				},
 				error: error => {
 					console.log("Error en display-selected-rate.component");

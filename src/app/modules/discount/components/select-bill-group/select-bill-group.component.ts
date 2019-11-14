@@ -20,6 +20,7 @@ export class SelectBillGroupComponent implements OnInit {
 	public async ngOnInit() {
 		this._billListService.getValidBillsToCharge().subscribe(x => {
 			this.bills = x;
+			console.log(this.bills);
 		});
 	}
 
