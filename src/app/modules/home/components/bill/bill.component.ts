@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Bill } from "src/app/shared/models";
 import { BillService } from "src/app/core/http";
-import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
+import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
 import { DateUtilsService } from "src/app/core/services";
 
 @Component({

@@ -1,0 +1,9 @@
+:host {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+
+	.title {
+		margin-bottom: 16px;
+	}
+}

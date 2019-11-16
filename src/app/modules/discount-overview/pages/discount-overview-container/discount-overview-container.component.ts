@@ -31,8 +31,7 @@ export class DiscountOverviewContainerComponent implements OnInit {
 		try {
 			await this._discountedDiscountPoolService.fetchById(discountPoolId);
 			this.discountPool = this._discountedDiscountPoolService.discountPoolValue;
-			console.log(this.discountPool);
-		} catch (error) {
+			} catch (error) {
 			console.log(
 				"ERROR => DISCOUNT OVERVIEW CONTAINER COMPONENT => NGONINIT"
 			);

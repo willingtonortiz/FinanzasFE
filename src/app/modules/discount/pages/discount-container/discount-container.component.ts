@@ -7,7 +7,7 @@ import {
 	DiscountBillModalService,
 	DiscountProcessService
 } from "src/app/core/services";
-import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
+import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
 
 @Component({
 	selector: "app-discount-container",

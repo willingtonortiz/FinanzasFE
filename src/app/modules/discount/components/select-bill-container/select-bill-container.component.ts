@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { DiscountBillModalService } from "src/app/core/services/discount-bill-modal/discount-bill-modal.service";
-import {
-	DiscountBillService,
-	DiscountBillCostsService
-} from "src/app/core/services";
+import { DiscountBillCostsService } from "src/app/core/services";
+import { DiscountBillService } from 'src/app/core/services/discount-bill/discount-bill.service';
 
 @Component({
 	selector: "app-select-bill-container",

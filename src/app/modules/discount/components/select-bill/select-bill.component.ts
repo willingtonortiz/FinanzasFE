@@ -3,8 +3,8 @@ import { Bill } from "src/app/shared/models";
 
 import { DiscountService } from "src/app/core/http";
 import { DiscountBillModalService } from "src/app/core/services/discount-bill-modal/discount-bill-modal.service";
-import { DiscountBillService } from "src/app/core/services";
 import { CurrencyCode, BillStatus } from "src/app/shared/enums";
+import { DiscountBillService } from 'src/app/core/services/discount-bill/discount-bill.service';
 
 @Component({
 	selector: "app-select-bill",
