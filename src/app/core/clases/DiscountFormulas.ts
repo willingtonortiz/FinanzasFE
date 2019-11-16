@@ -95,6 +95,8 @@ export class DiscountFormulas {
 		discountDays: number,
 		size: number
 	): number {
+		if (size == 0)
+			return 0;
 		return (Math.pow(
 			deliveredValue / receivedValue,
 			(360) / discountDays

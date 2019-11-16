@@ -33,6 +33,7 @@ export class DiscountPoolDataService {
 
 	public setDiscountPool(discountPool: DiscountPool): void {
 		discountPool.currencyCode = this.currencyCode;
+		console.log(discountPool);
 		this._discountPoolSubject.next(discountPool);
 	}
 
