@@ -7,7 +7,7 @@
 		<p>Valor recibido</p>
 	</div>
 	<div class="col">
-		<p>{{ discountPool.receivedValue }}</p>
+		<p>{{ discountPool.receivedValue | currencyType: discountPool.currencyCode }}</p>
 		<!-- <p>13215</p> -->
 	</div>
 </div>
@@ -17,7 +17,7 @@
 		<p>Valor entregado</p>
 	</div>
 	<div class="col">
-		<p>{{ discountPool.deliveredValue }}</p>
+		<p>{{ discountPool.deliveredValue | currencyType: discountPool.currencyCode }}</p>
 		<!-- <p>8946415</p> -->
 	</div>
 </div>

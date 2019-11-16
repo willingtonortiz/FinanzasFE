@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 
 import { Bank, Rate } from "src/app/shared/models";
-import { DiscountPoolRateService } from "src/app/core/services";
+import { DiscountPoolRateService, DiscountPoolDataService } from "src/app/core/services";
 import { CurrencyCode, RateTerm, RateType } from "src/app/shared/enums";
 import { Router } from "@angular/router";
 
@@ -15,7 +15,8 @@ export class DisplayBankComponent implements OnInit {
 
 	constructor(
 		private discountPoolRateService: DiscountPoolRateService,
-		private router: Router
+		private router: Router,
+		private _discountPoolData: DiscountPoolDataService
 	) {}
 
 	ngOnInit() {}
@@ -31,6 +32,7 @@ export class DisplayBankComponent implements OnInit {
 			capitalizationTerm: null
 		};
 		this.discountPoolRateService.setRate(rate);
+		this._discountPoolData.setCurrencyCode(rate.currencyCode);
 		this.router.navigate(["/discount"]);
 	}
 
@@ -45,6 +47,7 @@ export class DisplayBankComponent implements OnInit {
 			capitalizationTerm: null
 		};
 		this.discountPoolRateService.setRate(rate);
+		this._discountPoolData.setCurrencyCode(rate.currencyCode);
 		this.router.navigate(["/discount"]);
 	}
 }
