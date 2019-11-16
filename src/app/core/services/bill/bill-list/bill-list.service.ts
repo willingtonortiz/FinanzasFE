@@ -1,12 +1,12 @@
 import { Injectable, OnDestroy, OnInit } from "@angular/core";
-import { BillService } from "../../http";
+import { BillService } from "../../../http";
 import { Bill } from "src/app/shared/models";
-import { AuthenticationService } from "../../authentication";
+import { AuthenticationService } from "../../../authentication";
 import { UserCredentials } from "src/app/shared/dtos";
 import { BillType, BillStatus, CurrencyCode } from "src/app/shared/enums";
 import { Observable, BehaviorSubject, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
-import { DiscountPoolRateService } from "../discount-pool-rate/discount-pool-rate.service";
+import { DiscountPoolRateService } from "../../discount-pool-rate/discount-pool-rate.service";
 
 @Injectable({
 	providedIn: "root"
@@ -61,7 +61,7 @@ export class BillListService {
 		);
 	}
 
-	public async fetchBills() {
+	public async fetchBills(): Promise<void> {
 		try {
 			if (this._currentUser === null) {
 				return;
@@ -105,7 +105,8 @@ export class BillListService {
 					x =>
 						x.status === BillStatus.VALID &&
 						x.currencyCode === currencyCode &&
-						(date === null || (x.endDate >= date && date >= x.startDate))
+						(date === null ||
+							(x.endDate >= date && date >= x.startDate))
 				)
 			)
 		);

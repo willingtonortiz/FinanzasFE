@@ -18,7 +18,7 @@ import { Pyme, Bill } from "src/app/shared/models";
 import { CreatedBillService } from "src/app/core/services/bill";
 import { ModalContainerService } from "src/app/modules/nav-page/services";
 import { ModalValue } from "src/app/modules/nav-page/enums";
-import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
+import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
 
 @Component({
 	selector: "app-add-bill",

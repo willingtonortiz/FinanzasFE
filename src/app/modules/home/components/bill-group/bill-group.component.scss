@@ -1,14 +1,16 @@
-.container {
+:host {
 	height: 100%;
 	padding: 16px;
-	display: flex;
-	flex-flow: column nowrap;
 	border-left: 1px solid #dfdfdf;
 
+	display: flex;
+	flex-flow: column nowrap;
+
 	.options {
+		margin-bottom: 8px;
+
 		display: flex;
 		flex-flow: row nowrap;
-		margin-bottom: 8px;
 
 		.option {
 			margin: 0 8px;
@@ -36,10 +38,11 @@
 	}
 
 	.bills {
+		overflow-y: scroll;
+
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-around;
-		overflow-y: scroll;
 
 		app-bill {
 			margin: 16px;
@@ -54,6 +57,30 @@
 		}
 
 		app-no-bills-found {
+			margin-top: 128px;
+		}
+	}
+
+	.discounts {
+		overflow-y: scroll;
+
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-around;
+
+		app-discounted-pool-item {
+			margin: 16px;
+			border: 2px solid #dfdfdf;
+			border-radius: 4px;
+
+			transition: all 0.3s ease;
+
+			&:hover {
+				box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+			}
+		}
+
+		app-no-discount-pools-found {
 			margin-top: 128px;
 		}
 	}

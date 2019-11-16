@@ -1,34 +1,43 @@
-<div class="container">
-	<div class="options">
-		<div class="option">
-			<button
-				(click)="changeOption(1)"
-				[ngClass]="{ selected: option === 1 }"
-			>
-				Por pagar
-			</button>
-		</div>
-		<div class="option">
-			<button
-				(click)="changeOption(2)"
-				[ngClass]="{ selected: option === 2 }"
-			>
-				Por cobrar
-			</button>
-		</div>
-		<div class="option">
-			<button
-				(click)="changeOption(3)"
-				[ngClass]="{ selected: option === 3 }"
-			>
-				Carteras descontadas
-			</button>
-		</div>
+<div class="options">
+	<div class="option">
+		<button
+			(click)="changeOption(1)"
+			[ngClass]="{ selected: option === 1 }"
+		>
+			Por pagar
+		</button>
 	</div>
-
-	<div class="bills">
-		<app-bill *ngFor="let item of bills" [bill]="item"></app-bill>
-
-		<app-no-bills-found *ngIf="bills.length === 0"></app-no-bills-found>
+	<div class="option">
+		<button
+			(click)="changeOption(2)"
+			[ngClass]="{ selected: option === 2 }"
+		>
+			Por cobrar
+		</button>
 	</div>
+	<div class="option">
+		<button
+			(click)="changeOption(3)"
+			[ngClass]="{ selected: option === 3 }"
+		>
+			Carteras descontadas
+		</button>
+	</div>
+</div>
+
+<div class="bills" *ngIf="option === 1 || option === 2">
+	<app-bill *ngFor="let item of bills" [bill]="item"></app-bill>
+
+	<app-no-bills-found *ngIf="bills.length === 0"></app-no-bills-found>
+</div>
+
+<div class="discounts" *ngIf="option === 3">
+	<app-discounted-pool-item
+		*ngFor="let item of discountPools"
+		[discountPool]="item"
+	></app-discounted-pool-item>
+
+	<app-no-discount-pools-found
+		*ngIf="discountPools.length === 0"
+	></app-no-discount-pools-found>
 </div>

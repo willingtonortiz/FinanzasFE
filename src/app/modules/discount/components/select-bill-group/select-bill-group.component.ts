@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 
 import { Bill } from "src/app/shared/models";
 import { DiscountBillModalService } from "src/app/core/services/discount-bill-modal/discount-bill-modal.service";
-import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
+import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
 import { DiscountDateService } from 'src/app/core/services';
 
 @Component({

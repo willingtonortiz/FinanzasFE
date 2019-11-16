@@ -4,7 +4,7 @@ import { ModalContainerService } from "../../services";
 import { Router } from "@angular/router";
 import { Bill } from "src/app/shared/models";
 import { BillService } from "src/app/core/http";
-import { BillListService } from "src/app/core/services/bill-list/bill-list.service";
+import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
 
 @Component({
 	selector: "app-delete-bill-modal",

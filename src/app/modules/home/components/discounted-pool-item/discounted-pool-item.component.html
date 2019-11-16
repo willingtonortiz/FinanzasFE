@@ -1,0 +1,32 @@
+<div class="group">
+	<p>Valor entregado</p>
+	<p>
+		{{
+			discountPool.deliveredValue
+				| currencyType: discountPool.currencyCode
+		}}
+	</p>
+</div>
+
+<div class="group">
+	<p>Valor recibido</p>
+	<p>
+		{{
+			discountPool.receivedValue | currencyType: discountPool.currencyCode
+		}}
+	</p>
+</div>
+
+<div class="group">
+	<p>Fecha de descuento</p>
+	<p>{{ discountPool.discountDate | date: "dd/MM/yyyy" }}</p>
+</div>
+
+<div class="group">
+	<p>TCEA</p>
+	<p>{{ discountPool.tcea | percent: "1.3-7" }}</p>
+</div>
+
+<div class="center">
+	<button routerLink="/discount-overview/{{ discountPool.id }}">Detalles</button>
+</div>

@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Bill, Cost } from "src/app/shared/models";
 import {
 	DiscountBillModalService,
-	DiscountBillService,
 	DiscountProcessService,
 	DiscountBillCostsService
 } from "src/app/core/services";
@@ -13,6 +12,7 @@ import {
 	AbstractControl,
 	Validators
 } from "@angular/forms";
+import { DiscountBillService } from "src/app/core/services/discount-bill/discount-bill.service";
 
 @Component({
 	selector: "app-select-cost",
