@@ -15,8 +15,8 @@ export class DiscountFormulasAdapter {
 		const netValues: Array<number> = discounts.map((x: Discount) => {
 			return x.netValue;
 		});
-		const discountValues: Array<number> = discounts.map((x: Discount) => {
-			return x.discount;
+		const discountDaysValues: Array<number> = discounts.map((x: Discount) => {
+			return x.discountDays;
 		});
 		const tepValues: Array<number> = discounts.map((x: Discount) => {
 			return x.tep;
@@ -27,7 +27,7 @@ export class DiscountFormulasAdapter {
 
 		const averageDays = DiscountFormulas.averageDays(
 			netValues,
-			discountValues,
+			discountDaysValues,
 			tepValues,
 			nominalValues,
 			discounts.length
