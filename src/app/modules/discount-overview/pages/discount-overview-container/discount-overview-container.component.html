@@ -1,38 +1,58 @@
-<div class="container">
-	<div class="billPool">
-		<h1>Detalle de la cartera</h1>
+<div class="billPool">
+	<h1>Detalle de la cartera</h1>
 
-		<div class="groups">
-			<div class="group">
-				<div class="item">
-					<p>Valor recibido</p>
-				</div>
-				<div class="item">
-					<p>$ 12345</p>
-				</div>
+	<div class="groups">
+		<div class="group">
+			<div class="item">
+				<p>Valor recibido</p>
 			</div>
-
-			<div class="group">
-				<div class="item">
-					<p>Valor entregado</p>
-				</div>
-				<div class="item">
-					<p>$ 54321</p>
-				</div>
+			<div class="item">
+				<p>
+					{{
+						discountPool.receivedValue
+							| currencyType: discountPool.currencyCode
+					}}
+				</p>
 			</div>
+		</div>
 
-			<div class="group">
-				<div class="item">
-					<p>TCEA</p>
-				</div>
-				<div class="item">
-					<p>12.98%</p>
-				</div>
+		<div class="group">
+			<div class="item">
+				<p>Valor entregado</p>
+			</div>
+			<div class="item">
+				<p>
+					{{
+						discountPool.deliveredValue
+							| currencyType: discountPool.currencyCode
+					}}
+				</p>
+			</div>
+		</div>
+
+		<div class="group">
+			<div class="item">
+				<p>TCEA</p>
+			</div>
+			<div class="item">
+				<p>{{ discountPool.tcea | percent: "2.3-7" }}</p>
+			</div>
+		</div>
+
+		<div class="group">
+			<div class="item">
+				<p>Letras descontadas</p>
+			</div>
+			<div class="item">
+				<p>{{ discountPool.discounts.length }}</p>
 			</div>
 		</div>
 	</div>
-	<div class="bills">
-		<app-discounted-bill></app-discounted-bill>
-		<app-discounted-bill></app-discounted-bill>
-	</div>
 </div>
+
+<h1 class="discounts">Resumen de los descuentos</h1>
+
+<app-discounted-bill-info-group
+	class="bills"
+	[discountedBills]="discountPool.discounts"
+></app-discounted-bill-info-group>

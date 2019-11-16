@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { NavBarPageComponent } from './pages';
-
+import { NavBarPageComponent } from "./pages";
 
 const routes: Routes = [
 	{
@@ -28,6 +27,11 @@ const routes: Routes = [
 			{
 				path: "discount",
 				loadChildren: "../discount/discount.module#DiscountModule"
+			},
+			{
+				path: "discount-overview",
+				loadChildren:
+					"../discount-overview/discount-overview.module#DiscountOverviewModule"
 			}
 		]
 	}

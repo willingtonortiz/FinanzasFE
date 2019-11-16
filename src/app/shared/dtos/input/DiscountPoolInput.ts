@@ -1,4 +1,5 @@
 import { DiscountInput } from "./DiscountInput";
+import { CurrencyCode } from "../../enums";
 
 export interface DiscountPoolInput {
 	id?: number;
@@ -6,7 +7,7 @@ export interface DiscountPoolInput {
 	deliveredValue?: number;
 	tcea?: number;
 	discountDate?: Date;
+	currencyCode?: CurrencyCode;
 	pymeId?: number;
-	// Los descuentos
 	discounts?: Array<DiscountInput>;
 }

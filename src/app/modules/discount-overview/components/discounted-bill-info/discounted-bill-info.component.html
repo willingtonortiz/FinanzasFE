@@ -1,0 +1,126 @@
+<div class="area">
+	<div class="row">
+		<div class="col">
+			<p>Fecha de giro</p>
+		</div>
+		<div class="col">
+			<p>{{ discountedBill.bill.startDate | date: "dd/MM/yyyy" }}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>Fecha de vencimiento</p>
+		</div>
+		<div class="col">
+			<p>{{ discountedBill.bill.endDate | date: "dd/MM/yyyy" }}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>Valor nominal</p>
+		</div>
+		<div class="col">
+			<p>
+				{{ discountedBill.bill.amount | currencyType: currencyCode }}
+			</p>
+		</div>
+	</div>
+</div>
+<div class="area">
+	<div class="row">
+		<div class="col">
+			<p>Dias de descuento</p>
+		</div>
+		<div class="col">
+			<p>{{ discountedBill.discountDays }}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>Tasa efectiva</p>
+		</div>
+		<div class="col">
+			<p>{{ discountedBill.tep | percent: "1.3-7" }}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>Tasa de descuento</p>
+		</div>
+		<div class="col">
+			<p>{{ discountedBill.discountRate | percent: "1.3-7" }}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>Descuento</p>
+		</div>
+		<div class="col">
+			<p>
+				{{ discountedBill.discountRate | currencyType: currencyCode }}
+			</p>
+		</div>
+	</div>
+</div>
+<div class="area">
+	<div class="row">
+		<div class="col">
+			<p>Coste inicial</p>
+		</div>
+		<div class="col">
+			<p>
+				{{ discountedBill.initialCost | currencyType: currencyCode }}
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>coste final</p>
+		</div>
+		<div class="col">
+			<p>
+				{{ discountedBill.finalCost | currencyType: currencyCode }}
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>Valor neto</p>
+		</div>
+		<div class="col">
+			<p>
+				{{ discountedBill.netValue | currencyType: currencyCode }}
+			</p>
+		</div>
+	</div>
+</div>
+<div class="area">
+	<div class="row">
+		<div class="col">
+			<p>Valor entregado</p>
+		</div>
+		<div class="col">
+			<p>
+				{{ discountedBill.deliveredValue | currencyType: currencyCode }}
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>Valor recibido</p>
+		</div>
+		<div class="col">
+			<p>
+				{{ discountedBill.receivedValue | currencyType: currencyCode }}
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<p>TCEA</p>
+		</div>
+		<div class="col">
+			<p>{{ discountedBill.tcea | percent: "1.3-7" }}</p>
+		</div>
+	</div>
+</div>

@@ -40,13 +40,11 @@ export class DiscountPoolDataService {
 	}
 
 	public setMaximumDiscountDate(date: Date): void {
-		if (date < this.maximumDiscountDate)
-			this.maximumDiscountDate = date;
+		if (date < this.maximumDiscountDate) this.maximumDiscountDate = date;
 	}
 
 	public setMinimumDiscountDate(date: Date): void {
-		if (date > this.minimumDiscountDate)
-			this.minimumDiscountDate = date;
+		if (date > this.minimumDiscountDate) this.minimumDiscountDate = date;
 	}
 
 	get maximumDiscountDateValue(): Date {

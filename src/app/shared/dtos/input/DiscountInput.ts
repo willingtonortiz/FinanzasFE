@@ -1,4 +1,5 @@
 import { CostInput } from "./CostInput";
+import { BillInput } from "./BillInput";
 
 export interface DiscountInput {
 	id?: number;
@@ -12,6 +13,6 @@ export interface DiscountInput {
 	receivedValue?: number;
 	deliveredValue?: number;
 	tcea?: number;
-	billId?: number;
+	bill?: BillInput;
 	costs?: Array<CostInput>;
 }

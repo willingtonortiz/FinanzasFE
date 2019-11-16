@@ -7,7 +7,13 @@ import { DiscountPoolDataService } from "../discounts-pool-data/discount-pool-da
 import { DiscountsListService } from "../discounts-list/discounts-list.service";
 import { Subscription } from "rxjs";
 import { DiscountDateService } from "../discount-date/discount-date.service";
-import { Discount, Cost, DiscountPool } from "src/app/shared/models";
+import {
+	Discount,
+	Cost,
+	DiscountPool,
+	Rate,
+	Bill
+} from "src/app/shared/models";
 import { DiscountFormulasAdapter } from "../../clases";
 import { CostType } from "src/app/shared/enums";
 import {
@@ -96,11 +102,13 @@ export class DiscountProcessService implements OnDestroy {
 	}
 
 	public discountCurrentBill() {
-		const rate = this._discountPoolRateService.rateValue;
-		const date = this._discountDateService.discountDateValue;
-		const bill = this._discountBillService.billValue;
-		const initialCosts = this._discountBillCostsService.initialCostsValue;
-		const finalCosts = this._discountBillCostsService.finalCostsValue;
+		const rate: Rate = this._discountPoolRateService.rateValue;
+		const date: Date = this._discountDateService.discountDateValue;
+		const bill: Bill = this._discountBillService.billValue;
+		const initialCosts: Cost[] = this._discountBillCostsService
+			.initialCostsValue;
+		const finalCosts: Cost[] = this._discountBillCostsService
+			.finalCostsValue;
 
 		const newDiscount = DiscountFormulasAdapter.discountBill(
 			rate,
@@ -115,16 +123,16 @@ export class DiscountProcessService implements OnDestroy {
 		this._discountPoolDataService.setMaximumDiscountDate(bill.endDate);
 		this._discountPoolDataService.setMinimumDiscountDate(bill.startDate);
 		this._discountBillCostsService.restart();
-
 	}
 
-	public saveDiscountPool() {
+	public async saveDiscountPool() {
 		const discountPool: DiscountPool = this._discountPoolDataService
 			.discountPoolValue;
 		const discountDate: Date = this._discountDateService.discountDateValue;
 		const currentUser: UserCredentials = this._authenticationService
 			.currentUserValue;
 		const discounts: Discount[] = this._discountListService.discountsValue;
+		const rate: Rate = this._discountPoolRateService.rateValue;
 
 		const dateString = this._dateUtilsService.getAPIDateString(
 			discountDate
@@ -138,6 +146,7 @@ export class DiscountProcessService implements OnDestroy {
 			receivedValue: discountPool.receivedValue,
 			tcea: discountPool.tcea,
 			discountDate: dateString,
+			currencyCode: rate.currencyCode,
 			pymeId: currentUser.id
 		};
 
@@ -179,10 +188,9 @@ export class DiscountProcessService implements OnDestroy {
 		});
 
 		createDiscountPool.discounts = createDiscounts;
-		console.log(createDiscountPool);
 
 		try {
-			this._discountPoolHttpService.createDiscountPool(
+			await this._discountPoolHttpService.createDiscountPool(
 				createDiscountPool
 			);
 		} catch (error) {

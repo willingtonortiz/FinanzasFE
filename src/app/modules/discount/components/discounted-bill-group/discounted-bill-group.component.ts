@@ -21,7 +21,6 @@ export class DiscountedBillGroupComponent implements OnInit, OnDestroy {
 			this._discountsList.discountsObservable.subscribe({
 				next: (discounts: Array<Discount>) => {
 					this.discounts = discounts;
-					console.log(this.discounts);
 				},
 				error: (error: any) => {
 					console.log("Error en DiscountedBillGroupComponent", error);

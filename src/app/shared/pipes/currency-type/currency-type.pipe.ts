@@ -6,7 +6,7 @@ import { CurrencyCode } from "../../enums";
 	name: "currencyType"
 })
 export class CurrencyTypePipe implements PipeTransform {
-	transform(value: number, currencyCode?: CurrencyCode): any {
+	transform(value: number, currencyCode?: CurrencyCode): string {
 		if (currencyCode === null) {
 			return "S/. " + value.toFixed(2);
 		}
