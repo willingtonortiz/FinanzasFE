@@ -23,12 +23,15 @@
 
 			.progress-bar {
 				border-radius: 5px;
-				// width: 50%;
 				height: 20px;
 				background-color: #28a745;
 
 				&.expired {
 					background-color: tomato;
+				}
+
+				&.notCreated {
+					background-color: dodgerblue;
 				}
 			}
 		}

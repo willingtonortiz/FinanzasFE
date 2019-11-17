@@ -22,16 +22,20 @@ export class BillProgressBarComponent implements OnInit, OnChanges {
 	public elapsedDays: number = 0;
 
 	public isExpired: boolean = false;
+	public isNotCreated: boolean = false;
 
 	constructor(private _dateUtilsService: DateUtilsService) {}
 
-	async ngOnInit() {
+	async ngOnInit() {}
+
+	async ngOnChanges(changes: SimpleChanges): Promise<void> {
 		if (this.bill.status === BillStatus.EXPIRED) {
 			this.isExpired = true;
 		}
-	}
 
-	async ngOnChanges(changes: SimpleChanges): Promise<void> {
+		if (this.bill.status === BillStatus.NOT_CREATED) {
+			this.isNotCreated = true;
+		}
 		this.setDaysPercentage();
 		this.computeInfo();
 	}
@@ -41,7 +45,7 @@ export class BillProgressBarComponent implements OnInit, OnChanges {
 		const end: number = this.bill.endDate.getTime();
 		const today: number = this._dateUtilsService.getTodaysDate().getTime();
 
-		if (end < today) {
+		if (start > today || end < today) {
 			this.percentage = `${100}%`;
 			return;
 		}
@@ -60,6 +64,12 @@ export class BillProgressBarComponent implements OnInit, OnChanges {
 		const elapsed = total - remain;
 
 		this.totalDays = total;
+
+		if (start > today) {
+			this.remainingDays = 0;
+			this.elapsedDays = 0;
+			return;
+		}
 
 		if (end < today) {
 			this.remainingDays = 0;

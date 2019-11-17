@@ -11,6 +11,8 @@ export class BillStatusPipe implements PipeTransform {
 			return "Valida";
 		} else if (value.status === BillStatus.EXPIRED) {
 			return "Expirada";
+		} else if (value.status === BillStatus.NOT_CREATED) {
+			return "No creada";
 		} else if (value.status === BillStatus.DISCOUNTED) {
 			return "Descontado";
 		}

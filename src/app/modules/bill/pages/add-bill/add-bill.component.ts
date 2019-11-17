@@ -33,6 +33,7 @@ export class AddBillComponent implements OnInit {
 	public billForm: FormGroup;
 	public billType: number;
 	public dateError: boolean;
+	public warningMessage: string = "";
 
 	constructor(
 		private _formBuilder: FormBuilder,
@@ -40,7 +41,6 @@ export class AddBillComponent implements OnInit {
 		private _billService: BillService,
 		private _location: Location,
 		private _dateUtilsService: DateUtilsService,
-		private _dateValidatorsService: DateValidatorsService,
 		private _createdBillService: CreatedBillService,
 		private _modalContainerService: ModalContainerService,
 		private _billListService: BillListService
@@ -201,9 +201,12 @@ export class AddBillComponent implements OnInit {
 		this.draweeRuc.setValue(previousDrawer);
 	}
 
-	// TODO, preguntar a la profe si es posible registrar letras que aún
-	// No han sido creadas
-	// No han sido emitidas
+	public validateDates() {
+		this.checkDateBill();
+		this.warningMessage = "";
+		this.checkExpiredBill();
+		this.checkFutureBill();
+	}
 
 	public checkDateBill(): void {
 		const start: number = new Date(this.startDate.value).getTime();
@@ -213,6 +216,27 @@ export class AddBillComponent implements OnInit {
 			this.dateError = true;
 		} else {
 			this.dateError = false;
+		}
+	}
+
+	public checkExpiredBill(): void {
+		const end: number = this._dateUtilsService
+			.getDateFromCalendarDate(this.endDate.value)
+			.getTime();
+		const today: number = this._dateUtilsService.getTodaysDate().getTime();
+		if (end < today) {
+			this.warningMessage = "Advertencia! La letra está vencida";
+		}
+	}
+
+	public checkFutureBill(): void {
+		const start: number = this._dateUtilsService
+			.getDateFromCalendarDate(this.startDate.value)
+			.getTime();
+
+		const today: number = this._dateUtilsService.getTodaysDate().getTime();
+		if (start > today) {
+			this.warningMessage = "Advertencia! La letra aún no se ha creado";
 		}
 	}
 

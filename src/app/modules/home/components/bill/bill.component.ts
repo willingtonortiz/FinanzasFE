@@ -13,6 +13,7 @@ export class BillComponent implements OnInit {
 	@Input() bill: Bill;
 	public percentage: string = "0px";
 	public isExpired: boolean = false;
+	public isNotCreated: boolean = false;
 
 	constructor(
 		private _billListService: BillListService,
@@ -29,9 +30,14 @@ export class BillComponent implements OnInit {
 			const end: number = this.bill.endDate.getTime();
 			const today = this._dateUtilsService.getTodaysDate().getTime();
 
-			if (end < today) {
+			if (start > today || end < today) {
 				this.percentage = "100%";
-				this.isExpired = true;
+
+				if (start > today) {
+					this.isNotCreated = true;
+				} else {
+					this.isExpired = true;
+				}
 				resolve();
 				return;
 			}

@@ -21,6 +21,10 @@
 			border: 2px solid tomato;
 		}
 
+		&.notCreated {
+			border: 2px solid dodgerblue;
+		}
+
 		.header {
 			padding: 8px 0;
 			border-bottom: 1px solid lightgray;
@@ -89,6 +93,10 @@
 
 		&.expired {
 			border: 2px solid tomato;
+		}
+
+		&.notCreated {
+			border: 2px solid dodgerblue;
 		}
 	}
 }

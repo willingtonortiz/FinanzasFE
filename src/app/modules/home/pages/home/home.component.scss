@@ -32,14 +32,15 @@
 	}
 
 	.bill-group {
+		// box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, 0.2);
 		flex: 1;
-		// height: 500px;
+
 		max-height: 900px;
 	}
 }
 
 @media (max-width: 600px) {
-	.container {
+	:host {
 		.buttons {
 			display: none;
 		}

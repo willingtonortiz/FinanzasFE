@@ -2,7 +2,11 @@
 	<h1>Seleccione una letra</h1>
 </div>
 
-<div class="bills">
+<div class="bills" *ngIf="bills.length > 0">
 	<app-select-bill *ngFor="let item of bills" [bill]="item">
 	</app-select-bill>
+</div>
+
+<div class="no-bills" *ngIf="bills.length === 0">
+	<h1>No hay más letras para descontar</h1>
 </div>
