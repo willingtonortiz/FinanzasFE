@@ -8,7 +8,7 @@ import {
 import { Router } from "@angular/router";
 
 import { Rate } from "src/app/shared/models";
-import { DiscountPoolRateService } from "src/app/core/services";
+import { DiscountPoolRateService, DiscountPoolDataService } from "src/app/core/services";
 
 @Component({
 	selector: "app-create-rate",
@@ -21,8 +21,9 @@ export class CreateRateComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		private discountPoolRateService: DiscountPoolRateService,
-		private router: Router
-	) {}
+		private router: Router,
+		private _discountPoolData: DiscountPoolDataService
+	) { }
 
 	ngOnInit() {
 		this.rateForm = this.formBuilder.group({
@@ -84,7 +85,7 @@ export class CreateRateComponent implements OnInit {
 
 		this.discountPoolRateService.setRate(rate);
 		//console.log(rate);
-
+		this._discountPoolData.setCurrencyCode(rate.currencyCode);
 		this.router.navigate(["/discount"]);
 	}
 

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs";
 
 import { DiscountPool, Discount } from "src/app/shared/models";
+import { CurrencyCode } from 'src/app/shared/enums';
 
 @Injectable({
 	providedIn: "root"
@@ -12,10 +13,13 @@ export class DiscountPoolDataService {
 	private _discountPoolObservable: Observable<DiscountPool>;
 	private maximumDiscountDate: Date;
 	private minimumDiscountDate: Date;
+	private currencyCode: CurrencyCode;
 
 	public constructor() {
 		// Valores iniciales por defecto
+		this.currencyCode = 0;
 		this._discountPoolSubject = new BehaviorSubject<DiscountPool>({
+			currencyCode: this.currencyCode,
 			receivedValue: 0,
 			deliveredValue: 0,
 			tcea: 0
@@ -28,7 +32,14 @@ export class DiscountPoolDataService {
 	}
 
 	public setDiscountPool(discountPool: DiscountPool): void {
+		discountPool.currencyCode = this.currencyCode;
+		console.log(discountPool);
 		this._discountPoolSubject.next(discountPool);
+	}
+
+	public setCurrencyCode(currencyCode: CurrencyCode): void {
+		this.currencyCode = currencyCode;
+		this.setDiscountPool(this.discountPoolValue);
 	}
 
 	get discountPoolValue(): DiscountPool {
