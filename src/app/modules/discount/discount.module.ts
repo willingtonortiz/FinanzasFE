@@ -15,6 +15,7 @@ import { DiscountContainerComponent } from "./pages";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PipesModule } from "src/app/shared/pipes/pipes.module";
 import { DisplaySelectedRateComponent } from "./components/display-selected-rate/display-selected-rate.component";
+import { CostItemComponent } from './components/cost-item/cost-item.component';
 
 @NgModule({
 	imports: [
@@ -34,7 +35,8 @@ import { DisplaySelectedRateComponent } from "./components/display-selected-rate
 		SelectBillContainerComponent,
 		SelectBillGroupComponent,
 		SelectCostComponent,
-		DisplaySelectedRateComponent
+		DisplaySelectedRateComponent,
+		CostItemComponent
 	],
 	providers: []
 })

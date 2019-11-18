@@ -7,7 +7,6 @@ import {
 	DiscountPoolDataService,
 	DiscountsListService
 } from "src/app/core/services";
-import { DiscountPoolService } from "src/app/core/http";
 import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
 
 @Component({
@@ -19,12 +18,13 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 	private _suscriptions: Array<Subscription>;
 	public discountPool: DiscountPool;
 	public submitted: boolean;
+
 	constructor(
 		private discountProcessService: DiscountProcessService,
 		private _discountPoolData: DiscountPoolDataService,
 		private _billListService: BillListService,
-		private _discountsList: DiscountsListService
-	) { }
+		public _discountsList: DiscountsListService
+	) {}
 
 	public ngOnInit() {
 		this.discountPool = {};
@@ -57,7 +57,6 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 				this._billListService.fetchBills();
 
 				// Ver la cartera descontada
-
 			} catch (error) {
 				console.log(
 					"ERROR => DISCOUNT POOL OVERVIEW COMPONENT => ONSUBMIT"

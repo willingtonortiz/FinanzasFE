@@ -2,7 +2,7 @@ import { Bill } from "../bill/Bill";
 import { Cost } from "../cost/cost";
 
 export interface Discount {
-	discountId?: number;
+	id?: number;
 	retention?: number;
 	discountDays?: number;
 	tep?: number;

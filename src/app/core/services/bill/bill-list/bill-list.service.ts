@@ -103,7 +103,6 @@ export class BillListService {
 			map((bills: Bill[]) =>
 				bills.filter(
 					x =>
-						x.status === BillStatus.VALID &&
 						x.currencyCode === currencyCode &&
 						(date === null ||
 							(x.endDate >= date && date >= x.startDate))

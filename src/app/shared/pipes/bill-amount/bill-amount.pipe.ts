@@ -6,7 +6,11 @@ import { BillType, CurrencyCode } from "../../enums";
 	name: "billAmount"
 })
 export class BillAmountPipe implements PipeTransform {
-	transform(value: Bill, ...args: any[]): any {
+	/**
+	 *
+	 * @param value Bill to proccess
+	 */
+	transform(value: Bill): string {
 		if (value.currencyCode === CurrencyCode.PEN) {
 			return `S/. ${value.amount}`;
 		} else {

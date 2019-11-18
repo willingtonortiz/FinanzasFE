@@ -1,145 +1,105 @@
 <div class="area">
 	<div class="row">
-		<div class="col">
-			<p>Fecha de giro</p>
-		</div>
-		<div class="col">
-			<p>{{ discount.bill.startDate | date: "dd/MM/yyyy" }}</p>
-		</div>
+		<p>Fecha de giro</p>
+		<p>{{ discount.bill.startDate | date: "dd/MM/yyyy" }}</p>
 	</div>
+
 	<div class="row">
-		<div class="col">
-			<p>Fecha de vencimiento</p>
-		</div>
-		<div class="col">
-			<p>{{ discount.bill.endDate | date: "dd/MM/yyyy" }}</p>
-		</div>
+		<p>Fecha de vencimiento</p>
+		<p>{{ discount.bill.endDate | date: "dd/MM/yyyy" }}</p>
 	</div>
+
 	<div class="row">
-		<div class="col">
-			<p>Valor nominal</p>
-		</div>
-		<div class="col">
-			<p>
-				{{
-					discount.bill.amount
-						| currencyType: discount.bill.currencyCode
-				}}
-			</p>
-		</div>
+		<p>Valor nominal</p>
+		<p>
+			{{
+				discount.bill.amount | currencyType: discount.bill.currencyCode
+			}}
+		</p>
 	</div>
 </div>
+
 <div class="area">
 	<div class="row">
-		<div class="col">
-			<p>Dias de descuento</p>
-		</div>
-		<div class="col">
-			<p>{{ discount.discountDays }}</p>
-		</div>
+		<p>Dias de descuento</p>
+		<p>{{ discount.discountDays }}</p>
 	</div>
+
 	<div class="row">
-		<div class="col">
-			<p>Tasa efectiva</p>
-		</div>
-		<div class="col">
-			<p>{{ discount.tep | percent: "1.3-7" }}</p>
-		</div>
+		<p>Tasa efectiva</p>
+		<p>{{ discount.tep | percent: "1.3-7" }}</p>
 	</div>
+
 	<div class="row">
-		<div class="col">
-			<p>Tasa de descuento</p>
-		</div>
-		<div class="col">
-			<p>{{ discount.discountRate | percent: "1.3-7" }}</p>
-		</div>
+		<p>Tasa de descuento</p>
+		<p>{{ discount.discountRate | percent: "1.3-7" }}</p>
 	</div>
+
 	<div class="row">
-		<div class="col">
-			<p>Descuento</p>
-		</div>
-		<div class="col">
-			<p>
-				{{
-					discount.discount | currencyType: discount.bill.currencyCode
-				}}
-			</p>
-		</div>
+		<p>Descuento</p>
+		<p>
+			{{ discount.discount | currencyType: discount.bill.currencyCode }}
+		</p>
 	</div>
 </div>
+
 <div class="area">
 	<div class="row">
-		<div class="col">
-			<p>Coste inicial</p>
-		</div>
-		<div class="col">
-			<p>
-				{{
-					discount.initialCost
-						| currencyType: discount.bill.currencyCode
-				}}
-			</p>
-		</div>
+		<p>Retención</p>
+		<p>
+			{{ discount.retention | currencyType: discount.bill.currencyCode }}
+		</p>
 	</div>
+
 	<div class="row">
-		<div class="col">
-			<p>coste final</p>
-		</div>
-		<div class="col">
-			<p>
-				{{
-					discount.finalCost
-						| currencyType: discount.bill.currencyCode
-				}}
-			</p>
-		</div>
+		<p>Coste inicial</p>
+		<p>
+			{{
+				discount.initialCost | currencyType: discount.bill.currencyCode
+			}}
+		</p>
 	</div>
+
 	<div class="row">
-		<div class="col">
-			<p>Valor neto</p>
-		</div>
-		<div class="col">
-			<p>
-				{{
-					discount.netValue | currencyType: discount.bill.currencyCode
-				}}
-			</p>
-		</div>
+		<p>coste final</p>
+		<p>
+			{{ discount.finalCost | currencyType: discount.bill.currencyCode }}
+		</p>
+	</div>
+
+	<div class="row">
+		<p>Valor neto</p>
+		<p>
+			{{ discount.netValue | currencyType: discount.bill.currencyCode }}
+		</p>
 	</div>
 </div>
+
 <div class="area">
 	<div class="row">
-		<div class="col">
-			<p>Valor entregado</p>
-		</div>
-		<div class="col">
-			<p>
-				{{
-					discount.deliveredValue
-						| currencyType: discount.bill.currencyCode
-				}}
-			</p>
-		</div>
+		<p>Valor entregado</p>
+		<p>
+			{{
+				discount.deliveredValue
+					| currencyType: discount.bill.currencyCode
+			}}
+		</p>
 	</div>
 	<div class="row">
-		<div class="col">
-			<p>Valor recibido</p>
-		</div>
-		<div class="col">
-			<p>
-				{{
-					discount.receivedValue
-						| currencyType: discount.bill.currencyCode
-				}}
-			</p>
-		</div>
+		<p>Valor recibido</p>
+		<p>
+			{{
+				discount.receivedValue
+					| currencyType: discount.bill.currencyCode
+			}}
+		</p>
 	</div>
 	<div class="row">
-		<div class="col">
-			<p>TCEA</p>
-		</div>
-		<div class="col">
-			<p>{{ discount.tcea | percent: "1.3-7" }}</p>
-		</div>
+		<p>TCEA</p>
+		<p>{{ discount.tcea | percent: "1.3-7" }}</p>
 	</div>
+</div>
+
+<div class="buttons">
+	<button (click)="deleteDiscount()">Borrar</button>
 </div>

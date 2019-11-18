@@ -15,9 +15,11 @@ export class DiscountFormulasAdapter {
 		const netValues: Array<number> = discounts.map((x: Discount) => {
 			return x.netValue;
 		});
-		const discountDaysValues: Array<number> = discounts.map((x: Discount) => {
-			return x.discountDays;
-		});
+		const discountDaysValues: Array<number> = discounts.map(
+			(x: Discount) => {
+				return x.discountDays;
+			}
+		);
 		const tepValues: Array<number> = discounts.map((x: Discount) => {
 			return x.tep;
 		});
@@ -47,12 +49,11 @@ export class DiscountFormulasAdapter {
 		bill: Bill,
 		initialCosts: Array<Cost>,
 		finalCosts: Array<Cost>,
-		date: Date
+		date: Date,
+		retention: number
 	): Discount {
 		const discountDays = DiscountFormulas.daysBetween(date, bill.endDate);
-
 		const tedays = DiscountFormulas.computeEfectiveRate(discountDays, rate);
-
 		const discountRate: number = DiscountFormulas.discountRate(tedays);
 
 		let discount: number = DiscountFormulas.discount(
@@ -77,13 +78,13 @@ export class DiscountFormulasAdapter {
 
 		const receivedValue: number = DiscountFormulas.receivedValue(
 			bill.amount - discount,
-			0,
+			retention,
 			initialCostTotal
 		);
 
 		const deliveredValue: number = DiscountFormulas.deliveredValue(
 			bill.amount,
-			0,
+			retention,
 			finalCostTotal
 		);
 
@@ -102,7 +103,7 @@ export class DiscountFormulasAdapter {
 			receivedValue: receivedValue,
 			discountRate: discountRate,
 			netValue: netValue,
-			retention: 0,
+			retention: retention,
 			tcea: tcea,
 			initialCost: initialCostTotal,
 			finalCost: finalCostTotal,

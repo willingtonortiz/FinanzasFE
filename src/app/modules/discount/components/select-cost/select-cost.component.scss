@@ -16,18 +16,18 @@
 	.grid {
 		display: grid;
 		justify-content: center;
-		grid-template-columns: repeat(3, 400px);
+		grid-template-columns: 400px 400px 400px;
 		grid-template-rows: repeat(2, 350px);
-		column-gap: 32px;
+		column-gap: 16px;
 
 		.addInitialCost,
 		.initialCostList,
 		.bill,
 		.addFinalCost,
 		.finalCostList {
-			padding: 32px;
-			border: 2px solid lightgray;
-			border-radius: 7px;
+			padding: 16px;
+			border: 1px solid lightgray;
+			border-radius: 5px;
 		}
 
 		.addInitialCost,
@@ -41,10 +41,11 @@
 			border-bottom: none;
 
 			.row {
+				font-size: 18px;
+
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				font-size: 18px;
 
 				select,
 				input {
@@ -57,6 +58,12 @@
 
 				input[type="text"] {
 					width: 150px;
+				}
+
+				.group {
+					display: flex;
+					flex-flow: row nowrap;
+					align-items: center;
 				}
 			}
 
@@ -84,6 +91,12 @@
 					}
 				}
 			}
+
+			.end {
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+			}
 		}
 
 		.bill {
@@ -92,11 +105,33 @@
 
 			display: flex;
 			flex-flow: column nowrap;
-			font-size: 20px;
+			font-size: 18px;
 
 			.center,
 			.row {
-				margin-bottom: 32px;
+				margin: 8px 0;
+			}
+
+			.row.retention {
+				font-size: 18px;
+
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				input {
+					width: 150px;
+					font-size: 18px;
+					padding: 8px 8px;
+					border: none;
+					border-bottom: 2px solid lightgray;
+					text-align: right;
+				}
+			}
+
+			.end {
+				display: flex;
+				justify-content: flex-end;
 			}
 
 			.center {
@@ -123,7 +158,6 @@
 			}
 
 			.row {
-				// margin-bottom: 16px;
 				display: flex;
 				justify-content: space-between;
 			}
@@ -136,29 +170,24 @@
 			border-top-width: 3px;
 			border-top-style: dashed;
 
-			display: grid;
-			grid-template-rows: 6fr 1fr;
-
-			.items > .row,
-			.total {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-
-				p {
-					font-size: 20px;
-				}
-			}
+			display: flex;
+			flex-flow: column nowrap;
 
 			.items {
+				flex: 1;
+				overflow-y: auto;
+
 				display: flex;
 				flex-flow: column nowrap;
-				overflow-y: scroll;
+			}
 
-				.row {
-					margin-bottom: 16px;
-					margin-right: 16px;
-				}
+			.total {
+				padding: 8px;
+				border-top: 1px solid lightgray;
+
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: space-between;
 			}
 		}
 
@@ -184,11 +213,12 @@
 	}
 }
 
-.container .grid {
+:host .grid {
 	.addInitialCost,
 	.addFinalCost {
 		.row {
-			input.ng-dirty {
+			input.ng-dirty,
+			select.ng-dirty {
 				&.ng-valid {
 					border: 2px solid mediumseagreen;
 				}
