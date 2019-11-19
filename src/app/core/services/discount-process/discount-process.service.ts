@@ -170,8 +170,7 @@ export class DiscountProcessService implements OnDestroy {
 				netValue: x.netValue,
 				retention: x.retention,
 				tcea: x.tcea,
-				tep: x.tep,
-				discount: x.discount
+				tep: x.tep
 			};
 
 
@@ -197,7 +196,7 @@ export class DiscountProcessService implements OnDestroy {
 		createDiscountPool.discounts = createDiscounts;
 
 		try {
-			await this._discountPoolHttpService.createDiscountPool(
+			return await this._discountPoolHttpService.createDiscountPool(
 				createDiscountPool
 			);
 		} catch (error) {

@@ -60,7 +60,7 @@ export class RecordComponent implements OnInit {
 			}
 		});
 
-		console.log(this.historial);
+		//console.log(this.historial);
 		//console.log(this.records);
 	}
 

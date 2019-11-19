@@ -11,6 +11,7 @@ import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.
 import { RecordService } from 'src/app/core/http/record/record.service';
 import { UserCredentials } from 'src/app/shared/dtos';
 import { AuthenticationService } from 'src/app/core/authentication';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: "app-discount-pool-overview",
@@ -28,7 +29,8 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 		private _billListService: BillListService,
 		private _discountsList: DiscountsListService,
 		private _recordService: RecordService,
-		private _authenticationService: AuthenticationService
+		private _authenticationService: AuthenticationService,
+		private _router: Router
 	) {
 		this.currentUser = this._authenticationService.currentUserValue;
 	}
@@ -66,12 +68,14 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 
 		if (this._discountsList.discountsValue.length > 0)
 			try {
-				await this.discountProcessService.saveDiscountPool();
+				var discountPool = await this.discountProcessService.saveDiscountPool();
+				//console.log(d);
 				await this._recordService.createRecord(newRecord);
 				// Actualizar las letras
 				this._billListService.fetchBills();
-
+				this._router.navigate(["discount-overview", discountPool.id])
 				// Ver la cartera descontada
+
 			} catch (error) {
 				console.log(
 					"ERROR => DISCOUNT POOL OVERVIEW COMPONENT => ONSUBMIT"

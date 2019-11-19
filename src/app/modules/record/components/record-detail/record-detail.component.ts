@@ -10,6 +10,6 @@ export class RecordDetailComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {
-		console.log(this.historial);
+
 	}
 }
