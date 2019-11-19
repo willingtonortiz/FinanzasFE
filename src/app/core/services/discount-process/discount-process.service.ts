@@ -90,9 +90,12 @@ export class DiscountProcessService implements OnDestroy {
 			tcea: 0
 		};
 
+		this._discountPoolDataService.reset();
 		discounts.forEach((x: Discount) => {
 			discountPool.receivedValue += x.receivedValue;
 			discountPool.deliveredValue += x.deliveredValue;
+			this._discountPoolDataService.setMaximumDiscountDate(x.bill.endDate);
+			this._discountPoolDataService.setMinimumDiscountDate(x.bill.startDate);
 		});
 
 		discountPool.tcea = DiscountFormulasAdapter.discountPoolTcea(
@@ -124,8 +127,6 @@ export class DiscountProcessService implements OnDestroy {
 
 		this._createNewDiscountService.setDiscount(newDiscount);
 		this.updateDiscountPool();
-		this._discountPoolDataService.setMaximumDiscountDate(bill.endDate);
-		this._discountPoolDataService.setMinimumDiscountDate(bill.startDate);
 		this._discountBillCostsService.restart();
 	}
 
@@ -201,6 +202,7 @@ export class DiscountProcessService implements OnDestroy {
 			console.log(error);
 		}
 	}
+
 
 	public saveChanges(): void {}
 

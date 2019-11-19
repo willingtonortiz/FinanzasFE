@@ -31,6 +31,11 @@ export class DiscountPoolDataService {
 		this.minimumDiscountDate = new Date(0, 1, 1);
 	}
 
+	public reset(): void {
+		this.maximumDiscountDate = new Date(9999, 12, 31);
+		this.minimumDiscountDate = new Date(0, 1, 1);
+	}
+
 	public setDiscountPool(discountPool: DiscountPool): void {
 		discountPool.currencyCode = this.currencyCode;
 		this._discountPoolSubject.next(discountPool);

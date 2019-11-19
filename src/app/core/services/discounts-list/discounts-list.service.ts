@@ -4,6 +4,7 @@ import { Discount, DiscountPool } from "src/app/shared/models";
 import { CreateNewDiscountService } from "../create-new-discount/create-new-discount.service";
 import { map } from "rxjs/operators";
 import { BillStatus } from "src/app/shared/enums";
+import { DiscountPoolDataService } from '..';
 
 @Injectable({
 	providedIn: "root"
@@ -16,7 +17,8 @@ export class DiscountsListService implements OnDestroy {
 
 	private _suscriptions: Array<Subscription>;
 
-	constructor(private createNewDiscountService: CreateNewDiscountService) {
+	constructor(private createNewDiscountService: CreateNewDiscountService
+	) {
 		this._discountsSubject = new BehaviorSubject<Array<DiscountPool>>([]);
 
 		this._discountsObservable = this._discountsSubject.pipe(
@@ -66,6 +68,7 @@ export class DiscountsListService implements OnDestroy {
 		discounts[discountId].bill.status = BillStatus.VALID;
 		discounts = discounts.filter(x => x.id !== discountId);
 		this._discountsSubject.next(discounts);
+
 	}
 
 	public restart(): void {
