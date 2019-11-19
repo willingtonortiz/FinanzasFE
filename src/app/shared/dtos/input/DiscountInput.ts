@@ -6,6 +6,7 @@ export interface DiscountInput {
 	retention?: number;
 	discountDays?: number;
 	tep?: number;
+	discount?: number;
 	discountRate?: number;
 	initialCost?: number;
 	finalCost?: number;

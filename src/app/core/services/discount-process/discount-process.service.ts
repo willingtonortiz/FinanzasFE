@@ -170,8 +170,10 @@ export class DiscountProcessService implements OnDestroy {
 				netValue: x.netValue,
 				retention: x.retention,
 				tcea: x.tcea,
-				tep: x.tep
+				tep: x.tep,
+				discount: x.discount
 			};
+
 
 			// Creando los costos
 			const costs: CreateCost[] = [];
