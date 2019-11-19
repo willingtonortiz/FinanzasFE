@@ -1,7 +1,7 @@
 import { CostType, PaymentType, CurrencyCode } from "../../enums";
 
 export interface Cost {
-	costId?: number;
+	id?: number;
 	reason?: string;
 	// Inicial o final
 	costType?: CostType;

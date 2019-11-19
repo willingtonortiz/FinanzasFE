@@ -3,7 +3,7 @@ import { RateTermConverter } from "src/app/shared/Utils";
 import { RateType } from "src/app/shared/enums";
 
 export class DiscountFormulas {
-	public constructor() { }
+	public constructor() {}
 
 	public static daysBetween(startTime: Date, endTime: Date): number {
 		// console.log(startTime);
@@ -50,7 +50,7 @@ export class DiscountFormulas {
 	public static receivedValue(
 		nominalValue: number,
 		retention: number,
-		initialCost: number
+		initialCost: number,
 	) {
 		return nominalValue - retention - initialCost;
 	}
@@ -95,11 +95,7 @@ export class DiscountFormulas {
 		discountDays: number,
 		size: number
 	): number {
-		if (size == 0)
-			return 0;
-		return (Math.pow(
-			deliveredValue / receivedValue,
-			(360) / discountDays
-		) - 1);
+		if (size == 0) return 0;
+		return Math.pow(deliveredValue / receivedValue, 360 / discountDays) - 1;
 	}
 }

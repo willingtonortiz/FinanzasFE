@@ -10,6 +10,7 @@ import { BillAmountPipe } from "./bill-amount/bill-amount.pipe";
 import { BillStatusPipe } from "./bill-status/bill-status.pipe";
 import { CurrencyCodePipe } from "./currency-code/currency-code.pipe";
 import { CapitalizationTermPipe } from './capitalization-term/capitalization-term.pipe';
+import { PaymentTypePipe } from './payment-type/payment-type.pipe';
 
 @NgModule({
 	imports: [CommonModule],
@@ -22,7 +23,8 @@ import { CapitalizationTermPipe } from './capitalization-term/capitalization-ter
 		BillStatusPipe,
 		BillStatusPipe,
 		CurrencyCodePipe,
-		CapitalizationTermPipe
+		CapitalizationTermPipe,
+		PaymentTypePipe
 	],
 	exports: [
 		BillTypePipe,
@@ -32,7 +34,8 @@ import { CapitalizationTermPipe } from './capitalization-term/capitalization-ter
 		BillAmountPipe,
 		BillStatusPipe,
 		CurrencyCodePipe,
-		CapitalizationTermPipe
+		CapitalizationTermPipe,
+		PaymentTypePipe
 	]
 })
 export class PipesModule {}

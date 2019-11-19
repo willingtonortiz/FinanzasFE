@@ -7,7 +7,6 @@ import {
 	DiscountPoolDataService,
 	DiscountsListService
 } from "src/app/core/services";
-import { DiscountPoolService } from "src/app/core/http";
 import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
 import { RecordService } from 'src/app/core/http/record/record.service';
 import { UserCredentials } from 'src/app/shared/dtos';
@@ -73,7 +72,6 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 				this._billListService.fetchBills();
 
 				// Ver la cartera descontada
-
 			} catch (error) {
 				console.log(
 					"ERROR => DISCOUNT POOL OVERVIEW COMPONENT => ONSUBMIT"

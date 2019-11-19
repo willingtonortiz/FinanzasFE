@@ -64,6 +64,7 @@ export class DiscountProcessService implements OnDestroy {
 		let discounts = this._discountListService.discountsValue;
 		const rate = this._discountPoolRateService.rateValue;
 		const date = this._discountDateService.discountDateValue;
+		const retention: number = this._discountBillCostsService.retentionValue;
 
 		discounts = discounts.map((x: Discount) =>
 			DiscountFormulasAdapter.discountBill(
@@ -71,7 +72,8 @@ export class DiscountProcessService implements OnDestroy {
 				x.bill,
 				x.costs.filter((y: Cost) => y.costType === CostType.INITIAL),
 				x.costs.filter((y: Cost) => y.costType === CostType.FINAL),
-				date
+				date,
+				retention
 			)
 		);
 
@@ -109,13 +111,15 @@ export class DiscountProcessService implements OnDestroy {
 			.initialCostsValue;
 		const finalCosts: Cost[] = this._discountBillCostsService
 			.finalCostsValue;
+		const retention: number = this._discountBillCostsService.retentionValue;
 
 		const newDiscount = DiscountFormulasAdapter.discountBill(
 			rate,
 			bill,
 			initialCosts,
 			finalCosts,
-			date
+			date,
+			retention
 		);
 
 		this._createNewDiscountService.setDiscount(newDiscount);

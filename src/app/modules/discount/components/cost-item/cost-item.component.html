@@ -1,0 +1,8 @@
+<p>{{ cost.reason }}</p>
+
+<p *ngIf="cost.paymentType === 1">
+	{{ cost.amount | currencyType: cost.currencyCode }}
+</p>
+<p *ngIf="cost.paymentType === 2">{{ cost.amount | percent: "1.0-7" }}</p>
+
+<button (click)="deleteCost()">X</button>

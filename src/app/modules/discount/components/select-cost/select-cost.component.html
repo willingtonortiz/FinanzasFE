@@ -11,14 +11,28 @@
 		<div class="row">
 			<p>Motivo</p>
 			<select formControlName="initialReason">
-				<option value="Portes iniciales">Portes iniciales</option>
-				<option value="Fotocopias">Fotocopias</option>
+				<option
+					*ngFor="let item of initialCostOptions"
+					value="{{ item }}"
+					>{{ item }}</option
+				>
 			</select>
+		</div>
+
+		<div class="end" *ngIf="initialReason.errors && initialReason.dirty">
+			<div class="form-errors">
+				<div *ngIf="initialReason.hasError('required')">
+					Campo requerido
+				</div>
+			</div>
 		</div>
 
 		<div class="row">
 			<p>Tipo de valor</p>
-			<select formControlName="initialPaymentType">
+			<select
+				formControlName="initialPaymentType"
+				(change)="changeInitialPaymentType()"
+			>
 				<option value="1">Efectivo</option>
 				<option value="2">Porcentaje</option>
 			</select>
@@ -26,23 +40,34 @@
 
 		<div class="row">
 			<p>Monto</p>
-			<input
-				formControlName="initialValue"
-				type="text"
-				placeholder="Ingrese el valor"
-			/>
+			<div class="group">
+				<input
+					formControlName="initialValue"
+					type="text"
+					placeholder="Ingrese el valor"
+				/>
+				<p *ngIf="initialPaymentType.value === '2'">
+					%
+				</p>
+			</div>
 		</div>
 
-		<div class="row">
-			<div
-				class="form-errors"
-				*ngIf="initialValue.errors && initialValue.dirty"
-			>
+		<div class="end" *ngIf="initialValue.errors && initialValue.dirty">
+			<div class="form-errors">
 				<div *ngIf="initialValue.hasError('required')">
 					Campo requerido
 				</div>
+
 				<div *ngIf="initialValue.hasError('pattern')">
-					Deben ser sólo dígitos
+					Ingrese un valor válido
+				</div>
+
+				<div *ngIf="initialValue.hasError('min')">
+					Debe ser mayor a cero
+				</div>
+
+				<div *ngIf="initialValue.hasError('max')">
+					No debe exceder el 100%
 				</div>
 			</div>
 		</div>
@@ -54,63 +79,55 @@
 
 	<div class="initialCostList">
 		<div class="items">
-			<div class="row" *ngFor="let item of initialCosts">
-				<div class="col">
-					<p>
-						{{ item.reason }}
-					</p>
-				</div>
-
-				<div class="col">
-					<p>
-						<!-- CORREGIR ESTE INPUT -->
-						{{ item.amount * bill.amount }}
-					</p>
-				</div>
-			</div>
+			<app-cost-item
+				*ngFor="let item of initialCosts"
+				[cost]="item"
+			></app-cost-item>
 		</div>
 
 		<div class="total">
-			<div class="col">
-				<p>Total inicial</p>
-			</div>
-			<div class="col">
-				<p>{{ initialTotal }}</p>
-			</div>
+			<p>Total inicial</p>
+			<p>{{ initialTotal | currencyType: bill.currencyCode }}</p>
 		</div>
 	</div>
 
 	<div class="bill">
-		<div class="center">
+		<h1 class="center">
 			<h1>
 				Letra de cambio
 			</h1>
+		</h1>
+
+		<div class="row">
+			<p>Fecha de giro</p>
+			<p>{{ bill.startDate | date: "dd/MM/yyyy" }}</p>
 		</div>
 
 		<div class="row">
-			<div class="col">
-				<p>Fecha de giro</p>
-			</div>
-			<div class="col">
-				<p>{{ bill.startDate | date: "dd/MM/yyyy" }}</p>
-			</div>
+			<p>Fecha de vencimiento</p>
+			<p>{{ bill.endDate | date: "dd/MM/yyyy" }}</p>
 		</div>
 
 		<div class="row">
-			<div class="col">
-				<p>Fecha de vencimiento</p>
-			</div>
-			<div class="col">
-				<p>{{ bill.endDate | date: "dd/MM/yyyy" }}</p>
-			</div>
+			<p>Valor nominal</p>
+			<p>{{ bill | billAmount }}</p>
 		</div>
 
-		<div class="row">
-			<div class="col">
-				<p>Valor nominal</p>
+		<form class="row retention" [formGroup]="retentionForm">
+			<p>Retención</p>
+			<input type="text" formControlName="retention" />
+		</form>
+
+		<div
+			class="end form-errors"
+			*ngIf="retention.errors && retention.dirty"
+		>
+			<div *ngIf="retention.hasError('required')">
+				Campo requerido
 			</div>
-			<div class="col">
-				<p>{{ bill.amount }}</p>
+
+			<div *ngIf="retention.hasError('pattern')">
+				Ingrese un número valido
 			</div>
 		</div>
 
@@ -127,14 +144,28 @@
 		<div class="row">
 			<p>Motivo</p>
 			<select formControlName="finalReason">
-				<option value="Portes finales">Portes finales</option>
-				<option value="Fotocopias">Fotocopias</option>
+				<option
+					*ngFor="let item of finalCostOptions"
+					value="{{ item }}"
+					>{{ item }}</option
+				>
 			</select>
+		</div>
+
+		<div class="end" *ngIf="finalReason.errors && finalReason.dirty">
+			<div class="form-errors">
+				<div *ngIf="finalReason.hasError('required')">
+					Campo requerido
+				</div>
+			</div>
 		</div>
 
 		<div class="row">
 			<p>Tipo de valor</p>
-			<select formControlName="finalPaymentType">
+			<select
+				formControlName="finalPaymentType"
+				(change)="changeFinalPaymentType()"
+			>
 				<option value="1">Efectivo</option>
 				<option value="2">Porcentaje</option>
 			</select>
@@ -142,23 +173,34 @@
 
 		<div class="row">
 			<p>Monto</p>
-			<input
-				formControlName="finalValue"
-				type="text"
-				placeholder="Ingrese el valor"
-			/>
+			<div class="group">
+				<input
+					formControlName="finalValue"
+					type="text"
+					placeholder="Ingrese el valor"
+				/>
+				<p *ngIf="finalPaymentType.value === '2'">
+					%
+				</p>
+			</div>
 		</div>
 
-		<div class="row">
-			<div
-				class="form-errors"
-				*ngIf="finalValue.errors && finalValue.dirty"
-			>
+		<div class="end" *ngIf="finalValue.errors && finalValue.dirty">
+			<div class="form-errors">
 				<div *ngIf="finalValue.hasError('required')">
 					Campo requerido
 				</div>
+
 				<div *ngIf="finalValue.hasError('pattern')">
-					Deben ser sólo dígitos
+					Ingrese un valor válido
+				</div>
+
+				<div *ngIf="finalValue.hasError('min')">
+					Debe ser mayor a cero
+				</div>
+
+				<div *ngIf="finalValue.hasError('max')">
+					No debe exceder el 100%
 				</div>
 			</div>
 		</div>
@@ -170,19 +212,10 @@
 
 	<div class="finalCostList">
 		<div class="items">
-			<div class="row" *ngFor="let item of finalCosts">
-				<div class="col">
-					<p>
-						{{ item.reason }}
-					</p>
-				</div>
-
-				<div class="col">
-					<p>
-						{{ item.amount * bill.amount }}
-					</p>
-				</div>
-			</div>
+			<app-cost-item
+				*ngFor="let item of finalCosts"
+				[cost]="item"
+			></app-cost-item>
 		</div>
 
 		<div class="total">
@@ -190,7 +223,7 @@
 				<p>Total final</p>
 			</div>
 			<div class="col">
-				<p>{{ finalTotal }}</p>
+				<p>{{ finalTotal | currencyType: bill.currencyCode }}</p>
 			</div>
 		</div>
 	</div>

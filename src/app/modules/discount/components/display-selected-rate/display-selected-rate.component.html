@@ -4,7 +4,10 @@
 
 <div class="row">
 	<div class="col">
-		<p>T{{ rate.rateType | rateType }}{{ rate.rateTerm | rateTerm }} en {{ rate.currencyCode | currencyCode }}</p>
+		<p>
+			T{{ rate.rateType | rateType }}{{ rate.rateTerm | rateTerm }} en
+			{{ rate.currencyCode | currencyCode }}
+		</p>
 		<p *ngIf="rate.rateType === 1">
 			cap
 			{{ rate.capitalizationTerm | capitalizationTerm }}
@@ -19,11 +22,18 @@
 	<div class="col">
 		<p>Fecha de descuento</p>
 	</div>
+
 	<div class="col">
-		<input type="date" [(ngModel)]="discountDate" (change)="updateDiscountDate()" />
-		<div class="form-errors" *ngIf="
-			!validateDate() || afterMaximumDate() || beforeMinimumDate()
-		">
+		<input
+			type="date"
+			[(ngModel)]="discountDate"
+			(change)="updateDiscountDate()"
+		/>
+
+		<div
+			class="form-errors"
+			*ngIf="!validateDate() || afterMaximumDate() || beforeMinimumDate()"
+		>
 			<div *ngIf="!validateDate()">
 				Fecha Invalida
 			</div>
@@ -35,6 +45,10 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="row warning" *ngIf="warningMessage !== ''">
+	<p>{{ warningMessage }}</p>
 </div>
 
 <div class="center">

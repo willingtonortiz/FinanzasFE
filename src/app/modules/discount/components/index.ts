@@ -1,3 +1,4 @@
+export * from "./cost-item/cost-item.component";
 export * from "./discount-pool-overview/discount-pool-overview.component";
 export * from "./discounted-bill/discounted-bill.component";
 export * from "./discounted-bill-group/discounted-bill-group.component";

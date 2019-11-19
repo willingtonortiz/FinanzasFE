@@ -1,10 +1,17 @@
-<div class="bill-detail" [ngClass]="{ expired: isExpired }">
+<div
+	class="bill-detail"
+	[ngClass]="{ expired: isExpired, notCreated: isNotCreated }"
+>
 	<div class="header">
 		<h1>Letra de cambio</h1>
 		<p>({{ bill | billType }})</p>
 
 		<div *ngIf="isExpired" class="expiredMessage">
 			<p>La letra ha expirado</p>
+		</div>
+
+		<div *ngIf="isNotCreated" class="expiredMessage">
+			<p>La letra no se ha creado</p>
 		</div>
 	</div>
 
@@ -57,19 +64,25 @@
 	<div class="footer">
 		<button (click)="goBack()">Regresar</button>
 
-		<button *ngIf="bill.type === 1 && !isExpired" (click)="deleteBill()">
+		<button
+			*ngIf="bill.type === 1 && !isExpired && !isNotCreated"
+			(click)="deleteBill()"
+		>
 			Pagar
 		</button>
-		<button *ngIf="bill.type === 2 && !isExpired" (click)="deleteBill()">
+		<button
+			*ngIf="bill.type === 2 && !isExpired && !isNotCreated"
+			(click)="deleteBill()"
+		>
 			Cobrar
 		</button>
-		<button *ngIf="isExpired" (click)="deleteBill()">
+		<button *ngIf="isExpired || isNotCreated" (click)="deleteBill()">
 			Eliminar letra
 		</button>
 	</div>
 </div>
 
 <app-bill-progress-bar
-	[ngClass]="{ expired: isExpired }"
+	[ngClass]="{ expired: isExpired, notCreated: isNotCreated }"
 	[bill]="bill"
 ></app-bill-progress-bar>

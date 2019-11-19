@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Cost } from "src/app/shared/models";
 import { BehaviorSubject, Observable } from "rxjs";
-import { PaymentType } from "src/app/shared/enums";
+import { PaymentType, CostType } from "src/app/shared/enums";
 import { DiscountBillService } from "../discount-bill/discount-bill.service";
 
 @Injectable({
@@ -10,6 +10,8 @@ import { DiscountBillService } from "../discount-bill/discount-bill.service";
 // Maneja los descuentos de la letra a descontar
 // Depende de la letra actual
 export class DiscountBillCostsService {
+	private _retentionSubject: BehaviorSubject<number>;
+
 	private _initialCostsSubject: BehaviorSubject<Array<Cost>>;
 	private _initialCostsObservable: Observable<Array<Cost>>;
 
@@ -17,6 +19,8 @@ export class DiscountBillCostsService {
 	private _finalCostsObservable: Observable<Array<Cost>>;
 
 	public constructor(private _discountBillService: DiscountBillService) {
+		this._retentionSubject = new BehaviorSubject<number>(0);
+
 		this._initialCostsSubject = new BehaviorSubject<Array<Cost>>(
 			new Array<Cost>()
 		);
@@ -43,6 +47,26 @@ export class DiscountBillCostsService {
 	public restart(): void {
 		this._initialCostsSubject.next(new Array<Cost>());
 		this._finalCostsSubject.next(new Array<Cost>());
+	}
+
+	public deleteCost(cost: Cost): void {
+		if (cost.costType === CostType.INITIAL) {
+			let initialCosts: Cost[] = this.initialCostsValue;
+			initialCosts = initialCosts.filter(x => x.reason !== cost.reason);
+			this._initialCostsSubject.next(initialCosts);
+		} else if (cost.costType === CostType.FINAL) {
+			let finalCosts: Cost[] = this.finalCostsValue;
+			finalCosts = finalCosts.filter(x => x.reason !== cost.reason);
+			this._finalCostsSubject.next(finalCosts);
+		}
+	}
+
+	public get retentionValue(): number {
+		return this._retentionSubject.value;
+	}
+
+	public setRetentionValue(retention: number): void {
+		this._retentionSubject.next(retention);
 	}
 
 	public get initialCostTotal(): number {

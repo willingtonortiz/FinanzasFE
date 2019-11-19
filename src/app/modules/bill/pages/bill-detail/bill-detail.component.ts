@@ -16,6 +16,7 @@ import { BillStatus } from "src/app/shared/enums";
 export class BillDetailComponent implements OnInit {
 	public bill: Bill;
 	public isExpired: boolean;
+	public isNotCreated: boolean;
 
 	constructor(
 		private _activatedRoute: ActivatedRoute,
@@ -43,6 +44,7 @@ export class BillDetailComponent implements OnInit {
 		try {
 			this.bill = await this._billService.findById(billId);
 			this.checkExpired();
+			this.checkNotCreated();
 		} catch (error) {
 			console.log(error);
 		}
@@ -51,6 +53,12 @@ export class BillDetailComponent implements OnInit {
 	public checkExpired(): void {
 		if (this.bill.status === BillStatus.EXPIRED) {
 			this.isExpired = true;
+		}
+	}
+
+	public checkNotCreated(): void {
+		if (this.bill.status === BillStatus.NOT_CREATED) {
+			this.isNotCreated = true;
 		}
 	}
 

@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Bill } from "src/app/shared/models";
 import { DiscountBillModalService } from "src/app/core/services/discount-bill-modal/discount-bill-modal.service";
 import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
-import { DiscountDateService } from 'src/app/core/services';
+import { DiscountDateService } from "src/app/core/services";
 
 @Component({
 	selector: "app-select-bill-group",
@@ -18,14 +18,14 @@ export class SelectBillGroupComponent implements OnInit {
 		private _billListService: BillListService,
 		private _discountBillModalService: DiscountBillModalService,
 		private _discountDateService: DiscountDateService
-	) { }
+	) {
+		this.bills = [];
+	}
 
 	public async ngOnInit() {
-		//this.date=this._discountDateService.discountDateValue().subscribe();
 		this.date = this._discountDateService.discountDateValue;
-		this._billListService.getValidBillsToCharge( this.date ).subscribe(x => {
+		this._billListService.getValidBillsToCharge(this.date).subscribe(x => {
 			this.bills = x;
-			//console.log(this.bills);
 		});
 	}
 

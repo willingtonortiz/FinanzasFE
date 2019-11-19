@@ -5,3 +5,4 @@ export * from "./currency-type/currency-type.pipe";
 export * from "./rate-term/rate-term.pipe";
 export * from "./rate-type/rate-type.pipe";
 export * from "./currency-code/currency-code.pipe";
+export * from "./payment-type/payment-type.pipe";

@@ -9,7 +9,6 @@ import {
 } from "src/app/core/services";
 import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
-import { RateTerm, CurrencyCode, RateType } from "src/app/shared/enums";
 
 @Component({
 	selector: "app-display-selected-rate",
@@ -19,6 +18,7 @@ import { RateTerm, CurrencyCode, RateType } from "src/app/shared/enums";
 export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 	public rate: Rate;
 	public discountDate: string;
+	public warningMessage: string = "";
 	private _suscriptions: Array<Subscription>;
 
 	constructor(
@@ -28,7 +28,7 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 		private _discountDateService: DiscountDateService,
 		private _dateUtilsService: DateUtilsService,
 		private _router: Router
-	) { }
+	) {}
 
 	public async ngOnInit() {
 		// this.rate = {
@@ -58,7 +58,6 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 						this._router.navigate(["/rate"]);
 						return;
 					}
-
 				},
 				error: error => {
 					console.log("Error en display-selected-rate.component");
@@ -68,18 +67,24 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 	}
 
 	public updateDiscountDate() {
-
-		if (this.validateDate() && !this.afterMaximumDate() && !this.beforeMinimumDate()) {
+		if (
+			this.validateDate() &&
+			!this.afterMaximumDate() &&
+			!this.beforeMinimumDate()
+		) {
 			this._discountDateService.setDiscountDate(
 				new Date(this.discountDate + "T00:00:00")
 			);
+
+			this.warningMessage =
+				"Advertencia! Estas modificando la fecha de descuento";
 		}
 	}
 
 	private validateDate(): boolean {
 		let date = new Date(this.discountDate + "T00:00:00");
 		//console.log(this._discountPoolData.maximumDiscountDateValue);
-		return (date.getTime() == date.getTime())
+		return date.getTime() == date.getTime();
 	}
 
 	private afterMaximumDate(): boolean {
@@ -93,7 +98,11 @@ export class DisplaySelectedRateComponent implements OnInit, OnDestroy {
 	}
 
 	public showModal() {
-		if (this.validateDate() && !this.afterMaximumDate() && !this.beforeMinimumDate())
+		if (
+			this.validateDate() &&
+			!this.afterMaximumDate() &&
+			!this.beforeMinimumDate()
+		)
 			this._discountBillModalService.show();
 	}
 

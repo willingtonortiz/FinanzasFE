@@ -7,7 +7,12 @@
 		<p>Valor recibido</p>
 	</div>
 	<div class="col">
-		<p>{{ discountPool.receivedValue | currencyType: discountPool.currencyCode }}</p>
+		<p>
+			{{
+				discountPool.receivedValue
+					| currencyType: discountPool.currencyCode
+			}}
+		</p>
 		<!-- <p>13215</p> -->
 	</div>
 </div>
@@ -17,7 +22,12 @@
 		<p>Valor entregado</p>
 	</div>
 	<div class="col">
-		<p>{{ discountPool.deliveredValue | currencyType: discountPool.currencyCode }}</p>
+		<p>
+			{{
+				discountPool.deliveredValue
+					| currencyType: discountPool.currencyCode
+			}}
+		</p>
 		<!-- <p>8946415</p> -->
 	</div>
 </div>
@@ -27,19 +37,19 @@
 		<p>TCEA</p>
 	</div>
 	<div class="col">
-		<p>{{ discountPool.tcea | percent: "2.2" }}</p>
+		<p>{{ discountPool.tcea | percent: "1.1-7" }}</p>
 		<!-- <p>897565</p> -->
 	</div>
 </div>
 
 <div class="center">
 	<button (click)="onSubmit()">Descontar letra</button>
-	<div class="form-errors" *ngIf="
-		_discountsList.discountsValue.length == 0 && submitted
-		">
+	<div
+		class="form-errors"
+		*ngIf="_discountsList.discountsValue.length == 0 && submitted"
+	>
 		<div>
 			Debes agregar al menos una letra para descontar
 		</div>
-
 	</div>
 </div>
