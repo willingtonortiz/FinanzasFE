@@ -35,8 +35,7 @@ const routes: Routes = [
 			},
 			{
 				path: "record",
-				loadChildren:
-					"../record/record.module#RecordModule"
+				loadChildren: "../record/record.module#RecordModule"
 			}
 		]
 	}

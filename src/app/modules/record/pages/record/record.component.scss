@@ -3,16 +3,13 @@
 
 	display: grid;
 	grid-template-columns: 3fr 9fr;
-	h3{
-		margin: 16px;
-	}
+
 	.options {
 		align-self: stretch;
 	}
 
 	.options {
 		grid-column: 1 / span 1;
-		// padding: 16px;
 
 		display: flex;
 		flex-flow: column nowrap;
@@ -34,24 +31,26 @@
 				transform: scale(1.05);
 			}
 		}
-
-
 	}
-	.histo{
+
+	.histo {
+		max-height: 900px;
+		overflow-y: auto;
+
 		display: flex;
-		flex-flow: column wrap;
-		justify-content: space-around;
+		flex-flow: column nowrap;
+		padding: 16px;
+
+		h3 {
+			font-size: 24px;
+			margin-bottom: 8px;
+			margin-left: 16px;
+		}
 
 		app-record-detail {
-			margin: 16px;
+			margin-left: 32px;
 			border: 2px solid #dfdfdf;
-			border-radius: 4px;
-
-			transition: all 0.3s ease;
-
-			&:hover {
-				box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
-			}
+			border-radius: 7px;
 		}
 	}
 }
