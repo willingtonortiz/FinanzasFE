@@ -208,6 +208,7 @@ export class DiscountProcessService implements OnDestroy {
 
 	public cancelDiscount(): void {
 		this._discountListService.restart();
+		this.updateDiscountPool();
 	}
 
 	public ngOnDestroy() {
