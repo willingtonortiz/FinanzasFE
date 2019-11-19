@@ -1,0 +1,57 @@
+:host {
+	padding: 16px 0;
+
+	display: grid;
+	grid-template-columns: 3fr 9fr;
+	h3{
+		margin: 16px;
+	}
+	.options {
+		align-self: stretch;
+	}
+
+	.options {
+		grid-column: 1 / span 1;
+		// padding: 16px;
+
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
+
+		button {
+			margin: 8px 0;
+			padding: 16px 40px;
+			background-color: #54d691;
+			color: white;
+			font-size: 24px;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+			transition: all 0.25s ease;
+
+			&:hover {
+				transform: scale(1.05);
+			}
+		}
+
+
+	}
+	.histo{
+		display: flex;
+		flex-flow: column wrap;
+		justify-content: space-around;
+
+		app-record-detail {
+			margin: 16px;
+			border: 2px solid #dfdfdf;
+			border-radius: 4px;
+
+			transition: all 0.3s ease;
+
+			&:hover {
+				box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+			}
+		}
+	}
+}

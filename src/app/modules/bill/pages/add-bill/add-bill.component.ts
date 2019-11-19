@@ -14,11 +14,12 @@ import { CreateBill } from "src/app/shared/dtos/output";
 import { UserCredentials } from "src/app/shared/dtos";
 import { DateUtilsService } from "src/app/core/services";
 import { DateValidatorsService } from "src/app/shared/validators";
-import { Pyme, Bill } from "src/app/shared/models";
+import { Pyme, Bill, Record } from "src/app/shared/models";
 import { CreatedBillService } from "src/app/core/services/bill";
 import { ModalContainerService } from "src/app/modules/nav-page/services";
 import { ModalValue } from "src/app/modules/nav-page/enums";
 import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
+import { RecordService } from 'src/app/core/http/record/record.service';
 
 @Component({
 	selector: "app-add-bill",
@@ -43,7 +44,8 @@ export class AddBillComponent implements OnInit {
 		private _dateValidatorsService: DateValidatorsService,
 		private _createdBillService: CreatedBillService,
 		private _modalContainerService: ModalContainerService,
-		private _billListService: BillListService
+		private _billListService: BillListService,
+		private _recordService: RecordService
 	) {
 		this.dateError = false;
 		this.currentUser = this._authenticationService.currentUserValue;
@@ -135,9 +137,33 @@ export class AddBillComponent implements OnInit {
 			signPlace: this.signPlace.value,
 			pymeId: this.currentUser.id
 		};
+		const today = new Date();
+
+
+		let message = "Se creo una letra por ";
+
+		if (this.billType == 1)
+			message += "pagar al ruc " + this.drawerRuc.value;
+		else
+			message += "cobrar al ruc " + this.draweeRuc.value;
+
+		message += ", por el monto de " + this.amount.value;
+
+		if (currencyCode == 1)
+			message += " soles."
+		else
+			message += " dolares.";
+
+
+		const newRecord: Record = {
+			userId: this.currentUser.id,
+			message: message,
+			date: today
+		}
 
 		try {
 			const createdBill: Bill = await this._billService.create(newBill);
+			await this._recordService.createRecord(newRecord);
 
 			this.resetFields();
 

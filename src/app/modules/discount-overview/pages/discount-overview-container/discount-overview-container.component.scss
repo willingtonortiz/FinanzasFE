@@ -3,7 +3,21 @@
 	margin-left: 32px;
 
 	flex: 1;
+	.return {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 
+		a {
+			margin: 8px 0;
+			padding: 10px 16px;
+			text-decoration: none;
+			color: white;
+			background-color: #54d691;
+			border: none;
+			border-radius: 5px;
+		}
+	}
 	.billPool {
 		h1 {
 			font-size: 24px;

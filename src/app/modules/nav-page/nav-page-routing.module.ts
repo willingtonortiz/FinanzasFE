@@ -32,6 +32,11 @@ const routes: Routes = [
 				path: "discount-overview",
 				loadChildren:
 					"../discount-overview/discount-overview.module#DiscountOverviewModule"
+			},
+			{
+				path: "record",
+				loadChildren:
+					"../record/record.module#RecordModule"
 			}
 		]
 	}

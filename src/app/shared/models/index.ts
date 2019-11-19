@@ -8,3 +8,4 @@ export * from "./discount-pool/discountPool";
 export * from "./cost/cost";
 export * from "./bill-cost/billCost";
 export * from "./discount/discount";
+export * from "./record/record";
