@@ -3,7 +3,7 @@ import { RateTermConverter } from "src/app/shared/Utils";
 import { RateType } from "src/app/shared/enums";
 
 export class DiscountFormulas {
-	public constructor() {}
+	public constructor() { }
 
 	public static daysBetween(startTime: Date, endTime: Date): number {
 		// console.log(startTime);
@@ -29,7 +29,9 @@ export class DiscountFormulas {
 
 			// Si es nominal
 		} else {
-			tep = Math.pow(1 + rate.rateValue / capitalizationDays, days) - 1;
+
+			tep = Math.pow(1 + rate.rateValue / (days / capitalizationDays), (discountDays / capitalizationDays)) - 1;
+
 		}
 
 		return tep;
