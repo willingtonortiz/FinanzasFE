@@ -1,13 +1,10 @@
 <div class="options">
 	<button (click)="goBack()">Regresar</button>
-	<!-- <button>Opcion 2</button> -->
-	<!-- <button>Opcion 3</button> -->
 </div>
 
 <div class="records">
-	<div class="histo"  *ngFor="let item of historial | keyvalue">
-		<h3>{{item.key}}</h3>
-		<app-record-detail
-		[historial]="item.value"></app-record-detail>
+	<div class="histo" *ngFor="let item of historial | keyvalue">
+		<h3>{{ item.key }}</h3>
+		<app-record-detail [historial]="item.value"></app-record-detail>
 	</div>
 </div>
