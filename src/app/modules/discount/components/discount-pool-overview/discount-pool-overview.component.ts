@@ -8,10 +8,10 @@ import {
 	DiscountsListService
 } from "src/app/core/services";
 import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
-import { RecordService } from 'src/app/core/http/record/record.service';
-import { UserCredentials } from 'src/app/shared/dtos';
-import { AuthenticationService } from 'src/app/core/authentication';
-import { Router } from '@angular/router';
+import { RecordService } from "src/app/core/http/record/record.service";
+import { UserCredentials } from "src/app/shared/dtos";
+import { AuthenticationService } from "src/app/core/authentication";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-discount-pool-overview",
@@ -62,20 +62,22 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 
 		const newRecord: Record = {
 			userId: this.currentUser.id,
-			message: "Se creo un descuento de letras ",
+			message: "Se descontó una cartera de letras",
 			date: today
-		}
+		};
 
-		if (this._discountsList.discountsValue.length > 0 && !this._discountPoolData.invalidValue)
+		if (
+			this._discountsList.discountsValue.length > 0 &&
+			!this._discountPoolData.invalidValue
+		)
 			try {
 				var discountPool = await this.discountProcessService.saveDiscountPool();
 				//console.log(d);
 				await this._recordService.createRecord(newRecord);
 				// Actualizar las letras
 				this._billListService.fetchBills();
-				this._router.navigate(["discount-overview", discountPool.id])
+				this._router.navigate(["discount-overview", discountPool.id]);
 				// Ver la cartera descontada
-
 			} catch (error) {
 				console.log(
 					"ERROR => DISCOUNT POOL OVERVIEW COMPONENT => ONSUBMIT"

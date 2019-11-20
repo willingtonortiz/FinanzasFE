@@ -141,7 +141,7 @@ export class AddBillComponent implements OnInit {
 		};
 		const today = new Date();
 
-		let message = "Se creo una letra por ";
+		let message = "Se creó una letra por ";
 
 		if (this.billType == 1)
 			message += "pagar al ruc " + this.drawerRuc.value;
