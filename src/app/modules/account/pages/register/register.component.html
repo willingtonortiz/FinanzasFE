@@ -50,6 +50,9 @@
 			<div *ngIf="faddress.hasError('required')">
 				La direción es requerida
 			</div>
+			<div *ngIf="faddress.hasError('maxlength')">
+				La dirección es demasiado larga
+			</div>
 		</div>
 	</div>
 

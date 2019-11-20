@@ -98,6 +98,7 @@ export class DiscountFormulas {
 		size: number
 	): number {
 		if (size == 0) return 0;
+		//console.log(discountDays);
 		return Math.pow(deliveredValue / receivedValue, 360 / discountDays) - 1;
 	}
 }

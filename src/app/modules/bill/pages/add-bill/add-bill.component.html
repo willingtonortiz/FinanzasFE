@@ -5,16 +5,10 @@
 
 <div class="add-bill">
 	<div class="bill-type">
-		<button
-			(click)="changeBillToPay()"
-			[ngClass]="{ active: billType === 1 }"
-		>
+		<button (click)="changeBillToPay()" [ngClass]="{ active: billType === 1 }">
 			Por pagar
 		</button>
-		<button
-			(click)="changeBillToCharge()"
-			[ngClass]="{ active: billType === 2 }"
-		>
+		<button (click)="changeBillToCharge()" [ngClass]="{ active: billType === 2 }">
 			Por cobrar
 		</button>
 	</div>
@@ -31,27 +25,17 @@
 				<div class="group">
 					<label>RUC del Girador</label>
 
-					<input
-						type="text"
-						placeholder=""
-						formControlName="drawerRuc"
-						[readOnly]="billType === 2"
-					/>
+					<input type="text" placeholder="" formControlName="drawerRuc" [readOnly]="billType === 2" />
 
-					<div
-						class="form-errors"
-						*ngIf="drawerRuc.errors && drawerRuc.dirty"
-					>
+					<div class="form-errors" *ngIf="drawerRuc.errors && drawerRuc.dirty">
 						<div *ngIf="drawerRuc.hasError('required')">
 							Campo requerido
 						</div>
 
-						<div
-							*ngIf="
+						<div *ngIf="
 								drawerRuc.hasError('minlength') ||
 								drawerRuc.hasError('maxlength')
-							"
-						>
+							">
 							Debe ser de 11 digitos
 						</div>
 						<div *ngIf="drawerRuc.hasError('pattern')">
@@ -62,27 +46,17 @@
 
 				<div class="group">
 					<label>RUC del Girado</label>
-					<input
-						type="text"
-						placeholder=""
-						formControlName="draweeRuc"
-						[readOnly]="billType === 1"
-					/>
+					<input type="text" placeholder="" formControlName="draweeRuc" [readOnly]="billType === 1" />
 
-					<div
-						class="form-errors"
-						*ngIf="draweeRuc.errors && draweeRuc.dirty"
-					>
+					<div class="form-errors" *ngIf="draweeRuc.errors && draweeRuc.dirty">
 						<div *ngIf="draweeRuc.hasError('required')">
 							Campo requerido
 						</div>
 
-						<div
-							*ngIf="
+						<div *ngIf="
 								draweeRuc.hasError('minlength') ||
 								draweeRuc.hasError('maxlength')
-							"
-						>
+							">
 							Debe ser de 11 digitos
 						</div>
 						<div *ngIf="draweeRuc.hasError('pattern')">
@@ -93,16 +67,9 @@
 
 				<div class="group">
 					<label>Fecha de giro</label>
-					<input
-						type="date"
-						formControlName="startDate"
-						(change)="validateDates()"
-					/>
+					<input type="date" formControlName="startDate" (change)="validateDates()" />
 
-					<div
-						class="form-errors"
-						*ngIf="startDate.errors && startDate.dirty"
-					>
+					<div class="form-errors" *ngIf="startDate.errors && startDate.dirty">
 						<div *ngIf="startDate.hasError('beforeDate')">
 							La letra aún no ha sido emitida
 						</div>
@@ -111,16 +78,9 @@
 
 				<div class="group">
 					<label>Fecha de vencimiento</label>
-					<input
-						type="date"
-						formControlName="endDate"
-						(change)="validateDates()"
-					/>
+					<input type="date" formControlName="endDate" (change)="validateDates()" />
 
-					<div
-						class="form-errors"
-						*ngIf="endDate.errors && endDate.dirty"
-					>
+					<div class="form-errors" *ngIf="endDate.errors && endDate.dirty">
 						<div *ngIf="endDate.hasError('afterDate')">
 							La letra ya está vencida
 						</div>
@@ -138,34 +98,26 @@
 			<div class="col">
 				<div class="group">
 					<label>Lugar de giro</label>
-					<input
-						type="text"
-						placeholder="Ingrese el lugar de giro"
-						formControlName="signPlace"
-					/>
-					<div
-						class="form-errors"
-						*ngIf="signPlace.errors && signPlace.dirty"
-					>
+					<input type="text" placeholder="Ingrese el lugar de giro" formControlName="signPlace" />
+					<div class="form-errors" *ngIf="signPlace.errors && signPlace.dirty">
 						<div *ngIf="signPlace.hasError('required')">
 							Campo requerido
+						</div>
+						<div *ngIf="signPlace.hasError('maxlength')">
+							Máximo 60 caracteres
 						</div>
 					</div>
 				</div>
 
 				<div class="group">
 					<label>Lugar de pago</label>
-					<input
-						type="text"
-						placeholder="Ingrese el lugar de pago"
-						formControlName="paymentPlace"
-					/>
-					<div
-						class="form-errors"
-						*ngIf="paymentPlace.errors && paymentPlace.dirty"
-					>
+					<input type="text" placeholder="Ingrese el lugar de pago" formControlName="paymentPlace" />
+					<div class="form-errors" *ngIf="paymentPlace.errors && paymentPlace.dirty">
 						<div *ngIf="paymentPlace.hasError('required')">
 							Campo requerido
+						</div>
+						<div *ngIf="paymentPlace.hasError('maxlength')">
+							Máximo 60 caracteres
 						</div>
 					</div>
 				</div>
@@ -180,15 +132,8 @@
 
 				<div class="group">
 					<label>Valor nominal</label>
-					<input
-						type="text"
-						placeholder="Ingrese el monto"
-						formControlName="amount"
-					/>
-					<div
-						class="form-errors"
-						*ngIf="amount.errors && amount.dirty"
-					>
+					<input type="text" placeholder="Ingrese el monto" formControlName="amount" />
+					<div class="form-errors" *ngIf="amount.errors && amount.dirty">
 						<div *ngIf="amount.hasError('required')">
 							Campo requerido
 						</div>

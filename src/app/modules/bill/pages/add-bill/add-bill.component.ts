@@ -96,8 +96,10 @@ export class AddBillComponent implements OnInit {
 					// )
 				]
 			],
-			signPlace: ["", [Validators.required]],
-			paymentPlace: ["", [Validators.required]],
+			signPlace: ["",
+				[Validators.required, Validators.maxLength(60)]
+			],
+			paymentPlace: ["", [Validators.required, Validators.maxLength(60)]],
 			currencyCode: ["1", [Validators.required]],
 			amount: [
 				"",

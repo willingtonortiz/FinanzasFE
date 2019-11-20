@@ -98,6 +98,7 @@ export class BillListService {
 	public getValidBillsToCharge(date: Date = null): Observable<Bill[]> {
 		const currencyCode: CurrencyCode = this._discountPoolRateService
 			.rateValue.currencyCode;
+		//console.log(date);
 
 		return this._billsToChargeObservable.pipe(
 			map((bills: Bill[]) =>
@@ -105,7 +106,7 @@ export class BillListService {
 					x =>
 						x.currencyCode === currencyCode &&
 						(date === null ||
-							(x.endDate >= date && date >= x.startDate))
+							(x.endDate > date && date >= x.startDate))
 				)
 			)
 		);

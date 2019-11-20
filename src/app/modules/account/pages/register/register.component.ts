@@ -42,7 +42,10 @@ export class RegisterComponent implements OnInit {
 				])
 			],
 			businessName: ["", [Validators.required]],
-			address: ["", [Validators.required]],
+			address: ["", Validators.compose([
+				Validators.required,
+				Validators.maxLength(60)
+			])],
 			password: ["", [Validators.required, Validators.minLength(8)]],
 			confirmPassword: ["", [Validators.required]]
 		});
