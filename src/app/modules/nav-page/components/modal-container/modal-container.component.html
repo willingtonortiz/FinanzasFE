@@ -1,6 +1,7 @@
-<button class="close">
+<button class="close" (click)="close()">
 	X
 </button>
 
 <app-created-bill-modal *ngIf="modalValue === 1"></app-created-bill-modal>
 <app-delete-bill-modal *ngIf="modalValue === 2"></app-delete-bill-modal>
+<app-create-bill-help *ngIf="modalValue === 3"></app-create-bill-help>

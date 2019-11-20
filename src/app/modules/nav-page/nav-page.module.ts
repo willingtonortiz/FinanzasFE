@@ -10,6 +10,7 @@ import { ModalContainerService } from "./services";
 import { CreatedBillModalComponent } from "./components/created-bill-modal/created-bill-modal.component";
 import { DeleteBillModalComponent } from "./components/delete-bill-modal/delete-bill-modal.component";
 import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
+import { CreateBillHelpComponent } from './components/create-bill-help/create-bill-help.component';
 
 @NgModule({
 	imports: [CommonModule, NavPageRoutingModule, ComponentsModule],
@@ -17,7 +18,8 @@ import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.
 		NavBarPageComponent,
 		ModalContainerComponent,
 		CreatedBillModalComponent,
-		DeleteBillModalComponent
+		DeleteBillModalComponent,
+		CreateBillHelpComponent
 	],
 	providers: [ModalContainerService, BillListService]
 })

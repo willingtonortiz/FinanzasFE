@@ -19,7 +19,7 @@ import { CreatedBillService } from "src/app/core/services/bill";
 import { ModalContainerService } from "src/app/modules/nav-page/services";
 import { ModalValue } from "src/app/modules/nav-page/enums";
 import { BillListService } from "src/app/core/services/bill/bill-list/bill-list.service";
-import { RecordService } from 'src/app/core/http/record/record.service';
+import { RecordService } from "src/app/core/http/record/record.service";
 
 @Component({
 	selector: "app-add-bill",
@@ -139,27 +139,22 @@ export class AddBillComponent implements OnInit {
 		};
 		const today = new Date();
 
-
 		let message = "Se creo una letra por ";
 
 		if (this.billType == 1)
 			message += "pagar al ruc " + this.drawerRuc.value;
-		else
-			message += "cobrar al ruc " + this.draweeRuc.value;
+		else message += "cobrar al ruc " + this.draweeRuc.value;
 
 		message += ", por el monto de " + this.amount.value;
 
-		if (currencyCode == 1)
-			message += " soles."
-		else
-			message += " dolares.";
-
+		if (currencyCode == 1) message += " soles.";
+		else message += " dolares.";
 
 		const newRecord: Record = {
 			userId: this.currentUser.id,
 			message: message,
 			date: today
-		}
+		};
 
 		try {
 			const createdBill: Bill = await this._billService.create(newBill);
@@ -268,6 +263,12 @@ export class AddBillComponent implements OnInit {
 
 	public goBack() {
 		this._location.back();
+	}
+
+	public showHelp() {
+		this._modalContainerService.openModalWithId(
+			ModalValue.CREATED_BILL_HELP
+		);
 	}
 
 	public get drawerRuc(): AbstractControl {

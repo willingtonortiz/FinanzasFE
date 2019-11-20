@@ -1,0 +1,42 @@
+:host {
+	width: 1300px;
+	height: 700px;
+	background-color: white;
+	border-radius: 7px;
+	padding: 16px;
+
+	h1 {
+		padding: 16px;
+		text-align: center;
+	}
+
+	.groups {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+
+		.group {
+			flex: 1;
+
+			&:nth-child(1) {
+				margin-right: 16px;
+			}
+
+			.concept {
+				border-radius: 7px;
+				border: 1px solid lightgray;
+				padding: 16px;
+				margin-bottom: 16px;
+
+				h3 {
+					font-size: 20px;
+					margin-bottom: 8px;
+				}
+
+				p {
+					font-size: 18px;
+				}
+			}
+		}
+	}
+}
