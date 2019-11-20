@@ -14,9 +14,11 @@ export class DiscountedBillInfoComponent implements OnInit {
 
 	constructor(
 		private _discountedDiscountPoolService: DiscountedDiscountPoolService
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.currencyCode = this._discountedDiscountPoolService.discountPoolValue.currencyCode;
+		this.discountedBill.discount = this.discountedBill.discountRate * this.discountedBill.deliveredValue;
+		console.log(this.discountedBill);
 	}
 }

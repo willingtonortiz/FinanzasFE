@@ -173,6 +173,7 @@ export class DiscountProcessService implements OnDestroy {
 				tep: x.tep
 			};
 
+
 			// Creando los costos
 			const costs: CreateCost[] = [];
 			x.costs.forEach(y => {
@@ -195,7 +196,7 @@ export class DiscountProcessService implements OnDestroy {
 		createDiscountPool.discounts = createDiscounts;
 
 		try {
-			await this._discountPoolHttpService.createDiscountPool(
+			return await this._discountPoolHttpService.createDiscountPool(
 				createDiscountPool
 			);
 		} catch (error) {

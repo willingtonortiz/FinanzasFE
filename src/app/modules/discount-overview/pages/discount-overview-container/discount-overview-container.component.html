@@ -15,6 +15,18 @@
 				</p>
 			</div>
 		</div>
+		<div class="group">
+			<div class="item">
+				<p>Fecha de Descuento</p>
+			</div>
+			<div class="item">
+				<p>
+					{{
+							discountPool.discountDate | date: "dd/MM/yyyy"
+					}}
+				</p>
+			</div>
+		</div>
 
 		<div class="group">
 			<div class="item">
@@ -52,10 +64,8 @@
 
 <h1 class="discounts">Resumen de los descuentos</h1>
 
-<app-discounted-bill-info-group
-	class="bills"
-	[discountedBills]="discountPool.discounts"
-></app-discounted-bill-info-group>
+<app-discounted-bill-info-group class="bills" [discountedBills]="discountPool.discounts">
+</app-discounted-bill-info-group>
 <div class="return">
-	<a routerLink="/home" (click)="goBack()">Regresar</a>
+	<a routerLink="/home">Regresar</a>
 </div>
