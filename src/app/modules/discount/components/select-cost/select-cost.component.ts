@@ -250,9 +250,13 @@ export class SelectCostComponent implements OnInit, OnDestroy {
 	 * Descuenta la letra
 	 */
 	public addBill() {
-		if (this.retentionForm.invalid) {
+
+		if (this.retentionForm.invalid || !this.validate()) {
 			return;
 		}
+
+
+
 		this._discountBillCostsService.setRetentionValue(
 			parseFloat(this.retention.value)
 		);
@@ -260,6 +264,20 @@ export class SelectCostComponent implements OnInit, OnDestroy {
 		this._discountBillModalService.restart();
 		this._discountProcessService.discountCurrentBill();
 		this._discountBillService.untrackBill();
+	}
+
+	public validateRetention(): Boolean {
+		let r = parseFloat(this.retention.value);
+		if (r < this.bill.amount)
+			return true;
+		return false;
+	}
+
+	public validate(): boolean {
+		let r = parseFloat(this.retention.value);
+		if (r + this.initialTotal < this.bill.amount)
+			return true
+		return false;
 	}
 
 	public get retention(): AbstractControl {

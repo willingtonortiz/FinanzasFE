@@ -14,10 +14,12 @@ export class DiscountPoolDataService {
 	private maximumDiscountDate: Date;
 	private minimumDiscountDate: Date;
 	private currencyCode: CurrencyCode;
+	private invalid: Boolean;
 
 	public constructor() {
 		// Valores iniciales por defecto
 		this.currencyCode = 0;
+		this.invalid = false;
 		this._discountPoolSubject = new BehaviorSubject<DiscountPool>({
 			currencyCode: this.currencyCode,
 			receivedValue: 0,
@@ -34,6 +36,7 @@ export class DiscountPoolDataService {
 	public reset(): void {
 		this.maximumDiscountDate = new Date(9999, 12, 31);
 		this.minimumDiscountDate = new Date(0, 1, 1);
+		this.invalid = false;
 	}
 
 	public setDiscountPool(discountPool: DiscountPool): void {
@@ -41,9 +44,18 @@ export class DiscountPoolDataService {
 		this._discountPoolSubject.next(discountPool);
 	}
 
+	public setInvalid(invalid: boolean): void {
+		if (!this.invalid)
+			this.invalid = invalid;
+	}
+
 	public setCurrencyCode(currencyCode: CurrencyCode): void {
 		this.currencyCode = currencyCode;
 		this.setDiscountPool(this.discountPoolValue);
+	}
+
+	get invalidValue(): Boolean {
+		return this.invalid;
 	}
 
 	get discountPoolValue(): DiscountPool {

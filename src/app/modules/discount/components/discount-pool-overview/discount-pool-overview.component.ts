@@ -66,7 +66,7 @@ export class DiscountPoolOverviewComponent implements OnInit, OnDestroy {
 			date: today
 		}
 
-		if (this._discountsList.discountsValue.length > 0)
+		if (this._discountsList.discountsValue.length > 0 && !this._discountPoolData.invalidValue)
 			try {
 				var discountPool = await this.discountProcessService.saveDiscountPool();
 				//console.log(d);

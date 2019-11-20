@@ -11,10 +11,14 @@ export class DiscountedBillComponent implements OnInit {
 	@Input() discount: Discount;
 
 	constructor(private _discountsListService: DiscountsListService,
-		private _discountProcessService: DiscountProcessService
-		) {}
+		private _discountProcessService: DiscountProcessService,
+		private _discountPoolData: DiscountPoolDataService
+	) { }
 
-	ngOnInit() {}
+	ngOnInit() {
+		if (this.discount.receivedValue < 0)
+			this._discountPoolData.setInvalid(true);
+	}
 
 	public deleteDiscount(): void {
 		this._discountsListService.deleteDiscount(this.discount.id);

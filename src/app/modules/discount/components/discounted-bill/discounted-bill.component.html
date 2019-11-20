@@ -102,4 +102,7 @@
 
 <div class="buttons">
 	<button (click)="deleteDiscount()">Borrar</button>
+	<div class=" end form-errors" *ngIf="discount.receivedValue < 0">
+		Costos muy altos
+	</div>
 </div>
